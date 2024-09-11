@@ -17,17 +17,19 @@ public class XMLStringToResultSetRow {
         Pattern fl4valPattern = Pattern.compile("<fl4val>(.*?)</fl4val>");
         Pattern fl1grpPattern = Pattern.compile("<fl1grp>(.*?)</fl1grp>");
         Pattern fl1pprPattern = Pattern.compile("<fl1ppr>(.*?)</fl1ppr>");
+        Pattern fl5dscPattern = Pattern.compile("<fl5dsc>(.*?)</fl5dsc>");
         Matcher fl8pckMatcher = fl8pckPattern.matcher(response);
         Matcher fl1proMatcher = fl1proPattern.matcher(response);
         Matcher fl3prmMatcher = fl3prmPattern.matcher(response);
         Matcher fl4valMatcher = fl4valPattern.matcher(response);
         Matcher fl1grpMatcher = fl1grpPattern.matcher(response);
         Matcher fl1pprMatcher = fl1pprPattern.matcher(response);
+        Matcher fl5dscMatcher = fl5dscPattern.matcher(response);
 
         List<ResultSetRow> rows = new ArrayList<>();
 
 
-        while (fl8pckMatcher.find() && fl1proMatcher.find() && fl1grpMatcher.find() && fl3prmMatcher.find() && fl4valMatcher.find() && fl1pprMatcher.find()) {
+        while (fl8pckMatcher.find() && fl1proMatcher.find() && fl1grpMatcher.find() && fl3prmMatcher.find() && fl4valMatcher.find() && fl1pprMatcher.find() && fl5dscMatcher.find()) {
             ResultSetRow currentRow = new ResultSetRow();
             currentRow.setFl8pck(fl8pckMatcher.group(1));
             currentRow.setFl1pro(fl1proMatcher.group(1));
@@ -35,6 +37,7 @@ public class XMLStringToResultSetRow {
             currentRow.setFl3prm(fl3prmMatcher.group(1));
             currentRow.setFl4val(fl4valMatcher.group(1));
             currentRow.setFl1ppr(fl1pprMatcher.group(1));
+            currentRow.setFl5dsc(fl5dscMatcher.group(1));
             rows.add(currentRow);
         }
         return rows;

@@ -16,6 +16,8 @@ public class ResultSetRow {
     private String fl3prm;
     private String fl4val;
     private String fl1ppr;
+    private String fl5dsc;
+
 
     public ResultSetRow() {
     }
