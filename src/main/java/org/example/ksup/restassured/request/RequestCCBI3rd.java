@@ -15,7 +15,7 @@ public class RequestCCBI3rd {
 
     public static List<String> setAttrList() {
         List<String> attrList = new ArrayList<>();
-        //Request #2
+        //Request #3
         //attrList.add("PAPPTYPE");
         attrList.add("PCC0001038");
         attrList.add("PCC0001034");
@@ -32,6 +32,15 @@ public class RequestCCBI3rd {
         attrList.add("PCC0002033");
         attrList.add("PCC0001151");
         attrList.add("PCC0002053");
+
+
+        return attrList;
+    }
+    public static List<String> setAssertList(){
+        List<String> attrList = new ArrayList<>();
+        //Request #3
+        //attrList.add("PAPPTYPE");
+        attrList.add("PCC0000605");
 
 
         return attrList;
