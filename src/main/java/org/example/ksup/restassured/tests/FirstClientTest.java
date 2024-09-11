@@ -58,6 +58,7 @@ public class FirstClientTest {
                     CustomLogger.customLogger(Level.INFO, "Assertions for " + expectedDataModel.getFl8pck() + " " + channel + " " + expectedDataModel.getFl1proCat() + " " + clientWithCat + " " + expectedDataModel.getFl1pro() + " " + riskLevel + ":");
                     CustomLogger.customLogger(Level.INFO, "GCC01 request assertion:");
                     nextStep = AccessibilityAssertions.accessibilityAssertions(result, expectedDataModel); //if PIPC000801 == Y |=> nextStep = true
+                    AttrAssertions.cardNameAssertion(result,expectedDataModel,request); // cardName assertion
                     AttrAssertions.paramAssertion(result, expectedDataModel, request, RequestGCC01.setAssertList()); // assertion for simple params
                     request.setFl1grp(null);
 

@@ -81,6 +81,7 @@ public class ExcelToRequestModelList {
                     row.addFllpfl(currentRow.getCell(4).getStringCellValue());
                     row.addFlkval(currentRow.getCell(5).getStringCellValue());
                     row.setFl1pro(currentRow.getCell(6).getStringCellValue());
+                    row.setCardName(currentRow.getCell(7).getStringCellValue());
                     row.addRiskLevelRpp(currentRow.getCell(45).getStringCellValue());
                     row.setAccessibility(currentRow.getCell(11).getStringCellValue());
 

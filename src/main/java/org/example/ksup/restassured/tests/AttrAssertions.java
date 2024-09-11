@@ -139,11 +139,35 @@ public abstract class AttrAssertions {
                     String fl3prm = row.getFl3prm();
                     String fl4val = row.getFl4val();
                     String value = expectedDataModel.getFl1proCat();
+                    //productName assertion
                     if (fl3prm.equals("PCC0001001")) {
+                        if (!value.equals(fl4val)) {
+                            CustomLogger.customLogger(Level.WARNING, fl3prm + " " + fl4val + " (fl1ppr = " + row.getFl1ppr() + ") is incorrect, should be: " + value);
+                        } else if (POSITIVE_ASSERT_LOGS) {
+                            CustomLogger.customLogger(Level.INFO, fl3prm + " " + fl4val + " is correct");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static void cardNameAssertion(List<ResultSetRow> resultSetRowList, ExpectedDataModel
+            expectedDataModel, RequestModel requestModel) {
+        if (resultSetRowList == null || resultSetRowList.isEmpty()) {
+            CustomLogger.customLogger(Level.WARNING, "Empty response for " + expectedDataModel.getFl8pck() + " " + requestModel.getChancd() + " " + expectedDataModel.getFl1proCat() + " " + requestModel.getFllpfl() + " " + expectedDataModel.getFl1pro() + " " + requestModel.getRiskLevel() + ":");
+        } else {
+            for (ResultSetRow row : resultSetRowList) {
+                {
+                    String fl3prm = row.getFl3prm();
+                    String fl4val = row.getFl4val();
+                    //cardName assertion
+                    String value = expectedDataModel.getCardName();
+                    if (fl3prm.equals("PIPC000615")) {
                         if (!value.equals(fl4val)) {
                             CustomLogger.customLogger(Level.WARNING, fl3prm + " " + fl4val + " is incorrect, should be: " + value);
                         } else if (POSITIVE_ASSERT_LOGS) {
-                            CustomLogger.customLogger(Level.INFO, fl3prm + " " + fl4val + " is correct");
+                            CustomLogger.customLogger(Level.INFO, fl3prm + " " + fl4val + " (fl1ppr = " + row.getFl1ppr() + ") is correct");
                         }
                     }
                 }

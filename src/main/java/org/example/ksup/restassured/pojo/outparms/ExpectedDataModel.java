@@ -15,6 +15,7 @@ public class ExpectedDataModel {
     private String regcd;
     private List<String> chancd;
     private String fl1pro;
+    private String cardName;
     private String accessibility;
     private List<String> riskLevelRpp;
     private List<AttrMap> attrList;
