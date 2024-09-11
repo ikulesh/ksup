@@ -18,22 +18,16 @@ public class FirstClientTest {
     @Test
     public void firstClientTest() throws JAXBException {
         List<ExpectedDataModel> expectedDataModelList = readExcelFile(EXCEL_FILE_PATH);
-
-        for (ExpectedDataModel expectedDataModel : expectedDataModelList) {
-            System.out.println(expectedDataModel);
-        }
-
+        RequestModel request = new RequestModel();
         List<ResultSetRow> result;
         boolean nextStep;
 
-        RequestModel request = new RequestModel();
         for (ExpectedDataModel expectedDataModel : expectedDataModelList) {
-            // сетим юнит и ConstantID
-            request.setExtSysCode(EXT_SYS_CODE); // constant
-            request.setConstantID(CONSTANT_ID); // constant
-            // сетим пакет и регион (регион только один будет для каждого пакета)
-            request.setFl8pck(expectedDataModel.getFl8pck());
-            request.setRegcd(expectedDataModel.getRegcd());
+            request.setExtSysCode(EXT_SYS_CODE); // unit
+            request.setConstantID(CONSTANT_ID); // constantId
+            // сетим пакет и регион (регион только один для каждого пакета)
+            request.setFl8pck(expectedDataModel.getFl8pck()); // package
+            request.setRegcd(expectedDataModel.getRegcd()); // region
             // сетим валюту и pipc000812
             request.setCurrency(expectedDataModel.getParamsPIPC().get("PIPC000004"));
             request.setPipc000812(expectedDataModel.getParamsPIPC().get("PIPC000812"));
@@ -50,34 +44,33 @@ public class FirstClientTest {
                         continue;
                     }
                 }
-                request.setChancd(channel);
+                request.setChancd(channel); // channel set
                 //сетим первого клиента из списка
                 request.setFllpfl(expectedDataModel.getFllpfl().get(0));
                 String clientWithCat = request.getFllpfl();
                 // для комбинации канал - клиент перебираем уровни риска
                 for (String riskLevel : expectedDataModel.getRiskLevelRpp()) {
 
-                    request.setFl1grp("GCC01");
+                    request.setFl1grp("GCC01"); // price group
                     result = RequestGCC01.requestGCC01(request);
                     CustomLogger.customLogger(Level.INFO, "");
                     CustomLogger.customLogger(Level.INFO, "");
                     CustomLogger.customLogger(Level.INFO, "Assertions for " + expectedDataModel.getFl8pck() + " " + channel + " " + expectedDataModel.getFl1proCat() + " " + clientWithCat + " " + expectedDataModel.getFl1pro() + " " + riskLevel + ":");
                     CustomLogger.customLogger(Level.INFO, "GCC01 request assertion:");
-                    nextStep = AccessibilityAssertions.accessibilityAssertions(result, expectedDataModel);
-                    //nextStep = false;
-                    AttrAssertions.paramAssertion(result, expectedDataModel, request, RequestGCC01.setAssertList());
+                    nextStep = AccessibilityAssertions.accessibilityAssertions(result, expectedDataModel); //if PIPC000801 == Y |=> nextStep = true
+                    AttrAssertions.paramAssertion(result, expectedDataModel, request, RequestGCC01.setAssertList()); // assertion for simple params
                     request.setFl1grp(null);
 
                     if (nextStep) {
-                        //сетим уровень риска
+                        //сетим уровень риска и AppID
                         request.setRiskLevel(riskLevel);
-
                         request.setApplicationID(APP_ID);
+
                         //request for getting main PCC params with alternative
                         result = RequestGraceLGP.requestGRC(request);
                         CustomLogger.customLogger(Level.INFO, "GRC LGP request assertion:");
-                        AttrAssertions.productAssertion(result, expectedDataModel, request);
-                        AttrAssertions.attrAssertions(result, expectedDataModel, request, RequestGraceLGP.setAssertList());
+                        AttrAssertions.productAssertion(result, expectedDataModel, request); // product code assertion
+                        AttrAssertions.attrAssertions(result, expectedDataModel, request, RequestGraceLGP.setAssertList()); // assertion for complex params
                         AttrAssertions.paramAssertion(result, expectedDataModel, request, RequestGraceLGP.setAssertList());
 
                         //request for other PCC params
@@ -96,7 +89,6 @@ public class FirstClientTest {
                         //сетим ценовую группу
                         SetPriceGrp.setPriceGrp(result, expectedDataModel);
 
-                        //сетим код карточки для запроса на доступность
                         request.setFl1pro(expectedDataModel.getFl1pro());
                         request.setFl1grp(expectedDataModel.getFl1grp());
 
