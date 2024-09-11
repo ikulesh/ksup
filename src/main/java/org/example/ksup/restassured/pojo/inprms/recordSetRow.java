@@ -1,0 +1,58 @@
+package org.example.ksup.restassured.pojo.inprms;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import static org.example.ksup.restassured.Properties.PCC0000605;
+
+@XmlRootElement
+public class recordSetRow {
+    @XmlElement(name = "prm")
+    private String prm;
+    @XmlElement(name = "val")
+    private String val;
+    @XmlElement(name = "valcond")
+    private Integer valcond;
+    @XmlElement(name = "prmmod")
+    private Integer prmmod;
+    @XmlElement(name = "fllpfl")
+    private String fllpfl;
+
+    public recordSetRow() {
+    }
+
+    public void setFllpfl(String fllpfl) {
+        this.fllpfl = fllpfl;
+    }
+
+    public recordSetRow(String prm, String riskLevel) {
+        this.prm = prm;
+        if ("PAPPTYPE".equals(prm)) {
+            this.val = "CC";
+            this.valcond = 1;
+            this.prmmod = 1;
+        } else if ("PIPC000004".equals(prm)) {
+            this.val = "RUR";
+            this.valcond = 1;
+            this.prmmod = 2;
+        } else if ("PIPC000801".equals(prm)) {
+            this.val = "Y";
+            this.valcond = 1;
+            this.prmmod = 2;
+        } else if ("PIPC000812".equals(prm)) {
+            this.val = "N";
+            this.valcond = 1;
+            this.prmmod = 2;
+        } else if ("PCC0002053".equals(prm)) {
+            this.val = riskLevel;
+            this.valcond = 1;
+            this.prmmod = 2;
+        } else if ("PCC0000605".equals(prm)) {
+            this.val = PCC0000605;
+            this.valcond = 6;
+            this.prmmod = 2;
+        } else {
+            this.prmmod = 2;
+        }
+    }
+}
