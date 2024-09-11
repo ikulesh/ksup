@@ -29,7 +29,7 @@ public abstract class AccessibilityAssertions {
         try {
             Assertions.assertEquals(expectedDataModel.getAccessibility(), accessForCard);
         } catch (AssertionFailedError error) {
-            //CustomLogger.customLogger(Level.WARNING, "Wrong level of accessibility for: " + expectedDataModel.getFl8pck() + " " + expectedDataModel.getFl1proCat() + " " + expectedDataModel.getFllpfl() + " " + expectedDataModel.getFl1pro());
+            CustomLogger.customLogger(Level.WARNING, "Wrong level of accessibility for: " + expectedDataModel.getFl8pck() + " " + expectedDataModel.getFl1proCat() + " " + expectedDataModel.getFllpfl() + " " + expectedDataModel.getFl1pro());
         }
         return nextStep;
     }

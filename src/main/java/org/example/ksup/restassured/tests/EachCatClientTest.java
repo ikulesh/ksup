@@ -58,7 +58,7 @@ public class EachCatClientTest {
                             CustomLogger.customLogger(Level.INFO, "GCC01 request assertion:");
                             nextStep = AccessibilityAssertions.accessibilityAssertions(result, expectedDataModel);
                             //nextStep = false;
-                            AttrAssertions.paramAssertion(result, expectedDataModel, request, RequestGCC01.setAssertList());
+                            AttrAssertions.paramAssertion(result, expectedDataModel, RequestGCC01.setAssertList());
                             request.setFl1grp(null);
 
                             if (nextStep) {
@@ -70,23 +70,23 @@ public class EachCatClientTest {
                                 result = RequestGraceLGP.requestGRC(request);
                                 //assert GRC
                                 CustomLogger.customLogger(Level.INFO, "GRC LGP request assertion:");
-                                AttrAssertions.productAssertion(result, expectedDataModel, request);
-                                AttrAssertions.attrAssertions(result, expectedDataModel, request, RequestGraceLGP.setAssertList());
-                                AttrAssertions.paramAssertion(result, expectedDataModel, request, RequestGraceLGP.setAssertList());
+                                AttrAssertions.productAssertion(result, expectedDataModel);
+                                AttrAssertions.attrAssertions(result, expectedDataModel, RequestGraceLGP.setAssertList());
+                                AttrAssertions.paramAssertion(result, expectedDataModel, RequestGraceLGP.setAssertList());
 
 
                                 //request for other PCC params
                                 result = RequestGrace4th.requestGRCOther(request);
                                 CustomLogger.customLogger(Level.INFO, "GRC 4th request assertion:");
-                                AttrAssertions.attrAssertions(result, expectedDataModel, request, RequestGrace4th.setAssertList());
-                                AttrAssertions.paramAssertion(result, expectedDataModel, request, RequestGrace4th.setAssertList());
+                                AttrAssertions.attrAssertions(result, expectedDataModel, RequestGrace4th.setAssertList());
+                                AttrAssertions.paramAssertion(result, expectedDataModel, RequestGrace4th.setAssertList());
 
                                 //skip CCBI request (it could be here, but I'm too lazy)
                                 /*
                                 result = RequestCCBI3rd.requestCCBI(request);
                                 CustomLogger.customLogger(Level.INFO, "CCBI 3rd request assertion:");
-                                AttrAssertions.attrAssertions(result, expectedDataModel, request, RequestCCBI3rd.setAttrList());
-                                AttrAssertions.paramAssertion(result, expectedDataModel, request, RequestCCBI3rd.setAttrList());
+                                AttrAssertions.attrAssertions(result, expectedDataModel, RequestCCBI3rd.setAttrList());
+                                AttrAssertions.paramAssertion(result, expectedDataModel, RequestCCBI3rd.setAttrList());
                                 */
 
                                 //сетим ценовую группу
@@ -99,13 +99,13 @@ public class EachCatClientTest {
                                 //отправляем запрос для проверки основных параметров для первой карты
                                 result = RequestIPC1st.requestForDifGCC(request, false);
                                 CustomLogger.customLogger(Level.INFO, "IPC request (isSecondCard = false) assertion:");
-                                AttrAssertions.paramAssertion(result, expectedDataModel, request, RequestIPC1st.setAssertList(false));
+                                AttrAssertions.paramAssertion(result, expectedDataModel, RequestIPC1st.setAssertList(false));
 
                                 //отправляем запрос для проверки альтернативных параметров для второй карты
                                 if (IS_SECOND_CARD) {
                                     result = RequestIPC1st.requestForDifGCC(request, true);
                                     CustomLogger.customLogger(Level.INFO, "IPC request (isSecondCard = true) assertion:");
-                                    AttrAssertions.paramAssertion(result, expectedDataModel, request, RequestIPC1st.setAssertList(true));
+                                    AttrAssertions.paramAssertion(result, expectedDataModel, RequestIPC1st.setAssertList(true));
                                 }
                                 //reset params
                                 request.setApplicationID(null);

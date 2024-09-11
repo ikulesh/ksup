@@ -8,7 +8,7 @@ public class Properties {
     public static final String PCC0000605 = "30000";
     public static final boolean IS_SECOND_CARD = false;
     public static final boolean ONLY_AVAILABLE_CARDS = true;
-    public static final boolean POSITIVE_ASSERT_LOGS = false;
+    public static final boolean POSITIVE_ASSERT_LOGS = true;
     public static final boolean CHANNEL_LIST_IS_LIMITED = false;
     public static final boolean CCBI_IS_NEEDED = false;
     public static final String CHANNEL_LIST = "CH96, CH6, CH16";
