@@ -18,7 +18,7 @@ import static org.example.ksup.restassured.request.XMLStringToResultSetRow.parse
 public class Request {
     public static List<ResultSetRow> request(String reqGroup, RequestModel requestModel, List<String> attrList, boolean withoutRegAndChannel, String alg) throws JAXBException {
         inCommonParms inComParms = inCommonParmsBuilder.inCommonParmsBuilder(requestModel.getConstantID(), requestModel.getApplicationID(), requestModel.getExtSysCode());
-        inParms inParmsObj = inParmsBuilder.inParmsBuilder(withoutRegAndChannel, reqGroup, requestModel.getFl8pck(), requestModel.getChancd(), requestModel.getRegcd(), requestModel.getFl1grp(), requestModel.getFllpfl(), requestModel.getFl1pro(), requestModel.getRiskLevel(), alg, attrList);
+        inParms inParmsObj = inParmsBuilder.inParmsBuilder(withoutRegAndChannel, reqGroup, alg, attrList, requestModel);
 
         String request = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
                 "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n" +

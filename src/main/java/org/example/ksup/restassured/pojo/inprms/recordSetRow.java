@@ -1,5 +1,8 @@
 package org.example.ksup.restassured.pojo.inprms;
 
+import org.example.ksup.restassured.pojo.RequestModel;
+import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -25,14 +28,14 @@ public class recordSetRow {
         this.fllpfl = fllpfl;
     }
 
-    public recordSetRow(String prm, String riskLevel) {
+    public recordSetRow(String prm, RequestModel requestModel, String riskLevel) {
         this.prm = prm;
         if ("PAPPTYPE".equals(prm)) {
             this.val = "CC";
             this.valcond = 1;
             this.prmmod = 1;
         } else if ("PIPC000004".equals(prm)) {
-            this.val = "RUR";
+            this.val = requestModel.getCurrency();
             this.valcond = 1;
             this.prmmod = 2;
         } else if ("PIPC000801".equals(prm)) {
@@ -40,7 +43,7 @@ public class recordSetRow {
             this.valcond = 1;
             this.prmmod = 2;
         } else if ("PIPC000812".equals(prm)) {
-            this.val = "N";
+            this.val = requestModel.getPipc000812();
             this.valcond = 1;
             this.prmmod = 2;
         } else if ("PCC0002053".equals(prm)) {

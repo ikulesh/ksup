@@ -34,6 +34,9 @@ public class FirstClientTest {
             // сетим пакет и регион (регион только один будет для каждого пакета)
             request.setFl8pck(expectedDataModel.getFl8pck());
             request.setRegcd(expectedDataModel.getRegcd());
+            // сетим валюту и pipc000812
+            request.setCurrency(expectedDataModel.getParamsPIPC().get("PIPC000004"));
+            request.setPipc000812(expectedDataModel.getParamsPIPC().get("PIPC000812"));
             // перебираем сначала каналы
             for (String channel : expectedDataModel.getChancd()) {
                 //ограничены ли проверки наборами каналов и карт

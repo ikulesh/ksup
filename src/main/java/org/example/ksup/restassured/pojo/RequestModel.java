@@ -14,4 +14,6 @@ public class RequestModel {
     private String fl1pro;
     private String fllpfl;
     private String riskLevel;
+    private String currency;
+    private String pipc000812;
 }

@@ -1,5 +1,8 @@
 package org.example.ksup.restassured.pojo.inprms;
 
+import org.example.ksup.restassured.pojo.RequestModel;
+import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
@@ -14,9 +17,9 @@ public class attrlst {
         this.recordSetRow = new ArrayList<>();
     }
 
-    public void addParam(List<String> params, String riskLevel) {
+    public void addParam(List<String> params, RequestModel requestModel, String riskLevel) {
         for (String param : params) {
-            recordSetRow.add(new recordSetRow(param,riskLevel));
+            recordSetRow.add(new recordSetRow(param, requestModel, riskLevel));
         }
     }
 }

@@ -1,22 +1,24 @@
 package org.example.ksup.restassured.pojo.inprms;
 
+import org.example.ksup.restassured.pojo.RequestModel;
+
 import java.util.List;
 
 public class inParmsBuilder {
-    public static inParms inParmsBuilder(boolean withoutRegAndChannel, String reqGroup, String fl8pck, String chancd, String regcd, String fl1grp, String fllpfl, String fl1pro, String riskLevel, String alg, List<String> attrlist) {
+    public static inParms inParmsBuilder(boolean withoutRegAndChannel, String reqGroup, String alg, List<String> attrlist, RequestModel requestModel) {
         inParms inPrm = new inParms();
-        inPrm.setFl1grp(fl1grp);
-        inPrm.setFl1pro(fl1pro);
+        inPrm.setFl1grp(requestModel.getFl1grp());
+        inPrm.setFl1pro(requestModel.getFl1pro());
         inPrm.setFl8sts("ACTIVE");
         inPrm.setPrmmod(1);
         inPrm.setFl5sts("ACTIVE");
         inPrm.setFl5tpr(reqGroup);
         inPrm.setHrymod("I");
-        inPrm.setFl8pck(fl8pck);
+        inPrm.setFl8pck(requestModel.getFl8pck());
         if (!withoutRegAndChannel) {
             inPrm.setAlg(alg);
-            inPrm.setRegcd(regcd);
-            inPrm.setChancd(chancd);
+            inPrm.setRegcd(requestModel.getRegcd());
+            inPrm.setChancd(requestModel.getChancd());
             inPrm.setPagesize(1000);
             inPrm.setPageindex(1);
         } else {
@@ -24,11 +26,11 @@ public class inParmsBuilder {
             inPrm.setAlg("8");
         }
         attrlst attrlst = new attrlst();
-        attrlst.addParam(attrlist, riskLevel);
+        attrlst.addParam(attrlist,requestModel, requestModel.getRiskLevel());
         inPrm.setAttrlst(attrlst);
 
         fllpfllst fllpfllst = new fllpfllst();
-        fllpfllst.setRecordSetRow(fllpfl);
+        fllpfllst.setRecordSetRow(requestModel.getFllpfl());
         inPrm.setFllpfllst(fllpfllst);
 
         return inPrm;
