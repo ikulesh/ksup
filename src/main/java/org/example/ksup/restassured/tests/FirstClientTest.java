@@ -87,8 +87,8 @@ public class FirstClientTest {
                         if (CCBI_IS_NEEDED) {
                             result = RequestCCBI3rd.requestCCBI(request);
                             CustomLogger.customLogger(Level.INFO, "CCBI 3rd request assertion:");
-                            AttrAssertions.attrAssertions(result, expectedDataModel, request, RequestCCBI3rd.setAssertList());
-                            //AttrAssertions.paramAssertion(result, expectedDataModel, request, RequestCCBI3rd.setAssertList());
+                            //AttrAssertions.attrAssertions(result, expectedDataModel, request, RequestCCBI3rd.setAssertList());
+                            AttrAssertions.paramAssertion(result, expectedDataModel, request, RequestCCBI3rd.setAssertList());
                         }
 
                         request.setFl1pro(expectedDataModel.getFl1pro());
