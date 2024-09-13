@@ -5,6 +5,9 @@ import org.example.ksup.restassured.pojo.RequestModel;
 import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
 import org.example.ksup.restassured.request.*;
+import org.example.ksup.restassured.tests.assertions.AccessibilityAssertions;
+import org.example.ksup.restassured.tests.assertions.AttrAssertions;
+import org.example.ksup.restassured.tests.assertions.SetPriceGrp;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;

@@ -1,4 +1,4 @@
-package org.example.ksup.restassured.tests;
+package org.example.ksup.restassured.tests.assertions;
 
 import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
