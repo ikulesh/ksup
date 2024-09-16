@@ -95,7 +95,7 @@ public class FirstClientTest {
                         SetPriceGrp.setPriceGrp(result, expectedDataModel);
 
                         //WOW! Assert for one param PCC0000605
-                        if (CCBI_IS_NEEDED && AttrAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
+                        if (CCBI_IS_NEED && AttrAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
                             result = RequestCCBI3rd.requestCCBI(request);
                             CustomLogger.customLogger(Level.INFO, "CCBI 3rd request assertion:");
                             //AttrAssertions.attrAssertions(result, expectedDataModel, RequestCCBI3rd.setAssertList());
