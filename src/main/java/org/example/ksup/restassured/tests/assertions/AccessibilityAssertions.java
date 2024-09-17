@@ -32,7 +32,7 @@ public abstract class AccessibilityAssertions {
         boolean nextStep = expectedAccessibility.equals("Y") && accessible.equals("Y");
 
         if (!expectedAccessibility.equals(accessible)) {
-            CustomLogger.customLogger(Level.WARNING, "Wrong accessibility: PIPC000801 == " + accessible + ", but should be " + expectedAccessibility);
+            CustomLogger.customLogger(Level.WARNING, "Wrong accessibility: PIPC000801 equals " + accessible + ", but should be " + expectedAccessibility);
         } else if (POSITIVE_ASSERT_LOGS) {
             CustomLogger.customLogger(Level.INFO, "Correct accessibility");
         }

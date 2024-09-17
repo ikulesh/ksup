@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import static org.example.ksup.restassured.Properties.POSITIVE_ASSERT_LOGS;
 
 
-public abstract class AttrAssertions {
+public abstract class ParamAssertions {
     public static void attrAssertions(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> expectedAttr) {
         boolean contains = false;
         Map<String, String> rowMap;

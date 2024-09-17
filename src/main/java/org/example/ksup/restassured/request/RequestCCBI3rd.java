@@ -1,11 +1,17 @@
 package org.example.ksup.restassured.request;
 
+import org.example.ksup.restassured.log.CustomLogger;
 import org.example.ksup.restassured.pojo.RequestModel;
+import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
+import org.example.ksup.restassured.tests.assertions.ParamAssertions;
 
 import javax.xml.bind.JAXBException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+
+import static org.example.ksup.restassured.Properties.CCBI_IS_NEED;
 
 
 public class RequestCCBI3rd {
@@ -44,5 +50,16 @@ public class RequestCCBI3rd {
 
 
         return attrList;
+    }
+
+    public static void execution(RequestModel request, ExpectedDataModel expectedDataModel) throws JAXBException {
+        if (CCBI_IS_NEED) {
+            List <ResultSetRow> result = RequestCCBI3rd.requestCCBI(request);
+            CustomLogger.customLogger(Level.INFO, "CCBI 3rd request assertion:");
+            if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
+                //AttrAssertions.attrAssertions(result, expectedDataModel, RequestCCBI3rd.setAssertList());
+                ParamAssertions.paramAssertion(result, expectedDataModel, RequestCCBI3rd.setAssertList());
+            }
+        }
     }
 }

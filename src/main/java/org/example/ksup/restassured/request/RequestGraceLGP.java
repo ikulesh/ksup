@@ -1,11 +1,15 @@
 package org.example.ksup.restassured.request;
 
+import org.example.ksup.restassured.log.CustomLogger;
 import org.example.ksup.restassured.pojo.RequestModel;
+import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
+import org.example.ksup.restassured.tests.assertions.ParamAssertions;
 
 import javax.xml.bind.JAXBException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 
 public class RequestGraceLGP {
@@ -64,5 +68,14 @@ public class RequestGraceLGP {
         attrList.add("PCC0003142");
 
         return attrList;
+    }
+    public static void execution(RequestModel request, ExpectedDataModel expectedDataModel) throws JAXBException {
+        List<ResultSetRow> result = requestGRC(request);
+        CustomLogger.customLogger(Level.INFO, "GRC LGP request assertion:");
+        if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
+            ParamAssertions.productAssertion(result, expectedDataModel); // product code assertion
+            ParamAssertions.attrAssertions(result, expectedDataModel, RequestGraceLGP.setAssertList()); // assertion for complex params
+            ParamAssertions.paramAssertion(result, expectedDataModel, RequestGraceLGP.setAssertList());
+        }
     }
 }

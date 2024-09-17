@@ -1,11 +1,16 @@
 package org.example.ksup.restassured.request;
 
+import org.example.ksup.restassured.log.CustomLogger;
 import org.example.ksup.restassured.pojo.RequestModel;
+import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
+import org.example.ksup.restassured.tests.assertions.ParamAssertions;
+import org.example.ksup.restassured.tests.assertions.SetPriceGrp;
 
 import javax.xml.bind.JAXBException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class RequestGrace4th {
     public static List<ResultSetRow> requestGRCOther(RequestModel requestModel) throws JAXBException {
@@ -86,5 +91,17 @@ public class RequestGrace4th {
 
 
         return attrList;
+    }
+    public static void execution(RequestModel request, ExpectedDataModel expectedDataModel) throws JAXBException {
+        List<ResultSetRow> result = RequestGrace4th.requestGRCOther(request);
+        CustomLogger.customLogger(Level.INFO, "GRC 4th request assertion:");
+        if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
+            ParamAssertions.attrAssertions(result, expectedDataModel, RequestGrace4th.setAssertList());
+            ParamAssertions.paramAssertion(result, expectedDataModel, RequestGrace4th.setAssertList());
+        }
+        //сетим ценовую группу
+        SetPriceGrp.setPriceGrp(result, expectedDataModel);
+        //сетим ценовую группу в ожидаемую модель данных
+        SetPriceGrp.setPriceGrp(result, expectedDataModel);
     }
 }

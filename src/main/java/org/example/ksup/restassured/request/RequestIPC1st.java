@@ -1,11 +1,18 @@
 package org.example.ksup.restassured.request;
 
+import io.opentelemetry.semconv.SemanticAttributes;
+import org.example.ksup.restassured.log.CustomLogger;
 import org.example.ksup.restassured.pojo.RequestModel;
+import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
+import org.example.ksup.restassured.tests.assertions.ParamAssertions;
 
 import javax.xml.bind.JAXBException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+
+import static org.example.ksup.restassured.Properties.IS_SECOND_CARD;
 
 public class RequestIPC1st {
     public static List<ResultSetRow> requestForDifGCC(RequestModel requestModel, boolean isSecondCard) throws JAXBException {
@@ -84,5 +91,23 @@ public class RequestIPC1st {
         }
 
         return attrList;
+    }
+
+    public static void execution(RequestModel request, ExpectedDataModel expectedDataModel) throws JAXBException {
+        //отправляем запрос для проверки основных параметров для первой карты
+        List <ResultSetRow>result = requestForDifGCC(request, false);
+        CustomLogger.customLogger(Level.INFO, "IPC request (isSecondCard = false) assertion:");
+        if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
+            ParamAssertions.paramAssertion(result, expectedDataModel, RequestIPC1st.setAssertList(false));
+        }
+
+        //отправляем запрос для проверки альтернативных параметров для второй карты
+        if (IS_SECOND_CARD) {
+            result = RequestIPC1st.requestForDifGCC(request, true);
+            CustomLogger.customLogger(Level.INFO, "IPC request (isSecondCard = true) assertion:");
+            if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
+                ParamAssertions.paramAssertion(result, expectedDataModel, RequestIPC1st.setAssertList(true));
+            }
+        }
     }
 }

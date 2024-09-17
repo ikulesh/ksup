@@ -1,11 +1,17 @@
 package org.example.ksup.restassured.request;
 
+import org.example.ksup.restassured.log.CustomLogger;
 import org.example.ksup.restassured.pojo.RequestModel;
+import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
+import org.example.ksup.restassured.tests.assertions.AccessibilityAssertions;
+import org.example.ksup.restassured.tests.assertions.ParamAssertions;
 
 import javax.xml.bind.JAXBException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+
 
 public class RequestGCC01 {
     public static List<ResultSetRow> requestGCC01(RequestModel requestModel) throws JAXBException {
@@ -62,5 +68,17 @@ public class RequestGCC01 {
         attrList.add("PIPC000602");
 
         return attrList;
+    }
+    public static boolean execution(RequestModel request, ExpectedDataModel expectedDataModel) throws JAXBException {
+        CustomLogger.customLogger(Level.INFO, "GCC01 request assertion:");
+        request.setFl1grp("GCC01"); // price group
+        List<ResultSetRow> result = requestGCC01(request);
+        boolean nextStep = AccessibilityAssertions.accessibilityAssertions(result, expectedDataModel); //if PIPC000801 == Y |=> nextStep = true
+        if (nextStep && ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
+            ParamAssertions.cardNameAssertion(result, expectedDataModel); // cardName assertion
+            ParamAssertions.paramAssertion(result, expectedDataModel, RequestGCC01.setAssertList()); // assertion for simple params
+        }
+        request.setFl1grp(null);
+        return nextStep;
     }
 }
