@@ -57,8 +57,6 @@ public class RequestGCC01 {
         attrList.add("PIPC000302");
         //accessibility
         attrList.add("PIPC000801");
-        //attrList.add("PIPC000007");
-        //attrList.add("PIPC000303");
         attrList.add("PIPC000812");
         attrList.add("PIPC000601");
         attrList.add("PIPC000602");

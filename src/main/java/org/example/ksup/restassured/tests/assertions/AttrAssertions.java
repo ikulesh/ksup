@@ -6,7 +6,6 @@ import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
 
 
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -25,7 +24,7 @@ public abstract class AttrAssertions {
             Collection<String> expectedKeys = map.getValues().keySet();
             for (String element : expectedKeys) {
                 for (ResultSetRow row : resultSetRowList) {
-                    if (row.getFl3prm().trim().equals(expectedNameParam.trim()) && row.getFl4val().contains(element)) {
+                    if (row.getFl3prm().equals(expectedNameParam) && row.getFl4val().contains(element)) {
                         contains = true;
                         break;
                     }
@@ -81,7 +80,7 @@ public abstract class AttrAssertions {
                 continue;
             }
             for (ResultSetRow row : resultSetRowList) {
-                if (row.getFl3prm().trim().equals(param.trim())) {
+                if (row.getFl3prm().equals(param)) {
                     contains = true;
                     break;
                 }
@@ -98,11 +97,11 @@ public abstract class AttrAssertions {
                 String fl3prm = row.getFl3prm();
                 String fl4val = row.getFl4val();
                 String value = expectedDataModel.getParamsPIPC().get(fl3prm);
-                if (expectedAttr.contains(fl3prm.trim())) {
+                if (expectedAttr.contains(fl3prm)) {
                     if (value != null) {
-                        //if (fl3prm.trim().equals("PIPC000601"))
+                        //if (fl3prm.equals("PIPC000601"))
                         {
-                            if (!value.trim().equals(fl4val.trim())) {
+                            if (!value.equals(fl4val)) {
                                 CustomLogger.customLogger(Level.WARNING, fl3prm + " " + fl4val + " is incorrect(fl1ppr = " + row.getFl1ppr() + "), should be: " + value);
                             } else if (POSITIVE_ASSERT_LOGS) {
                                 CustomLogger.customLogger(Level.INFO, fl3prm + " " + fl4val + " (fl1ppr = " + row.getFl1ppr() + ") is correct");
@@ -144,8 +143,8 @@ public abstract class AttrAssertions {
         ResultSetRow row = resultSetRowList.get(0);
         String fl5dsc = row.getFl5dsc();
         //cardName assertion
-        String value = expectedDataModel.getCardName().trim();
-        if (value.equals(fl5dsc.trim())) {
+        String value = expectedDataModel.getCardName();
+        if (value.equals(fl5dsc)) {
             if (POSITIVE_ASSERT_LOGS) {
                 CustomLogger.customLogger(Level.INFO, "fl5dsc " + fl5dsc + " is correct");
             }
@@ -158,7 +157,7 @@ public abstract class AttrAssertions {
     public static Map<String, String> convertToMap(String fl4val) {
         if (fl4val.contains(" ")) {
             // Split the string based on whitespace
-            String[] parts = fl4val.trim().split("\\s+");
+            String[] parts = fl4val.split("\\s+");
             // Create a map and add the key-value pair
             Map<String, String> map = new HashMap<>();
             map.put(parts[0], parts[1]);

@@ -17,11 +17,11 @@ public abstract class AccessibilityAssertions {
         // Return early if resultSetRowList is null or empty
         if (resultSetRowList != null && !resultSetRowList.isEmpty()) {
             for (ResultSetRow row : resultSetRowList) {
-                if (row.getFl8pck().trim().equals(expectedDataModel.getFl8pck().trim())) {
+                if (row.getFl8pck().equals(expectedDataModel.getFl8pck())) {
                     if (expectedDataModel.getFl1grp() == null) {
                         expectedDataModel.setFl1grp(row.getFl1grp());
                     }
-                    if (row.getFl3prm().equals("PIPC000801") && row.getFl4val().trim().equals("Y")) {
+                    if (row.getFl3prm().equals("PIPC000801") && row.getFl4val().equals("Y")) {
                         accessible = "Y";
                         break;
                     }

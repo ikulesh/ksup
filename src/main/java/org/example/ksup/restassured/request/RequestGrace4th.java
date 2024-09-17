@@ -53,7 +53,6 @@ public class RequestGrace4th {
     public static List<String> setAssertList() {
         List<String> attrList = new ArrayList<>();
         //Request 4
-        //attrList.add("PAPPTYPE");
         attrList.add("PCC0001056");
         attrList.add("PCC0002122");
         attrList.add("PCC0002022");

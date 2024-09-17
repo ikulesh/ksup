@@ -7,7 +7,7 @@ import org.example.ksup.restassured.pojo.RequestModel;
 import org.example.ksup.restassured.pojo.incommonprms.inCommonParms;
 import org.example.ksup.restassured.pojo.incommonprms.inCommonParmsBuilder;
 import org.example.ksup.restassured.pojo.inprms.inParms;
-import org.example.ksup.restassured.pojo.inprms.inParmsBuilder;
+import org.example.ksup.restassured.pojo.inprms.InParmsBuilder;
 import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
 
 import javax.xml.bind.JAXBException;
@@ -20,7 +20,7 @@ import static org.example.ksup.restassured.request.XMLStringToResultSetRow.parse
 public class Request {
     public static List<ResultSetRow> request(String reqGroup, RequestModel requestModel, List<String> attrList, boolean withoutRegAndChannel, String alg) throws JAXBException {
         inCommonParms inComParms = inCommonParmsBuilder.inCommonParmsBuilder(requestModel);
-        inParms inParmsObj = inParmsBuilder.inParmsBuilder(withoutRegAndChannel, reqGroup, alg, attrList, requestModel);
+        inParms inParmsObj = InParmsBuilder.inParmsBuilder(withoutRegAndChannel, reqGroup, alg, attrList, requestModel);
 
         String request = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" +
                 "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n" +

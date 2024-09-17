@@ -2,8 +2,6 @@ package org.example.ksup.restassured.pojo.inprms;
 
 import lombok.Data;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Data

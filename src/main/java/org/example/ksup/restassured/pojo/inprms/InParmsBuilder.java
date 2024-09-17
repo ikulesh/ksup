@@ -4,7 +4,7 @@ import org.example.ksup.restassured.pojo.RequestModel;
 
 import java.util.List;
 
-public class inParmsBuilder {
+public class InParmsBuilder {
     public static inParms inParmsBuilder(boolean withoutRegAndChannel, String reqGroup, String alg, List<String> attrlist, RequestModel requestModel) {
         inParms inPrm = new inParms();
         inPrm.setFl1grp(requestModel.getFl1grp());

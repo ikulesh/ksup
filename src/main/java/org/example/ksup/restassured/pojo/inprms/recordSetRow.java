@@ -1,7 +1,6 @@
 package org.example.ksup.restassured.pojo.inprms;
 
 import org.example.ksup.restassured.pojo.RequestModel;
-import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

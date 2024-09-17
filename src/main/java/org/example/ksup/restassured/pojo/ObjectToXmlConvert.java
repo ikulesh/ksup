@@ -1,8 +1,5 @@
 package org.example.ksup.restassured.pojo;
 
-import org.example.ksup.restassured.pojo.inprms.inParms;
-
-import javax.xml.bind.annotation.XmlElement;
 
 import javax.xml.bind.*;
 import java.io.StringWriter;

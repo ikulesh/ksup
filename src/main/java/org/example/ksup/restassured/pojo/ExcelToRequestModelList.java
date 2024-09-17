@@ -16,8 +16,7 @@ public class ExcelToRequestModelList {
 
     //testing of method
     public static void main(String[] args) {
-        String excelFilePath = EXCEL_FILE_PATH;
-        List<ExpectedDataModel> expectedDataModels = readExcelFile(excelFilePath);
+        List<ExpectedDataModel> expectedDataModels = readExcelFile(EXCEL_FILE_PATH);
         int sumOfReq = 0;
 
         for (ExpectedDataModel expectedDataModel : expectedDataModels) {
@@ -74,21 +73,21 @@ public class ExcelToRequestModelList {
                         continue;
                     }
 
-                    row.setFl8pck(currentRow.getCell(0).getStringCellValue());
-                    row.setFl1proCat(currentRow.getCell(1).getStringCellValue());
-                    row.setRegcd(currentRow.getCell(2).getStringCellValue());
-                    row.addChancd(currentRow.getCell(3).getStringCellValue());
-                    row.addFllpfl(currentRow.getCell(4).getStringCellValue());
-                    row.addFlkval(currentRow.getCell(5).getStringCellValue());
-                    row.setFl1pro(currentRow.getCell(6).getStringCellValue());
-                    row.setCardName(currentRow.getCell(7).getStringCellValue());
-                    row.addRiskLevelRpp(currentRow.getCell(45).getStringCellValue());
-                    row.setAccessibility(currentRow.getCell(11).getStringCellValue());
+                    row.setFl8pck(currentRow.getCell(0).getStringCellValue().trim());
+                    row.setFl1proCat(currentRow.getCell(1).getStringCellValue().trim());
+                    row.setRegcd(currentRow.getCell(2).getStringCellValue().trim());
+                    row.addChancd(currentRow.getCell(3).getStringCellValue().trim());
+                    row.addFllpfl(currentRow.getCell(4).getStringCellValue().trim());
+                    row.addFlkval(currentRow.getCell(5).getStringCellValue().trim());
+                    row.setFl1pro(currentRow.getCell(6).getStringCellValue().trim());
+                    row.setCardName(currentRow.getCell(7).getStringCellValue().trim());
+                    row.addRiskLevelRpp(currentRow.getCell(45).getStringCellValue().trim());
+                    row.setAccessibility(currentRow.getCell(11).getStringCellValue().trim());
 
                     for (int i = 8; i < 45; i++) {
                         if (currentRow.getCell(i) != null) {
                             if (!currentRow.getCell(i).getStringCellValue().isEmpty()) {
-                                row.addParamPIPC(firstRow.getCell(i).getStringCellValue(), (currentRow.getCell(i).getStringCellValue()));
+                                row.addParamPIPC(firstRow.getCell(i).getStringCellValue().trim(), (currentRow.getCell(i).getStringCellValue().trim()));
                             }
                         }
                     }
@@ -96,7 +95,7 @@ public class ExcelToRequestModelList {
                     for (int i = 46; i < 77; i++) {
                         if (currentRow.getCell(i) != null) {
                             if (!currentRow.getCell(i).getStringCellValue().isEmpty()) {
-                                row.addAttrList(firstRow.getCell(i).getStringCellValue(), (currentRow.getCell(i).getStringCellValue()));
+                                row.addAttrList(firstRow.getCell(i).getStringCellValue().trim(), (currentRow.getCell(i).getStringCellValue().trim()));
                             }
                         }
                     }
