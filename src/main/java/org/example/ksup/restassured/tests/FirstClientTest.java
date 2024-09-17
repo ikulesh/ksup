@@ -58,12 +58,12 @@ public class FirstClientTest {
                     result = RequestGCC01.requestGCC01(request);
                     CustomLogger.customLogger(Level.INFO, "");
                     CustomLogger.customLogger(Level.INFO, "");
-                    CustomLogger.customLogger(Level.INFO, "Assertions for " + expectedDataModel.getFl8pck() + " " + channel + " " + expectedDataModel.getFl1proCat() + " " + clientWithCat + " " + expectedDataModel.getFl1pro() + " " + riskLevel + ":");
+                    CustomLogger.customLogger(Level.INFO, "Assertions for " + expectedDataModel.getFl8pck() + " " + channel + " " + expectedDataModel.getFl1proCat() + " " + clientWithCat + " " + expectedDataModel.getFl1pro() + " " + riskLevel + " " + EXT_SYS_CODE + ":");
                     CustomLogger.customLogger(Level.INFO, "GCC01 request assertion:");
-                    if (AttrAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
+                    nextStep = AccessibilityAssertions.accessibilityAssertions(result, expectedDataModel); //if PIPC000801 == Y |=> nextStep = true
+                    if (nextStep && AttrAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
                         AttrAssertions.cardNameAssertion(result, expectedDataModel); // cardName assertion
                         AttrAssertions.paramAssertion(result, expectedDataModel, RequestGCC01.setAssertList()); // assertion for simple params
-                        nextStep = AccessibilityAssertions.accessibilityAssertions(result, expectedDataModel); //if PIPC000801 == Y |=> nextStep = true
                     } else {
                         nextStep = false;
                     }
@@ -79,16 +79,16 @@ public class FirstClientTest {
                         CustomLogger.customLogger(Level.INFO, "GRC LGP request assertion:");
                         if (AttrAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
                             AttrAssertions.productAssertion(result, expectedDataModel); // product code assertion
-                            AttrAssertions.attrAssertions(result, expectedDataModel,  RequestGraceLGP.setAssertList()); // assertion for complex params
-                            AttrAssertions.paramAssertion(result, expectedDataModel,  RequestGraceLGP.setAssertList());
+                            AttrAssertions.attrAssertions(result, expectedDataModel, RequestGraceLGP.setAssertList()); // assertion for complex params
+                            AttrAssertions.paramAssertion(result, expectedDataModel, RequestGraceLGP.setAssertList());
                         }
 
                         //request for other PCC params
                         result = RequestGrace4th.requestGRCOther(request);
                         CustomLogger.customLogger(Level.INFO, "GRC 4th request assertion:");
                         if (AttrAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
-                            AttrAssertions.attrAssertions(result, expectedDataModel,  RequestGrace4th.setAssertList());
-                            AttrAssertions.paramAssertion(result, expectedDataModel,  RequestGrace4th.setAssertList());
+                            AttrAssertions.attrAssertions(result, expectedDataModel, RequestGrace4th.setAssertList());
+                            AttrAssertions.paramAssertion(result, expectedDataModel, RequestGrace4th.setAssertList());
                         }
 
                         //сетим ценовую группу
@@ -99,7 +99,7 @@ public class FirstClientTest {
                             result = RequestCCBI3rd.requestCCBI(request);
                             CustomLogger.customLogger(Level.INFO, "CCBI 3rd request assertion:");
                             //AttrAssertions.attrAssertions(result, expectedDataModel, RequestCCBI3rd.setAssertList());
-                            AttrAssertions.paramAssertion(result, expectedDataModel,  RequestCCBI3rd.setAssertList());
+                            AttrAssertions.paramAssertion(result, expectedDataModel, RequestCCBI3rd.setAssertList());
                         }
 
 

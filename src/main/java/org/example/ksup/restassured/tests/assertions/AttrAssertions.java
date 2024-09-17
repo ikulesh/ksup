@@ -6,6 +6,7 @@ import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
 
 
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -80,7 +81,7 @@ public abstract class AttrAssertions {
                 continue;
             }
             for (ResultSetRow row : resultSetRowList) {
-                if (row.getFl3prm().equals(param)) {
+                if (row.getFl3prm().trim().equals(param.trim())) {
                     contains = true;
                     break;
                 }
@@ -101,7 +102,7 @@ public abstract class AttrAssertions {
                     if (value != null) {
                         //if (fl3prm.trim().equals("PIPC000601"))
                         {
-                            if (!value.equals(fl4val)) {
+                            if (!value.trim().equals(fl4val.trim())) {
                                 CustomLogger.customLogger(Level.WARNING, fl3prm + " " + fl4val + " is incorrect(fl1ppr = " + row.getFl1ppr() + "), should be: " + value);
                             } else if (POSITIVE_ASSERT_LOGS) {
                                 CustomLogger.customLogger(Level.INFO, fl3prm + " " + fl4val + " (fl1ppr = " + row.getFl1ppr() + ") is correct");
@@ -132,9 +133,7 @@ public abstract class AttrAssertions {
                 if (fl3prm.equals("PCC0001001")) {
                     if (!value.equals(fl4val)) {
                         CustomLogger.customLogger(Level.WARNING, fl3prm + " " + fl4val + " (fl1ppr = " + row.getFl1ppr() + ") is incorrect, should be: " + value);
-                    } else if (POSITIVE_ASSERT_LOGS) {
-                        CustomLogger.customLogger(Level.INFO, fl3prm + " " + fl4val + " is correct");
-                    }
+                    } else if (POSITIVE_ASSERT_LOGS) {CustomLogger.customLogger(Level.INFO, fl3prm + " " + fl4val + " is correct");}
                 }
             }
 
