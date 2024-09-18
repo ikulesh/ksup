@@ -75,6 +75,7 @@ public class RequestGCC01 {
         CustomLogger.customLogger(Level.INFO, "GCC01 request assertion:");
         request.setFl1grp("GCC01"); // price group
         request.setFl1pro(expectedDataModel.getFl1pro());
+        request.setFl8pck(null);
         List<ResultSetRow> result = requestGCC01(request);
         boolean nextStep = AccessibilityAssertions.accessibilityAssertions(result, expectedDataModel, warningsList); //if PIPC000801 == Y |=> nextStep = true
         if (nextStep && ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {

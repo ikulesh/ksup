@@ -55,7 +55,7 @@ public class ExcelColorChanger {
                 // Apply the style to the cell
                 if (indexes.contains(cell.getColumnIndex())) {
                     cell.setCellStyle(cellStyle);
-                } else if (IndexedColors.RED.getIndex() == cell.getCellStyle().getFillBackgroundColor()) {
+                } else if (cellStyle == cell.getCellStyle()) {
                     cellStyle.setFillForegroundColor(IndexedColors.GREEN.getIndex());
                 }
             }
