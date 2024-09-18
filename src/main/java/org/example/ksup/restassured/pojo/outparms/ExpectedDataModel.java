@@ -23,6 +23,7 @@ public class ExpectedDataModel {
     private List<String> fllpfl;
     private List<String> flkval;
     private Map<String,String> paramsPIPC;
+    private int index;
 
     @Data
     public class AttrMap {

@@ -2,6 +2,7 @@ package org.example.ksup.restassured.pojo;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.example.ksup.restassured.Config;
 import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 
 import java.io.FileInputStream;
@@ -15,7 +16,8 @@ import static org.example.ksup.restassured.Config.*;
 public class ExcelToRequestModelList {
 
     //testing of method
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        Config.loadProperties();
         List<ExpectedDataModel> expectedDataModels = readExcelFile(EXCEL_FILE_PATH);
         int sumOfReq = 0;
 
@@ -43,8 +45,9 @@ public class ExcelToRequestModelList {
                     rows.next();
                 }
             }
-
+            int index = 1;
             while (rows.hasNext()) {
+                index++;
                 Row currentRow = rows.next();
                 ExpectedDataModel row = new ExpectedDataModel();
                 if (currentRow.getCell(0) == null) {
@@ -83,6 +86,8 @@ public class ExcelToRequestModelList {
                     row.setCardName(currentRow.getCell(7).getStringCellValue().trim());
                     row.addRiskLevelRpp(currentRow.getCell(45).getStringCellValue().trim());
                     row.setAccessibility(currentRow.getCell(11).getStringCellValue().trim());
+                    row.setIndex(index);
+
 
                     for (int i = 8; i < 45; i++) {
                         if (currentRow.getCell(i) != null) {
@@ -107,8 +112,6 @@ public class ExcelToRequestModelList {
         }
         return expData;
     }
-
-
 }
 
 

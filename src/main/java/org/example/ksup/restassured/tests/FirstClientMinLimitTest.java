@@ -1,7 +1,9 @@
 package org.example.ksup.restassured.tests;
 
+import org.apache.poi.openxml4j.util.ZipSecureFile;
 import org.example.ksup.restassured.Config;
 import org.example.ksup.restassured.log.CustomLogger;
+import org.example.ksup.restassured.pojo.ExcelColorChanger;
 import org.example.ksup.restassured.pojo.RequestModel;
 import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
@@ -23,6 +25,7 @@ public class FirstClientMinLimitTest {
     @Test
     public void firstClientTest() throws JAXBException, IOException {
         Config.loadProperties();
+        ZipSecureFile.setMinInflateRatio(0.001);
         List<ExpectedDataModel> expectedDataModelList = readExcelFile(EXCEL_FILE_PATH);
         RequestModel request = new RequestModel();
         List<ResultSetRow> result;
@@ -31,8 +34,9 @@ public class FirstClientMinLimitTest {
 
         for (ExpectedDataModel expectedDataModel : expectedDataModelList) {
             request.initializer(expectedDataModel);
+            List<String> warningsList = new ArrayList<>();
             // перебираем сначала каналы
-            String channel = expectedDataModel.getFllpfl().get(0);
+            String channel = expectedDataModel.getChancd().get(0);
             {
                 //ограничены ли проверки наборами каналов и карт
                 if (CARD_LIST_IS_LIMITED) {
@@ -60,11 +64,12 @@ public class FirstClientMinLimitTest {
                     CustomLogger.customLogger(Level.INFO, "GCC01 request assertion:");
                     result = RequestGCC01.requestGCC01(request);
                     if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
-                        AccessibilityAssertions.accessibilityAssertions(result, expectedDataModel); //if PIPC000801 == Y |=> nextStep = true
-                        ParamAssertions.paramAssertion(result, expectedDataModel, params); // assertion for simple params
+                        AccessibilityAssertions.accessibilityAssertions(result, expectedDataModel, warningsList); //if PIPC000801 == Y |=> nextStep = true
+                        ParamAssertions.paramAssertion(result, expectedDataModel, params, warningsList); // assertion for simple params
                     }
                 }
             }
+            ExcelColorChanger.colorChange(expectedDataModel, warningsList);
         }
     }
 }

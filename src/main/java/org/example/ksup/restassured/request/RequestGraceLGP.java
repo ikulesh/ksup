@@ -69,13 +69,13 @@ public class RequestGraceLGP {
 
         return attrList;
     }
-    public static void execution(RequestModel request, ExpectedDataModel expectedDataModel) throws JAXBException {
+    public static void execution(RequestModel request, ExpectedDataModel expectedDataModel,List<String > warningsList) throws JAXBException {
         List<ResultSetRow> result = requestGRC(request);
         CustomLogger.customLogger(Level.INFO, "GRC LGP request assertion:");
         if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
-            ParamAssertions.productAssertion(result, expectedDataModel); // product code assertion
-            ParamAssertions.attrAssertions(result, expectedDataModel, RequestGraceLGP.setAssertList()); // assertion for complex params
-            ParamAssertions.paramAssertion(result, expectedDataModel, RequestGraceLGP.setAssertList());
+            ParamAssertions.productAssertion(result, expectedDataModel,warningsList); // product code assertion
+            ParamAssertions.attrAssertions(result, expectedDataModel, RequestGraceLGP.setAssertList(),warningsList); // assertion for complex params
+            ParamAssertions.paramAssertion(result, expectedDataModel, RequestGraceLGP.setAssertList(),warningsList);
         }
     }
 }

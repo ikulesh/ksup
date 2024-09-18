@@ -13,7 +13,7 @@ import static org.example.ksup.restassured.Config.POSITIVE_ASSERT_LOGS;
 
 
 public abstract class ParamAssertions {
-    public static void attrAssertions(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> expectedAttr) {
+    public static void attrAssertions(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> expectedAttr,List<String> warningsList) {
         boolean contains = false;
         Map<String, String> rowMap;
         List<ExpectedDataModel.AttrMap> attrList = expectedDataModel.getAttrList();
@@ -31,6 +31,7 @@ public abstract class ParamAssertions {
                 }
                 if (!contains && expectedAttr.contains(expectedNameParam)) {
                     CustomLogger.customLogger(Level.WARNING, expectedNameParam + " " + element + " not contains in response");
+                    warningsList.add(expectedNameParam);
                 }
                 contains = false;
             }
@@ -60,8 +61,10 @@ public abstract class ParamAssertions {
                 if (!contains) {
                     if (!expectedValues.isEmpty()) {
                         CustomLogger.customLogger(Level.WARNING, row.getFl3prm() + " " + rowMap + " (fl1ppr = " + row.getFl1ppr() + ") is incorrect, should be in: " + expectedValues);
+                        warningsList.add(row.getFl3prm());
                     } else {
                         CustomLogger.customLogger(Level.WARNING, row.getFl3prm() + " " + rowMap + " (fl1ppr = " + row.getFl1ppr() + ") is incorrect, should be empty");
+                        warningsList.add(row.getFl3prm());
                     }
                 } else {
                     contains = false;
@@ -71,7 +74,7 @@ public abstract class ParamAssertions {
     }
 
 
-    public static void paramAssertion(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> expectedAttr) {
+    public static void paramAssertion(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> expectedAttr,List<String> warningsList) {
         //кусочек с проверкой на нули
         Collection<String> params = expectedDataModel.getParamsPIPC().keySet();
         boolean contains = false;
@@ -87,6 +90,7 @@ public abstract class ParamAssertions {
             }
             if (!contains) {
                 CustomLogger.customLogger(Level.WARNING, param + " is empty, should be: " + expectedDataModel.getParamsPIPC().get(param));
+                warningsList.add(param);
             } else {
                 contains = false;
             }
@@ -103,6 +107,7 @@ public abstract class ParamAssertions {
                         {
                             if (!value.equals(fl4val)) {
                                 CustomLogger.customLogger(Level.WARNING, fl3prm + " " + fl4val + " is incorrect(fl1ppr = " + row.getFl1ppr() + "), should be: " + value);
+                                warningsList.add(fl3prm);
                             } else if (POSITIVE_ASSERT_LOGS) {
                                 CustomLogger.customLogger(Level.INFO, fl3prm + " " + fl4val + " (fl1ppr = " + row.getFl1ppr() + ") is correct");
                             }
@@ -111,6 +116,7 @@ public abstract class ParamAssertions {
                         if (!fl4val.isEmpty()) {
                             if (!fl4val.equals("N")) {
                                 CustomLogger.customLogger(Level.WARNING, fl3prm + " " + fl4val + " is incorrect(fl1ppr = " + row.getFl1ppr() + "), should be empty ");
+                                warningsList.add(fl3prm);
                             } else if (POSITIVE_ASSERT_LOGS) {
                                 CustomLogger.customLogger(Level.INFO, fl3prm + " " + fl4val + " (fl1ppr = " + row.getFl1ppr() + ") could be empty, but value is correct");
                             }
@@ -122,7 +128,7 @@ public abstract class ParamAssertions {
     }
 
 
-    public static void productAssertion(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel) {
+    public static void productAssertion(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> warningsList) {
         for (ResultSetRow row : resultSetRowList) {
             {
                 String fl3prm = row.getFl3prm();
@@ -132,6 +138,7 @@ public abstract class ParamAssertions {
                 if (fl3prm.equals("PCC0001001")) {
                     if (!value.equals(fl4val)) {
                         CustomLogger.customLogger(Level.WARNING, fl3prm + " " + fl4val + " (fl1ppr = " + row.getFl1ppr() + ") is incorrect, should be: " + value);
+                        warningsList.add(fl3prm);
                     } else if (POSITIVE_ASSERT_LOGS) {CustomLogger.customLogger(Level.INFO, fl3prm + " " + fl4val + " is correct");}
                 }
             }
@@ -139,7 +146,7 @@ public abstract class ParamAssertions {
         }
     }
 
-    public static void cardNameAssertion(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel) {
+    public static void cardNameAssertion(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel,List<String> warningsList) {
         ResultSetRow row = resultSetRowList.get(0);
         String fl5dsc = row.getFl5dsc();
         //cardName assertion
@@ -150,6 +157,7 @@ public abstract class ParamAssertions {
             }
         } else {
             CustomLogger.customLogger(Level.WARNING, "fl5dsc " + fl5dsc + " (fl1ppr = " + row.getFl1ppr() + ") is incorrect, should be: " + value);
+            warningsList.add("fl5dsc");
         }
     }
 

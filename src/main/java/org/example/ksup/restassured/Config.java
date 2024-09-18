@@ -44,7 +44,7 @@ public class Config {
             CHANNEL_LIST = prop.getProperty("channel.list");
             CARD_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("card.list.is.limited"));
             CARD_LIST = prop.getProperty("card.list");
-            PACKAGE_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("package.list.is.limited"));
+            PACKAGE_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("PCC0000605"));
             PACKAGE_LIST = prop.getProperty("package.list");
 
         } finally {

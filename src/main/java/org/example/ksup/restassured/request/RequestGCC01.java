@@ -15,7 +15,7 @@ import java.util.logging.Level;
 
 public class RequestGCC01 {
     public static List<ResultSetRow> requestGCC01(RequestModel requestModel) throws JAXBException {
-        return Request.request(null, requestModel, setAttrList(), false,"W");
+        return Request.request(null, requestModel, setAttrList(), false, "W");
     }
 
     public static List<String> setAttrList() {
@@ -56,7 +56,8 @@ public class RequestGCC01 {
 
         return attrList;
     }
-    public static List<String> setAssertList(){
+
+    public static List<String> setAssertList() {
         List<String> attrList = new ArrayList<>();
         attrList.add("PIPC000002");
         attrList.add("PIPC000004");
@@ -69,16 +70,20 @@ public class RequestGCC01 {
 
         return attrList;
     }
-    public static boolean execution(RequestModel request, ExpectedDataModel expectedDataModel) throws JAXBException {
+
+    public static boolean execution(RequestModel request, ExpectedDataModel expectedDataModel, List<String> warningsList) throws JAXBException {
         CustomLogger.customLogger(Level.INFO, "GCC01 request assertion:");
         request.setFl1grp("GCC01"); // price group
+        request.setFl1pro(expectedDataModel.getFl1pro());
         List<ResultSetRow> result = requestGCC01(request);
-        boolean nextStep = AccessibilityAssertions.accessibilityAssertions(result, expectedDataModel); //if PIPC000801 == Y |=> nextStep = true
+        boolean nextStep = AccessibilityAssertions.accessibilityAssertions(result, expectedDataModel, warningsList); //if PIPC000801 == Y |=> nextStep = true
         if (nextStep && ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
-            ParamAssertions.cardNameAssertion(result, expectedDataModel); // cardName assertion
-            ParamAssertions.paramAssertion(result, expectedDataModel, RequestGCC01.setAssertList()); // assertion for simple params
+            ParamAssertions.cardNameAssertion(result, expectedDataModel, warningsList); // cardName assertion
+            ParamAssertions.paramAssertion(result, expectedDataModel, RequestGCC01.setAssertList(), warningsList); // assertion for simple params
         }
         request.setFl1grp(null);
+        request.setFl1pro(null);
+        request.setFl8pck(expectedDataModel.getFl8pck());
         return nextStep;
     }
 }

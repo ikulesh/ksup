@@ -14,7 +14,7 @@ import java.util.logging.Level;
 
 public class RequestGrace4th {
     public static List<ResultSetRow> requestGRCOther(RequestModel requestModel) throws JAXBException {
-        return Request.request("GRC", requestModel, setAttrList(), false,"8");
+        return Request.request("GRC", requestModel, setAttrList(), false, "8");
     }
 
     public static List<String> setAttrList() {
@@ -55,6 +55,7 @@ public class RequestGrace4th {
 
         return attrList;
     }
+
     public static List<String> setAssertList() {
         List<String> attrList = new ArrayList<>();
         //Request 4
@@ -91,12 +92,13 @@ public class RequestGrace4th {
 
         return attrList;
     }
-    public static void execution(RequestModel request, ExpectedDataModel expectedDataModel) throws JAXBException {
+
+    public static void execution(RequestModel request, ExpectedDataModel expectedDataModel, List<String> warningsList) throws JAXBException {
         List<ResultSetRow> result = RequestGrace4th.requestGRCOther(request);
         CustomLogger.customLogger(Level.INFO, "GRC 4th request assertion:");
         if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
-            ParamAssertions.attrAssertions(result, expectedDataModel, RequestGrace4th.setAssertList());
-            ParamAssertions.paramAssertion(result, expectedDataModel, RequestGrace4th.setAssertList());
+            ParamAssertions.attrAssertions(result, expectedDataModel, RequestGrace4th.setAssertList(),warningsList);
+            ParamAssertions.paramAssertion(result, expectedDataModel, RequestGrace4th.setAssertList(),warningsList);
         }
         //сетим ценовую группу в ожидаемую модель данных
         SetPriceGrp.setPriceGrp(result, expectedDataModel);

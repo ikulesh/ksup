@@ -16,7 +16,7 @@ import static org.example.ksup.restassured.Config.CCBI_IS_NEED;
 
 public class RequestCCBI3rd {
     public static List<ResultSetRow> requestCCBI(RequestModel requestModel) throws JAXBException {
-        return Request.request("CCBI", requestModel, setAttrList(), false,"W");
+        return Request.request("CCBI", requestModel, setAttrList(), false, "W");
     }
 
     public static List<String> setAttrList() {
@@ -42,7 +42,8 @@ public class RequestCCBI3rd {
 
         return attrList;
     }
-    public static List<String> setAssertList(){
+
+    public static List<String> setAssertList() {
         List<String> attrList = new ArrayList<>();
         //Request #3
         //attrList.add("PAPPTYPE");
@@ -52,13 +53,13 @@ public class RequestCCBI3rd {
         return attrList;
     }
 
-    public static void execution(RequestModel request, ExpectedDataModel expectedDataModel) throws JAXBException {
+    public static void execution(RequestModel request, ExpectedDataModel expectedDataModel, List<String> warningsList) throws JAXBException {
         if (CCBI_IS_NEED) {
-            List <ResultSetRow> result = RequestCCBI3rd.requestCCBI(request);
+            List<ResultSetRow> result = RequestCCBI3rd.requestCCBI(request);
             CustomLogger.customLogger(Level.INFO, "CCBI 3rd request assertion:");
             if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
                 //AttrAssertions.attrAssertions(result, expectedDataModel, RequestCCBI3rd.setAssertList());
-                ParamAssertions.paramAssertion(result, expectedDataModel, RequestCCBI3rd.setAssertList());
+                ParamAssertions.paramAssertion(result, expectedDataModel, RequestCCBI3rd.setAssertList(), warningsList);
             }
         }
     }

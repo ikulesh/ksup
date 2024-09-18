@@ -11,7 +11,7 @@ import static org.example.ksup.restassured.Config.POSITIVE_ASSERT_LOGS;
 
 
 public abstract class AccessibilityAssertions {
-    public static boolean accessibilityAssertions(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel) {
+    public static boolean accessibilityAssertions(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> warningsList) {
         String expectedAccessibility = expectedDataModel.getParamsPIPC().get("PIPC000801");
         String accessible = "N";
 
@@ -34,6 +34,7 @@ public abstract class AccessibilityAssertions {
 
         if (!expectedAccessibility.equals(accessible)) {
             CustomLogger.customLogger(Level.WARNING, "Wrong accessibility: PIPC000801 equals " + accessible + ", but should be " + expectedAccessibility);
+            warningsList.add("PIPC000801");
         } else if (POSITIVE_ASSERT_LOGS) {
             CustomLogger.customLogger(Level.INFO, "Correct accessibility");
         }

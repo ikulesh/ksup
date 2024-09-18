@@ -93,12 +93,12 @@ public class RequestIPC1st {
         return attrList;
     }
 
-    public static void execution(RequestModel request, ExpectedDataModel expectedDataModel) throws JAXBException {
+    public static void execution(RequestModel request, ExpectedDataModel expectedDataModel, List<String> warningsList) throws JAXBException {
         //отправляем запрос для проверки основных параметров для первой карты
-        List <ResultSetRow>result = requestForDifGCC(request, false);
+        List<ResultSetRow> result = requestForDifGCC(request, false);
         CustomLogger.customLogger(Level.INFO, "IPC request (isSecondCard = false) assertion:");
         if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
-            ParamAssertions.paramAssertion(result, expectedDataModel, RequestIPC1st.setAssertList(false));
+            ParamAssertions.paramAssertion(result, expectedDataModel, RequestIPC1st.setAssertList(false), warningsList);
         }
 
         //отправляем запрос для проверки альтернативных параметров для второй карты
@@ -106,7 +106,7 @@ public class RequestIPC1st {
             result = RequestIPC1st.requestForDifGCC(request, true);
             CustomLogger.customLogger(Level.INFO, "IPC request (isSecondCard = true) assertion:");
             if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
-                ParamAssertions.paramAssertion(result, expectedDataModel, RequestIPC1st.setAssertList(true));
+                ParamAssertions.paramAssertion(result, expectedDataModel, RequestIPC1st.setAssertList(true), warningsList);
             }
         }
     }

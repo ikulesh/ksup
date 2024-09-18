@@ -2,6 +2,7 @@ package org.example.ksup.restassured.tests;
 
 import org.example.ksup.restassured.Config;
 import org.example.ksup.restassured.log.CustomLogger;
+import org.example.ksup.restassured.pojo.ExcelColorChanger;
 import org.example.ksup.restassured.pojo.RequestModel;
 import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 import org.example.ksup.restassured.request.*;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -24,6 +26,7 @@ public class EachCatClientTest {
 
         for (ExpectedDataModel expectedDataModel : expectedDataModelList) {
             request.initializer(expectedDataModel);
+            List<String> warningsList = new ArrayList<>();
             //перебираем сначала каналы
             for (String channel : expectedDataModel.getChancd()) {
                 request.setChancd(channel);
@@ -49,7 +52,7 @@ public class EachCatClientTest {
                                 + riskLevel + " " + EXT_SYS_CODE + ":");
 
                         //вызов GCC01
-                        boolean nextStep = RequestGCC01.execution(request, expectedDataModel);
+                        boolean nextStep = RequestGCC01.execution(request, expectedDataModel, warningsList);
 
                         if (nextStep) {
                             //сетим уровень риска и AppID
@@ -57,20 +60,20 @@ public class EachCatClientTest {
                             request.setApplicationID(APP_ID);
 
                             //request for getting main PCC params with alternative
-                            RequestGraceLGP.execution(request, expectedDataModel);
+                            RequestGraceLGP.execution(request, expectedDataModel, warningsList);
 
                             //request for other PCC params
-                            RequestGrace4th.execution(request, expectedDataModel);
+                            RequestGrace4th.execution(request, expectedDataModel, warningsList);
 
                             //WOW! Assert for one param PCC0000605
-                            RequestCCBI3rd.execution(request,expectedDataModel);
+                            RequestCCBI3rd.execution(request, expectedDataModel, warningsList);
 
                             //сетим код карты и ценовую группу
                             request.setFl1pro(expectedDataModel.getFl1pro());
                             request.setFl1grp(expectedDataModel.getFl1grp());
 
                             //request IPC
-                            RequestIPC1st.execution(request,expectedDataModel);
+                            RequestIPC1st.execution(request, expectedDataModel, warningsList);
 
                             //reset params
                             request.setApplicationID(null);
@@ -79,6 +82,7 @@ public class EachCatClientTest {
                         }
                     }
                 }
+                ExcelColorChanger.colorChange(expectedDataModel,warningsList);
             }
         }
     }

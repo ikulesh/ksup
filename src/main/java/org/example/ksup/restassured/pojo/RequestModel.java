@@ -25,7 +25,7 @@ public class RequestModel {
     public void initializer(ExpectedDataModel expectedDataModel) {
         setExtSysCode(EXT_SYS_CODE);
         setConstantID(CONSTANT_ID);
-        setFl8pck(expectedDataModel.getFl8pck());
+        //setFl8pck(expectedDataModel.getFl8pck());
         setRegcd(expectedDataModel.getRegcd());
         setCurrency(expectedDataModel.getParamsPIPC().get("PIPC000004"));
         setPipc000812(expectedDataModel.getParamsPIPC().get("PIPC000812"));
