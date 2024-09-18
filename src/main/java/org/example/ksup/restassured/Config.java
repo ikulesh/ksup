@@ -27,25 +27,25 @@ public class Config {
         FileInputStream input = null;
 
         try {
-            input = new FileInputStream("src/main/java/org/example/ksup/restassured/properties.properties");
+            input = new FileInputStream("src/main/java/org/example/properties.properties");
             prop.load(input);
 
             // Assign the values from the properties file
-            EXCEL_FILE_PATH = prop.getProperty("EXCEL_FILE_PATH");
-            EXT_SYS_CODE = prop.getProperty("EXT_SYS_CODE");
-            CONSTANT_ID = prop.getProperty("CONSTANT_ID");
-            APP_ID = prop.getProperty("APP_ID");
-            PCC0000605 = prop.getProperty("PCC0000605");
-            IS_SECOND_CARD = Boolean.parseBoolean(prop.getProperty("IS_SECOND_CARD"));
-            ONLY_AVAILABLE_CARDS = Boolean.parseBoolean(prop.getProperty("ONLY_AVAILABLE_CARDS"));
-            POSITIVE_ASSERT_LOGS = Boolean.parseBoolean(prop.getProperty("POSITIVE_ASSERT_LOGS"));
-            CHANNEL_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("CHANNEL_LIST_IS_LIMITED"));
-            CCBI_IS_NEED = Boolean.parseBoolean(prop.getProperty("CCBI_IS_NEED"));
-            CHANNEL_LIST = prop.getProperty("CHANNEL_LIST");
-            CARD_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("CARD_LIST_IS_LIMITED"));
-            CARD_LIST = prop.getProperty("CARD_LIST");
-            PACKAGE_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("PACKAGE_LIST_IS_LIMITED"));
-            PACKAGE_LIST = prop.getProperty("PACKAGE_LIST");
+            EXCEL_FILE_PATH = prop.getProperty("excel.file.path");
+            EXT_SYS_CODE = prop.getProperty("external.system.code");
+            CONSTANT_ID = prop.getProperty("constant.id");
+            APP_ID = prop.getProperty("application.id");
+            PCC0000605 = prop.getProperty("global.minimal.limit");
+            IS_SECOND_CARD = Boolean.parseBoolean(prop.getProperty("is.second.card"));
+            ONLY_AVAILABLE_CARDS = Boolean.parseBoolean(prop.getProperty("only.available.cards"));
+            POSITIVE_ASSERT_LOGS = Boolean.parseBoolean(prop.getProperty("positive.assert.logs"));
+            CHANNEL_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("channel.list.is.limited"));
+            CCBI_IS_NEED = Boolean.parseBoolean(prop.getProperty("ccbi.is.necessary"));
+            CHANNEL_LIST = prop.getProperty("channel.list");
+            CARD_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("card.list.is.limited"));
+            CARD_LIST = prop.getProperty("card.list");
+            PACKAGE_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("package.list.is.limited"));
+            PACKAGE_LIST = prop.getProperty("package.list");
 
         } finally {
             if (input != null) {

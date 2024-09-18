@@ -30,7 +30,7 @@ public class RequestCCBI3rd {
         attrList.add("PCC0001139");
         attrList.add("PCC0001057");
         attrList.add("PCC0001049");
-        attrList.add("PCC0000605");
+        attrList.add("global.minimal.limit");
         attrList.add("PBI0000001");
         attrList.add("PCC0001066");
         attrList.add("PCC0001024");
@@ -46,7 +46,7 @@ public class RequestCCBI3rd {
         List<String> attrList = new ArrayList<>();
         //Request #3
         //attrList.add("PAPPTYPE");
-        attrList.add("PCC0000605");
+        attrList.add("global.minimal.limit");
 
 
         return attrList;

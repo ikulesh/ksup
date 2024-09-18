@@ -50,7 +50,7 @@ public class recordSetRow {
             this.val = riskLevel;
             this.valcond = 1;
             this.prmmod = 2;
-        } else if ("PCC0000605".equals(prm)) {
+        } else if ("global.minimal.limit".equals(prm)) {
             this.val = PCC0000605;
             this.valcond = 6;
             this.prmmod = 2;
