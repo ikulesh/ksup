@@ -3,8 +3,9 @@ package org.example.ksup.restassured.pojo;
 import lombok.Data;
 import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 
-import static org.example.ksup.restassured.Properties.CONSTANT_ID;
-import static org.example.ksup.restassured.Properties.EXT_SYS_CODE;
+import static org.example.ksup.restassured.Config.CONSTANT_ID;
+import static org.example.ksup.restassured.Config.EXT_SYS_CODE;
+
 
 @Data
 public class RequestModel {

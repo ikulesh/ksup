@@ -1,5 +1,6 @@
 package org.example.ksup.restassured.tests;
 
+import org.example.ksup.restassured.Config;
 import org.example.ksup.restassured.log.CustomLogger;
 import org.example.ksup.restassured.pojo.RequestModel;
 import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
@@ -7,15 +8,17 @@ import org.example.ksup.restassured.request.*;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 
-import static org.example.ksup.restassured.Properties.*;
+import static org.example.ksup.restassured.Config.*;
 import static org.example.ksup.restassured.pojo.ExcelToRequestModelList.readExcelFile;
 
 public class EachCatClientTest {
     @Test
-    public void eachCatClientTest() throws JAXBException {
+    public void eachCatClientTest() throws JAXBException, IOException {
+        Config.loadProperties();
         List<ExpectedDataModel> expectedDataModelList = readExcelFile(EXCEL_FILE_PATH);
         RequestModel request = new RequestModel();
 
@@ -41,7 +44,9 @@ public class EachCatClientTest {
                     for (String riskLevel : expectedDataModel.getRiskLevelRpp()) {
                         CustomLogger.customLogger(Level.INFO, "");
                         CustomLogger.customLogger(Level.INFO, "");
-                        CustomLogger.customLogger(Level.INFO, "Assertions for " + expectedDataModel.getFl8pck() + " " + channel + " " + expectedDataModel.getFl1proCat() + " " + clientWithCat + " " + expectedDataModel.getFl1pro() + " " + riskLevel + " " + EXT_SYS_CODE + ":");
+                        CustomLogger.customLogger(Level.INFO, "Assertions for " + expectedDataModel.getFl8pck() + " " + channel + " "
+                                + expectedDataModel.getFl1proCat() + " " + clientWithCat + " " + expectedDataModel.getFl1pro() + " "
+                                + riskLevel + " " + EXT_SYS_CODE + ":");
 
                         //вызов GCC01
                         boolean nextStep = RequestGCC01.execution(request, expectedDataModel);

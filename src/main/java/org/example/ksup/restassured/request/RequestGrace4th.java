@@ -89,7 +89,6 @@ public class RequestGrace4th {
         attrList.add("PCC0002123");
         attrList.add("PCC0002141");
 
-
         return attrList;
     }
     public static void execution(RequestModel request, ExpectedDataModel expectedDataModel) throws JAXBException {
@@ -99,8 +98,6 @@ public class RequestGrace4th {
             ParamAssertions.attrAssertions(result, expectedDataModel, RequestGrace4th.setAssertList());
             ParamAssertions.paramAssertion(result, expectedDataModel, RequestGrace4th.setAssertList());
         }
-        //сетим ценовую группу
-        SetPriceGrp.setPriceGrp(result, expectedDataModel);
         //сетим ценовую группу в ожидаемую модель данных
         SetPriceGrp.setPriceGrp(result, expectedDataModel);
     }

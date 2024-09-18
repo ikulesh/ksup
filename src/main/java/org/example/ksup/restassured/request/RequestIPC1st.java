@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
-import static org.example.ksup.restassured.Properties.IS_SECOND_CARD;
+import static org.example.ksup.restassured.Config.IS_SECOND_CARD;
 
 public class RequestIPC1st {
     public static List<ResultSetRow> requestForDifGCC(RequestModel requestModel, boolean isSecondCard) throws JAXBException {

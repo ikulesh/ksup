@@ -5,7 +5,8 @@ import org.example.ksup.restassured.pojo.RequestModel;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import static org.example.ksup.restassured.Properties.PCC0000605;
+import static org.example.ksup.restassured.Config.PCC0000605;
+
 
 @XmlRootElement
 public class recordSetRow {

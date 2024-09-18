@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
-import static org.example.ksup.restassured.Properties.CCBI_IS_NEED;
+import static org.example.ksup.restassured.Config.CCBI_IS_NEED;
 
 
 public class RequestCCBI3rd {

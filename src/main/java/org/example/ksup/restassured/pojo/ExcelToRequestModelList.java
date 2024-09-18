@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.example.ksup.restassured.Properties.*;
+import static org.example.ksup.restassured.Config.*;
 
 public class ExcelToRequestModelList {
 

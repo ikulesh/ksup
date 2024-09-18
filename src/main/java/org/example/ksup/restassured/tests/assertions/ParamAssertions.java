@@ -9,7 +9,7 @@ import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
 import java.util.*;
 import java.util.logging.Level;
 
-import static org.example.ksup.restassured.Properties.POSITIVE_ASSERT_LOGS;
+import static org.example.ksup.restassured.Config.POSITIVE_ASSERT_LOGS;
 
 
 public abstract class ParamAssertions {
