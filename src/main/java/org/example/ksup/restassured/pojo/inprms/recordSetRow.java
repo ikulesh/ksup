@@ -5,8 +5,6 @@ import org.example.ksup.restassured.pojo.RequestModel;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import static org.example.ksup.restassured.Config.PCC0000605;
-
 
 @XmlRootElement
 public class recordSetRow {
@@ -50,8 +48,8 @@ public class recordSetRow {
             this.val = riskLevel;
             this.valcond = 1;
             this.prmmod = 2;
-        } else if ("global.minimal.limit".equals(prm)) {
-            this.val = PCC0000605;
+        } else if ("PCC0000605".equals(prm)) {
+            this.val = requestModel.getPcc0000605();
             this.valcond = 6;
             this.prmmod = 2;
         } else {

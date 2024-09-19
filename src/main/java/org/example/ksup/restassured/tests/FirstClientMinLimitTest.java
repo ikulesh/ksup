@@ -69,7 +69,7 @@ public class FirstClientMinLimitTest {
                     }
                 }
             }
-            ExcelColorChanger.colorChange(expectedDataModel, warningsList);
+            //ExcelColorChanger.colorChange(expectedDataModel, warningsList);
         }
     }
 }

@@ -1,5 +1,6 @@
 package org.example.ksup.restassured.pojo;
 
+import org.apache.poi.openxml4j.util.ZipSecureFile;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.example.ksup.restassured.Config;
@@ -18,6 +19,7 @@ public class ExcelToRequestModelList {
     //testing of method
     public static void main(String[] args) throws IOException {
         Config.loadProperties();
+        ZipSecureFile.setMinInflateRatio(0.0001); // Set to a lower ratio, if needed
         List<ExpectedDataModel> expectedDataModels = readExcelFile(EXCEL_FILE_PATH);
         int sumOfReq = 0;
 

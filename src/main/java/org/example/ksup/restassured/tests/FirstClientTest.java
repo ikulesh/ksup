@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -25,9 +26,10 @@ public class FirstClientTest {
         ZipSecureFile.setMinInflateRatio(0.0001); // Set to a lower ratio, if needed
         RequestModel request = new RequestModel();
         List<ExpectedDataModel> expectedDataModelList = readExcelFile(EXCEL_FILE_PATH);
+        HashMap<Integer, List<String>> warningsListMap = new HashMap<>();
+        List<String> warningsList = new ArrayList<>();
 
         for (ExpectedDataModel expectedDataModel : expectedDataModelList) {
-            List<String> warningsList = new ArrayList<>();
             //инициализация общей части запроса
             request.initializer(expectedDataModel);
             //перебираем сначала каналы
@@ -80,15 +82,14 @@ public class FirstClientTest {
 
                         //request IPC
                         RequestIPC1st.execution(request, expectedDataModel, warningsList);
-
                         //reset params
-                        request.setApplicationID(null);
-                        request.setFl1pro(null);
-                        request.setFl1grp(null);
+                        request.reset();
                     }
                 }
             }
-            ExcelColorChanger.colorChange(expectedDataModel, warningsList);
+            warningsListMap.put(expectedDataModel.getIndex(), new ArrayList<>(warningsList));
+            warningsList.clear();
         }
+        ExcelColorChanger.colorChange(warningsListMap);
     }
 }

@@ -35,8 +35,10 @@ public abstract class AccessibilityAssertions {
         if (!expectedAccessibility.equals(accessible)) {
             CustomLogger.customLogger(Level.WARNING, "Wrong accessibility: PIPC000801 equals " + accessible + ", but should be " + expectedAccessibility);
             warningsList.add("PIPC000801");
+        } else if (accessible.equals("N")) {
+            CustomLogger.customLogger(Level.INFO, "Correct accessibility: package is closed");
         } else if (POSITIVE_ASSERT_LOGS) {
-            CustomLogger.customLogger(Level.INFO, "Correct accessibility");
+            CustomLogger.customLogger(Level.INFO, "Correct accessibility: package available");
         }
 
         return nextStep;

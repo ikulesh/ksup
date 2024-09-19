@@ -82,7 +82,7 @@ public class EachCatClientTest {
                         }
                     }
                 }
-                ExcelColorChanger.colorChange(expectedDataModel,warningsList);
+                //ExcelColorChanger.colorChange(expectedDataModel,warningsList);
             }
         }
     }

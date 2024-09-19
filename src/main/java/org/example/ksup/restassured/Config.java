@@ -35,7 +35,6 @@ public class Config {
             EXT_SYS_CODE = prop.getProperty("external.system.code");
             CONSTANT_ID = prop.getProperty("constant.id");
             APP_ID = prop.getProperty("application.id");
-            PCC0000605 = prop.getProperty("global.minimal.limit");
             IS_SECOND_CARD = Boolean.parseBoolean(prop.getProperty("is.second.card"));
             ONLY_AVAILABLE_CARDS = Boolean.parseBoolean(prop.getProperty("only.available.cards"));
             POSITIVE_ASSERT_LOGS = Boolean.parseBoolean(prop.getProperty("positive.assert.logs"));
@@ -44,7 +43,7 @@ public class Config {
             CHANNEL_LIST = prop.getProperty("channel.list");
             CARD_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("card.list.is.limited"));
             CARD_LIST = prop.getProperty("card.list");
-            PACKAGE_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("PCC0000605"));
+            PACKAGE_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("package.list.is.limited"));
             PACKAGE_LIST = prop.getProperty("package.list");
 
         } finally {

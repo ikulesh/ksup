@@ -21,6 +21,7 @@ public class RequestModel {
     private String riskLevel;
     private String currency;
     private String pipc000812;
+    private String pcc0000605;
 
     public void initializer(ExpectedDataModel expectedDataModel) {
         setExtSysCode(EXT_SYS_CODE);
@@ -29,5 +30,12 @@ public class RequestModel {
         setRegcd(expectedDataModel.getRegcd());
         setCurrency(expectedDataModel.getParamsPIPC().get("PIPC000004"));
         setPipc000812(expectedDataModel.getParamsPIPC().get("PIPC000812"));
+
+    }
+    public void reset(){
+        //reset params
+        setApplicationID(null);
+        setFl1pro(null);
+        setFl1grp(null);
     }
 }

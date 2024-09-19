@@ -22,7 +22,6 @@ public class RequestCCBI3rd {
     public static List<String> setAttrList() {
         List<String> attrList = new ArrayList<>();
         //Request #3
-        //attrList.add("PAPPTYPE");
         attrList.add("PCC0001038");
         attrList.add("PCC0001034");
         attrList.add("PCC0001033");
@@ -30,7 +29,7 @@ public class RequestCCBI3rd {
         attrList.add("PCC0001139");
         attrList.add("PCC0001057");
         attrList.add("PCC0001049");
-        attrList.add("global.minimal.limit");
+        attrList.add("PCC0000605");
         attrList.add("PBI0000001");
         attrList.add("PCC0001066");
         attrList.add("PCC0001024");
@@ -39,26 +38,25 @@ public class RequestCCBI3rd {
         attrList.add("PCC0001151");
         attrList.add("PCC0002053");
 
-
         return attrList;
     }
 
     public static List<String> setAssertList() {
         List<String> attrList = new ArrayList<>();
         //Request #3
-        //attrList.add("PAPPTYPE");
-        attrList.add("global.minimal.limit");
-
-
+        attrList.add("PCC0000605");
         return attrList;
     }
 
     public static void execution(RequestModel request, ExpectedDataModel expectedDataModel, List<String> warningsList) throws JAXBException {
         if (CCBI_IS_NEED) {
+            request.setPcc0000605(expectedDataModel.getParamsPIPC().get("PIPC000602"));
+            if (request.getPcc0000605() == null || request.getPcc0000605().isEmpty()) {
+                request.setPcc0000605(expectedDataModel.getParamsPIPC().get("PIPC000601"));
+            }
             List<ResultSetRow> result = RequestCCBI3rd.requestCCBI(request);
             CustomLogger.customLogger(Level.INFO, "CCBI 3rd request assertion:");
             if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
-                //AttrAssertions.attrAssertions(result, expectedDataModel, RequestCCBI3rd.setAssertList());
                 ParamAssertions.paramAssertion(result, expectedDataModel, RequestCCBI3rd.setAssertList(), warningsList);
             }
         }
