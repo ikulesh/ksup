@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.logging.Level;
 
+import static org.example.ksup.restassured.Config.EXT_SYS_CODE;
+
 public class CustomLogger {
     public static void customLogger(Level logLevel, String logMessage) {
 
         // The path to the log file
-        String logFilePath = "/Users/admin2/Desktop/RPP/logfile_" + LocalDate.now() + ".txt";
+        String logFilePath = "/Users/admin2/Desktop/RPP/logfile_" + LocalDate.now() + "_" + EXT_SYS_CODE.substring(4) + ".txt";
 
         // Write the string to the log file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFilePath, true))) {

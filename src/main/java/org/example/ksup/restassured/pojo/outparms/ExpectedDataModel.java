@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.example.ksup.restassured.Config.*;
+import static org.example.ksup.restassured.Config.CHANNEL_LIST;
+
 @Data
 public class ExpectedDataModel {
     private String fl8pck;
@@ -22,7 +25,7 @@ public class ExpectedDataModel {
 
     private List<String> fllpfl;
     private List<String> flkval;
-    private Map<String,String> paramsPIPC;
+    private Map<String, String> paramsPIPC;
     private int index;
 
     @Data
@@ -212,7 +215,7 @@ public class ExpectedDataModel {
         thirdCatClient.add("PRLNW3CATO");
         thirdCatClient.add("TDRPRFCAT");
         thirdCatClient.add("TDRPRFCATO");
-        if(thirdCatClient.contains(client)){
+        if (thirdCatClient.contains(client)) {
             return "03";
         }
 
@@ -225,7 +228,7 @@ public class ExpectedDataModel {
         fourthCatClient.add("PRLNW4CATO");
         fourthCatClient.add("TDRPRMCAT");
         fourthCatClient.add("TDRPRMCATO");
-        if(fourthCatClient.contains(client)){
+        if (fourthCatClient.contains(client)) {
             return "04";
         }
 
@@ -234,19 +237,19 @@ public class ExpectedDataModel {
         fifthCatClient.add("STAFFCATO");
         fifthCatClient.add("STAFFALFA");
         fifthCatClient.add("STAFFALFAO");
-        if (fifthCatClient.contains(client)){
+        if (fifthCatClient.contains(client)) {
             return "05";
         }
 
         List<String> sixthCatClient = new ArrayList<>();
         sixthCatClient.add("APRVTCATO");
-        if(sixthCatClient.contains(client)){
+        if (sixthCatClient.contains(client)) {
             return "06";
         }
 
         List<String> seventhCatClient = new ArrayList<>();
         seventhCatClient.add("PRMCONCATO");
-        if(seventhCatClient.contains(client)){
+        if (seventhCatClient.contains(client)) {
             return "07";
         }
         return null;
@@ -264,19 +267,32 @@ public class ExpectedDataModel {
         AttrMap nextAttr = new AttrMap(key, value);
         attrList.add(nextAttr);
     }
+
     public void addFlkval(String flkvalFull) {
         String[] elements = flkvalFull.split(",");
         for (String element : elements) {
             flkval.add(element.trim());
         }
     }
-    public void addParamPIPC(String key,String value){
-        if(paramsPIPC == null){
+
+    public void addParamPIPC(String key, String value) {
+        if (paramsPIPC == null) {
             setParamsPIPC(new HashMap<>());
         }
         if (key.contains("G")) {
             key = key.replace("G", "");
         }
         paramsPIPC.put(key, value);
+    }
+
+    public boolean needToTest(String channel) {
+        boolean necessity = true;
+        if (CARD_LIST_IS_LIMITED && !CARD_LIST.contains(getFl1pro())) {
+            necessity = false;
+        }
+        if (CHANNEL_LIST_IS_LIMITED && !CHANNEL_LIST.contains(channel)) {
+            necessity = false;
+        }
+        return necessity;
     }
 }

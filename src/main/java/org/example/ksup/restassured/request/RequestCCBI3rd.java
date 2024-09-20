@@ -50,14 +50,19 @@ public class RequestCCBI3rd {
 
     public static void execution(RequestModel request, ExpectedDataModel expectedDataModel, List<String> warningsList) throws JAXBException {
         if (CCBI_IS_NEED) {
+            CustomLogger.customLogger(Level.INFO, "CCBI 3rd request assertion:");
             request.setPcc0000605(expectedDataModel.getParamsPIPC().get("PIPC000602"));
             if (request.getPcc0000605() == null || request.getPcc0000605().isEmpty()) {
                 request.setPcc0000605(expectedDataModel.getParamsPIPC().get("PIPC000601"));
             }
-            List<ResultSetRow> result = RequestCCBI3rd.requestCCBI(request);
-            CustomLogger.customLogger(Level.INFO, "CCBI 3rd request assertion:");
-            if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
-                ParamAssertions.paramAssertion(result, expectedDataModel, RequestCCBI3rd.setAssertList(), warningsList);
+            if ((request.getPcc0000605() == null || request.getPcc0000605().isEmpty())) {
+                CustomLogger.customLogger(Level.WARNING, "Empty parameter PCC0000605, check your excel file (string number = "
+                        + expectedDataModel.getIndex() + 1 + ", parameters PIPC000601 and PIPC000602)");
+            } else {
+                List<ResultSetRow> result = RequestCCBI3rd.requestCCBI(request);
+                if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
+                    ParamAssertions.paramAssertion(result, expectedDataModel, RequestCCBI3rd.setAssertList(), warningsList);
+                }
             }
         }
     }

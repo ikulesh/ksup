@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -23,12 +24,16 @@ public class EachCatClientTest {
         Config.loadProperties();
         List<ExpectedDataModel> expectedDataModelList = readExcelFile(EXCEL_FILE_PATH);
         RequestModel request = new RequestModel();
+        HashMap<Integer, List<String>> warningsListMap = new HashMap<>();
+        List<String> warningsList = new ArrayList<>();
 
         for (ExpectedDataModel expectedDataModel : expectedDataModelList) {
             request.initializer(expectedDataModel);
-            List<String> warningsList = new ArrayList<>();
             //перебираем сначала каналы
             for (String channel : expectedDataModel.getChancd()) {
+                if (!expectedDataModel.needToTest(channel)) {
+                    continue;
+                }
                 request.setChancd(channel);
                 //для каждого канала перебираем клиентов
                 for (String catClient : expectedDataModel.getFlkval()) {
@@ -82,8 +87,10 @@ public class EachCatClientTest {
                         }
                     }
                 }
-                //ExcelColorChanger.colorChange(expectedDataModel,warningsList);
             }
+            warningsListMap.put(expectedDataModel.getIndex(), new ArrayList<>(warningsList));
+            warningsList.clear();
         }
+        ExcelColorChanger.colorChange(warningsListMap);
     }
 }

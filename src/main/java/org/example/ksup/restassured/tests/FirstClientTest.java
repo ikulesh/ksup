@@ -1,6 +1,5 @@
 package org.example.ksup.restassured.tests;
 
-import org.apache.poi.openxml4j.util.ZipSecureFile;
 import org.example.ksup.restassured.Config;
 import org.example.ksup.restassured.log.CustomLogger;
 import org.example.ksup.restassured.pojo.ExcelColorChanger;
@@ -23,7 +22,6 @@ public class FirstClientTest {
     @Test
     public void firstClientTest() throws JAXBException, IOException {
         Config.loadProperties();
-        ZipSecureFile.setMinInflateRatio(0.0001); // Set to a lower ratio, if needed
         RequestModel request = new RequestModel();
         List<ExpectedDataModel> expectedDataModelList = readExcelFile(EXCEL_FILE_PATH);
         HashMap<Integer, List<String>> warningsListMap = new HashMap<>();
@@ -37,15 +35,8 @@ public class FirstClientTest {
             String channel = expectedDataModel.getChancd().get(0);
             {
                 //ограничены ли проверки наборами каналов и карт
-                if (CARD_LIST_IS_LIMITED) {
-                    if (!CARD_LIST.contains(expectedDataModel.getFl1pro())) {
-                        break;
-                    }
-                }
-                if (CHANNEL_LIST_IS_LIMITED) {
-                    if (!CHANNEL_LIST.contains(channel)) {
-                        continue;
-                    }
+                if (!expectedDataModel.needToTest(channel)) {
+                    continue;
                 }
                 request.setChancd(channel); // channel set
                 //сетим первого клиента из списка
@@ -90,6 +81,7 @@ public class FirstClientTest {
             warningsListMap.put(expectedDataModel.getIndex(), new ArrayList<>(warningsList));
             warningsList.clear();
         }
+        System.out.println(warningsListMap);
         ExcelColorChanger.colorChange(warningsListMap);
     }
 }
