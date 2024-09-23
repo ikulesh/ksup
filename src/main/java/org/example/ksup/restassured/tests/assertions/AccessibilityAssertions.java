@@ -7,8 +7,6 @@ import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
 import java.util.List;
 import java.util.logging.Level;
 
-import static org.example.ksup.restassured.Config.POSITIVE_ASSERT_LOGS;
-
 
 public abstract class AccessibilityAssertions {
     public static boolean accessibilityAssertions(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> warningsList) {
@@ -36,9 +34,9 @@ public abstract class AccessibilityAssertions {
             CustomLogger.customLogger(Level.WARNING, "Wrong accessibility: PIPC000801 equals " + accessible + ", but should be " + expectedAccessibility);
             warningsList.add("PIPC000801");
         } else if (accessible.equals("N")) {
-            CustomLogger.customLogger(Level.INFO, "Correct accessibility: package is closed");
-        } else if (POSITIVE_ASSERT_LOGS) {
-            CustomLogger.customLogger(Level.INFO, "Correct accessibility: package available");
+            CustomLogger.customLogger(Level.INFO, "Correct accessibility: package was closed");
+        } else {
+            CustomLogger.customLogger(Level.FINE, "Correct accessibility: package available");
         }
 
         return nextStep;
