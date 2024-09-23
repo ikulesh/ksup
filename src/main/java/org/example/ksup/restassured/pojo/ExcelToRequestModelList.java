@@ -30,7 +30,12 @@ public class ExcelToRequestModelList {
         System.out.println(sumOfReq);
     }
 
-
+    /**
+     * Method for reading excel file and create ExpectedDataModel
+     *
+     * @param excelFilePath path to excel file directory
+     * @return list of ExpectedDataModel
+     */
     public static List<ExpectedDataModel> readExcelFile(String excelFilePath) {
         List<ExpectedDataModel> expData = new ArrayList<>();
         boolean rowIsActive;

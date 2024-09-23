@@ -10,6 +10,9 @@ import java.util.Map;
 import static org.example.ksup.restassured.Config.*;
 import static org.example.ksup.restassured.Config.CHANNEL_LIST;
 
+/**
+ * Main data source which exported from excel file
+ */
 @Data
 public class ExpectedDataModel {
     private String fl8pck;
@@ -33,6 +36,13 @@ public class ExpectedDataModel {
         private String key;
         private Map<String, String> values;
 
+        /**
+         * Method creates new instance.
+         * Removes letter "G" in the end of param.
+         *
+         * @param key   name of param
+         * @param value value of param
+         */
         public AttrMap(String key, String value) {
             if (key.contains("G")) {
                 key = key.replace("G", "");
@@ -42,6 +52,9 @@ public class ExpectedDataModel {
         }
     }
 
+    /**
+     * Sets region 77 as a default value (need to refactor)
+     */
     public void setRegcd(String regcd) {
         if (regcd.equals("RF")) {
             this.regcd = "77";
@@ -52,7 +65,11 @@ public class ExpectedDataModel {
         }
     }
 
-
+    /**
+     * Converts string of params into Map (could be refactored, but format of params in excel file too stange)
+     *
+     * @param input param values string (which name like PCC00....)
+     */
     public static Map<String, String> convertStringToMap(String input) {
         // Initialize the map to store the key-value pairs
         Map<String, String> map = new HashMap<>();
@@ -92,7 +109,11 @@ public class ExpectedDataModel {
         return map;
     }
 
-
+    /**
+     * Method adds channels in ExpectedDataModel.
+     *
+     * @param fullChannels contains all channels from excel file
+     */
     public void addChancd(String fullChannels) {
         String[] elements = fullChannels.split(", ");
         for (String element : elements) {
@@ -100,6 +121,12 @@ public class ExpectedDataModel {
         }
     }
 
+    /**
+     * Method for replacing channel name and code
+     *
+     * @param element channel name
+     * @return channel code
+     */
     public String replaceValueOfChannel(String element) {
         Map<String, String> channelMap = new HashMap<>();
 
@@ -127,6 +154,11 @@ public class ExpectedDataModel {
         return channelMap.get(element.trim());
     }
 
+    /**
+     * Method adds clients in to ExpectedDataModel
+     *
+     * @param fullClients all clients
+     */
     public void addFllpfl(String fullClients) {
         String[] elements = fullClients.split(", ");
         for (String element : elements) {
@@ -135,9 +167,14 @@ public class ExpectedDataModel {
 
     }
 
+    /**
+     * Method for replacing client name and code
+     *
+     * @param element client name
+     * @return client code
+     */
     public String replaceValueOfClient(String element) {
         Map<String, String> clientMap = new HashMap<>();
-
 
         clientMap.put("Satis", "SATISCAT");
         clientMap.put("Satis_O", "SATISCATO");
@@ -183,6 +220,12 @@ public class ExpectedDataModel {
         return clientMap.get(element.trim());
     }
 
+    /**
+     * Method defines client category
+     *
+     * @param client client code
+     * @return client category
+     */
     public static String determineCategoryOfClient(String client) {
         List<String> firstCatClient = new ArrayList<>();
         firstCatClient.add("SATISCAT");
@@ -255,6 +298,11 @@ public class ExpectedDataModel {
         return null;
     }
 
+    /**
+     * Method adds all risk level from excel file
+     *
+     * @param riskLevelString contains all risks (param PCC0003152)
+     */
     public void addRiskLevelRpp(String riskLevelString) {
         String[] elements = riskLevelString.split(",");
         for (String element : elements) {
@@ -262,19 +310,34 @@ public class ExpectedDataModel {
         }
     }
 
-
+    /**
+     * Method adds new instance of AttrMap in to attrList
+     *
+     * @param key name of param
+     * @param value value of param
+     */
     public void addAttrList(String key, String value) {
         AttrMap nextAttr = new AttrMap(key, value);
         attrList.add(nextAttr);
     }
 
+    /**
+     * Method adds all client categories
+     *
+     * @param flkvalFull string of all client categories
+     */
     public void addFlkval(String flkvalFull) {
         String[] elements = flkvalFull.split(",");
         for (String element : elements) {
             flkval.add(element.trim());
         }
     }
-
+    /**
+     * Method adds new instance of AttrMap in to attrList
+     *
+     * @param key name of param ("G" removed)
+     * @param value value of param (without formatting)
+     */
     public void addParamPIPC(String key, String value) {
         if (paramsPIPC == null) {
             setParamsPIPC(new HashMap<>());
@@ -284,7 +347,11 @@ public class ExpectedDataModel {
         }
         paramsPIPC.put(key, value);
     }
-
+    /**
+     * Method for limiting the number of tests
+     * @param channel RequestModel.chancd
+     * @return skip ExpectedDataModel for testing or not.
+     * */
     public boolean needToTest(String channel) {
         boolean necessity = true;
         if (CARD_LIST_IS_LIMITED && !CARD_LIST.contains(getFl1pro())) {

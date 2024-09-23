@@ -15,10 +15,19 @@ import static org.example.ksup.restassured.Config.CCBI_IS_NEED;
 
 
 public class RequestCCBI3rd {
+    /**
+     * Method sends CCBI request
+     *
+     * @param requestModel instance with request info
+     * @return list of ResultSetRow
+     */
     public static List<ResultSetRow> requestCCBI(RequestModel requestModel) throws JAXBException {
         return Request.request("CCBI", requestModel, setAttrList(), false, "W");
     }
 
+    /**
+     * Method creating assertion params list
+     */
     public static List<String> setAttrList() {
         List<String> attrList = new ArrayList<>();
         //Request #3
@@ -41,6 +50,9 @@ public class RequestCCBI3rd {
         return attrList;
     }
 
+    /**
+     * Method creating assertion params list
+     */
     public static List<String> setAssertList() {
         List<String> attrList = new ArrayList<>();
         //Request #3
@@ -48,6 +60,13 @@ public class RequestCCBI3rd {
         return attrList;
     }
 
+    /**
+     * Method sends req and assert response
+     *
+     * @param expectedDataModel info for comparing
+     * @param request           req info
+     * @param warningsList      wrong params
+     */
     public static void execution(RequestModel request, ExpectedDataModel expectedDataModel, List<String> warningsList) throws JAXBException {
         if (CCBI_IS_NEED) {
             CustomLogger.customLogger(Level.INFO, "CCBI 3rd request assertion:");

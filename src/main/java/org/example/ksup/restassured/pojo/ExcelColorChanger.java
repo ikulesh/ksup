@@ -10,8 +10,15 @@ import java.util.*;
 
 import static org.example.ksup.restassured.Config.EXCEL_FILE_PATH;
 
+/**
+ * Class for marking cells of excel file
+ * Red color for cells with wrong value
+ * Green color for cells, which were wrong and now correct
+ */
 public class ExcelColorChanger {
-
+    /**
+     * @param warningList map with row numbers of excel file and wrong param names
+     */
     public static void colorChange(HashMap<Integer, List<String>> warningList) throws IOException {
         if (!warningList.isEmpty()) {
             // Path to the Excel file
@@ -85,17 +92,29 @@ public class ExcelColorChanger {
         }
     }
 
+    /**
+     * Removes duplicates of wrong params
+     *
+     * @param list full wrong param list
+     * @return list without duplicates
+     */
     public static List<String> removeDuplicates(List<String> list) {
         Set<String> set = new LinkedHashSet<>(list);  // Keeps insertion order
         return new ArrayList<>(set);
     }
 
+    /**
+     * Sets red color for wrong params
+     */
     private static void setRedForegroundColour(CellStyle cellStyle) {
         // Set the fill pattern and background color
         cellStyle.setFillForegroundColor(IndexedColors.RED.getIndex());
         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
     }
 
+    /**
+     * Sets green color for params which were wrong
+     */
     private static void setGreenForegroundColour(CellStyle cellStyle) {
         // Set the fill pattern and background color
         cellStyle.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());

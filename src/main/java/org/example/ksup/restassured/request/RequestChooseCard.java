@@ -7,9 +7,14 @@ import javax.xml.bind.JAXBException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Old class (could be used, but this req has no sense)
+ *
+ * @deprecated
+ */
 public class RequestChooseCard {
     public static List<ResultSetRow> requestChooseCard(RequestModel requestModel) throws JAXBException {
-        return Request.request(null, requestModel, setAttrList(), false,"O");
+        return Request.request(null, requestModel, setAttrList(), false, "O");
     }
 
     private static List<String> setAttrList() {

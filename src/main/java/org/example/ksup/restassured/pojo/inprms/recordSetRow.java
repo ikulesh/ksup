@@ -5,7 +5,9 @@ import org.example.ksup.restassured.pojo.RequestModel;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
+/**
+ * Nested class of inParms
+ */
 @XmlRootElement
 public class recordSetRow {
     @XmlElement(name = "prm")
@@ -26,6 +28,13 @@ public class recordSetRow {
         this.fllpfl = fllpfl;
     }
 
+    /**
+     * Method sets recordSetRow
+     *
+     * @param prm          contains in ExpectedDataModel
+     * @param requestModel instance of RequestModel
+     * @param riskLevel    contains in ExpectedDataModel
+     */
     public recordSetRow(String prm, RequestModel requestModel, String riskLevel) {
         this.prm = prm;
         if ("PAPPTYPE".equals(prm)) {

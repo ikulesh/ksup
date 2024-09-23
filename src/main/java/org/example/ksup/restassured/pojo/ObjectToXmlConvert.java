@@ -4,8 +4,13 @@ package org.example.ksup.restassured.pojo;
 import javax.xml.bind.*;
 import java.io.StringWriter;
 
+/**
+ * Class for converting.
+ */
 public class ObjectToXmlConvert {
-
+    /**
+     * Method converts RequestDataModel into String for sending request (body)
+     */
     public static String convertObjectToXml(Object object) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(object.getClass());
         Marshaller marshaller = context.createMarshaller();

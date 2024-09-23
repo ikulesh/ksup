@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 
+/**
+ * Initialization of testing settings
+ */
 public class Config {
     public static String EXCEL_FILE_PATH;
     public static String EXT_SYS_CODE;
@@ -25,7 +28,9 @@ public class Config {
     public static List<String> PACKAGE_LIST;
     public static Level LOG_LEVEL;
 
-    // Method to load properties from the file
+    /**
+     * Method to load properties from the file
+     */
     public static void loadProperties() throws IOException {
         ZipSecureFile.setMinInflateRatio(0.0001); // Set to a lower ratio, if needed
         Properties prop = new Properties();
@@ -52,7 +57,7 @@ public class Config {
         }
     }
 
-    private static List<String> propertyToList(String property){
+    private static List<String> propertyToList(String property) {
         List<String> propertiesList = new ArrayList<>();
         String[] elements = property.split(",");
         for (String element : elements) {

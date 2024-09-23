@@ -1,6 +1,5 @@
 package org.example.ksup.restassured.request;
 
-import io.opentelemetry.semconv.SemanticAttributes;
 import org.example.ksup.restassured.log.CustomLogger;
 import org.example.ksup.restassured.pojo.RequestModel;
 import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
@@ -15,10 +14,19 @@ import java.util.logging.Level;
 import static org.example.ksup.restassured.Config.IS_SECOND_CARD;
 
 public class RequestIPC1st {
+    /**
+     * Method sends IPC1st request
+     *
+     * @param requestModel instance with request info
+     * @return list of ResultSetRow
+     */
     public static List<ResultSetRow> requestForDifGCC(RequestModel requestModel, boolean isSecondCard) throws JAXBException {
         return Request.request("IPC", requestModel, setAttrList(isSecondCard), false, "W");
     }
 
+    /**
+     * Method creating assertion params list
+     */
     public static List<String> setAttrList(boolean isSecondCard) {
         List<String> attrList = new ArrayList<>();
         attrList.add("PIPC000001");
@@ -60,6 +68,9 @@ public class RequestIPC1st {
         return attrList;
     }
 
+    /**
+     * Method creating assertion params list
+     */
     public static List<String> setAssertList(boolean isSecondCard) {
         List<String> attrList = new ArrayList<>();
         attrList.add("PIPC000503");
@@ -93,6 +104,13 @@ public class RequestIPC1st {
         return attrList;
     }
 
+    /**
+     * Method sends req and assert response
+     *
+     * @param expectedDataModel info for comparing
+     * @param request           req info
+     * @param warningsList      wrong params
+     */
     public static void execution(RequestModel request, ExpectedDataModel expectedDataModel, List<String> warningsList) throws JAXBException {
         //отправляем запрос для проверки основных параметров для первой карты
         List<ResultSetRow> result = requestForDifGCC(request, false);

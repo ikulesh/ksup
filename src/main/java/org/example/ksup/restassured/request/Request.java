@@ -16,8 +16,20 @@ import java.util.logging.Level;
 
 import static org.example.ksup.restassured.request.XMLStringToResultSetRow.parser;
 
-
+/**
+ * Sending request.
+ */
 public class Request {
+    /**
+     * Method build request body and sends request.
+     *
+     * @param requestModel         instance, which cointains main request info
+     * @param alg                  attr of inParms, could be various
+     * @param attrList             param list (different for every request)
+     * @param reqGroup             request type (IPC, GRC, etc.)
+     * @param withoutRegAndChannel param for technical requests
+     * @return response as a list of ResultSetRow
+     */
     public static List<ResultSetRow> request(String reqGroup, RequestModel requestModel, List<String> attrList, boolean withoutRegAndChannel, String alg) throws JAXBException {
         inCommonParms inComParms = inCommonParmsBuilder.inCommonParmsBuilder(requestModel);
         inParms inParmsObj = InParmsBuilder.inParmsBuilder(withoutRegAndChannel, reqGroup, alg, attrList, requestModel);

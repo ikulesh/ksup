@@ -4,7 +4,7 @@ import org.example.ksup.restassured.log.CustomLogger;
 import org.example.ksup.restassured.pojo.RequestModel;
 import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
-import org.example.ksup.restassured.tests.assertions.AccessibilityAssertions;
+import org.example.ksup.restassured.tests.assertions.AccessibilityAssertion;
 import org.example.ksup.restassured.tests.assertions.ParamAssertions;
 
 import javax.xml.bind.JAXBException;
@@ -14,10 +14,19 @@ import java.util.logging.Level;
 
 
 public class RequestGCC01 {
+    /**
+     * Method sends GCC01 request
+     *
+     * @param requestModel instance with request info
+     * @return list of ResultSetRow
+     */
     public static List<ResultSetRow> requestGCC01(RequestModel requestModel) throws JAXBException {
         return Request.request(null, requestModel, setAttrList(), false, "W");
     }
 
+    /**
+     * Method creating assertion params list
+     */
     public static List<String> setAttrList() {
         //ChooseCardRequest
         List<String> attrList = new ArrayList<>();
@@ -57,6 +66,9 @@ public class RequestGCC01 {
         return attrList;
     }
 
+    /**
+     * Method creating assertion params list
+     */
     public static List<String> setAssertList() {
         List<String> attrList = new ArrayList<>();
         attrList.add("PIPC000002");
@@ -71,13 +83,20 @@ public class RequestGCC01 {
         return attrList;
     }
 
+    /**
+     * Method sends req and assert response
+     *
+     * @param expectedDataModel info for comparing
+     * @param request           req info
+     * @param warningsList      wrong params
+     */
     public static boolean execution(RequestModel request, ExpectedDataModel expectedDataModel, List<String> warningsList) throws JAXBException {
         CustomLogger.customLogger(Level.INFO, "GCC01 request assertion:");
         request.setFl1grp("GCC01"); // price group
         request.setFl1pro(expectedDataModel.getFl1pro());
         request.setFl8pck(null);
         List<ResultSetRow> result = requestGCC01(request);
-        boolean nextStep = AccessibilityAssertions.accessibilityAssertions(result, expectedDataModel, warningsList); //if PIPC000801 == Y |=> nextStep = true
+        boolean nextStep = AccessibilityAssertion.accessibilityAssertion(result, expectedDataModel, warningsList); //if PIPC000801 == Y |=> nextStep = true
         if (nextStep && ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
             ParamAssertions.cardNameAssertion(result, expectedDataModel, warningsList); // cardName assertion
             ParamAssertions.paramAssertion(result, expectedDataModel, RequestGCC01.setAssertList(), warningsList); // assertion for simple params

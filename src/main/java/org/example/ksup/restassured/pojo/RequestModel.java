@@ -6,7 +6,9 @@ import org.example.ksup.restassured.pojo.outparms.ExpectedDataModel;
 import static org.example.ksup.restassured.Config.CONSTANT_ID;
 import static org.example.ksup.restassured.Config.EXT_SYS_CODE;
 
-
+/**
+ * Class for sending request.
+ */
 @Data
 public class RequestModel {
     private String fl8pck;
@@ -23,6 +25,11 @@ public class RequestModel {
     private String pipc000812;
     private String pcc0000605;
 
+    /**
+     * Method initialize common part of all requests
+     *
+     * @param expectedDataModel data for sending
+     */
     public void initializer(ExpectedDataModel expectedDataModel) {
         setExtSysCode(EXT_SYS_CODE);
         setConstantID(CONSTANT_ID);
@@ -32,7 +39,11 @@ public class RequestModel {
         setPipc000812(expectedDataModel.getParamsPIPC().get("PIPC000812"));
 
     }
-    public void reset(){
+
+    /**
+     * Method resets params for next iteration
+     */
+    public void reset() {
         //reset params
         setApplicationID(null);
         setFl1pro(null);

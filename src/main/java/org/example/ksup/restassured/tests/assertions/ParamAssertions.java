@@ -9,8 +9,18 @@ import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
 import java.util.*;
 import java.util.logging.Level;
 
-
+/**
+ * All assertions
+ */
 public abstract class ParamAssertions {
+    /**
+     * Params with multiple values
+     *
+     * @param resultSetRowList  response
+     * @param expectedDataModel info for comparing
+     * @param expectedAttr      params< which contains in request and in expectedDataModel
+     * @param warningsList      wrong params
+     */
     public static void attrAssertions(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> expectedAttr, List<String> warningsList) {
         boolean contains = false;
         Map<String, String> rowMap;
@@ -71,7 +81,14 @@ public abstract class ParamAssertions {
         }
     }
 
-
+    /**
+     * Params with single value
+     *
+     * @param resultSetRowList  response
+     * @param expectedDataModel info for comparing
+     * @param expectedAttr      params< which contains in request and in expectedDataModel
+     * @param warningsList      wrong params
+     */
     public static void paramAssertion(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> expectedAttr, List<String> warningsList) {
         //кусочек с проверкой на нули
         Collection<String> params = expectedDataModel.getParamsPIPC().keySet();
@@ -125,7 +142,13 @@ public abstract class ParamAssertions {
         }
     }
 
-
+    /**
+     * Product name assertion
+     *
+     * @param resultSetRowList  response
+     * @param expectedDataModel info for comparing
+     * @param warningsList      wrong params
+     */
     public static void productAssertion(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> warningsList) {
         for (ResultSetRow row : resultSetRowList) {
             {
@@ -146,6 +169,13 @@ public abstract class ParamAssertions {
         }
     }
 
+    /**
+     * Card name assertion
+     *
+     * @param resultSetRowList  response
+     * @param expectedDataModel info for comparing
+     * @param warningsList      wrong params
+     */
     public static void cardNameAssertion(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> warningsList) {
         ResultSetRow row = resultSetRowList.get(0);
         String fl5dsc = row.getFl5dsc();
@@ -159,7 +189,9 @@ public abstract class ParamAssertions {
         }
     }
 
-
+    /**
+     * Helping method for attrAssertion
+     */
     public static Map<String, String> convertToMap(String fl4val) {
         if (fl4val.contains(" ")) {
             // Split the string based on whitespace
@@ -173,10 +205,20 @@ public abstract class ParamAssertions {
         } else return null;
     }
 
+    /**
+     * Helping method for attrAssertion
+     */
     public static boolean findMap(Map<String, String> currentMap, Map<String, String> expectedMap) {
         return expectedMap.entrySet().containsAll(currentMap.entrySet());
     }
 
+    /**
+     * Empty response assertion
+     *
+     * @param resultSetRowList  response
+     * @param expectedDataModel info for comparing
+     * @param requestModel      request info
+     */
     public static boolean responseIsNotEmpty(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, RequestModel requestModel) {
         if (resultSetRowList == null || resultSetRowList.isEmpty()) {
             CustomLogger.customLogger(Level.WARNING, "Empty response for " + expectedDataModel.getFl8pck() + " " + requestModel.getChancd() + " " + expectedDataModel.getFl1proCat() + " " + requestModel.getFllpfl() + " " + expectedDataModel.getFl1pro() + " " + requestModel.getRiskLevel() + ":");

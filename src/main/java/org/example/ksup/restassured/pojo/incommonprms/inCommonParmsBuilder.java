@@ -6,7 +6,14 @@ import org.example.ksup.restassured.pojo.RequestModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Builder of inCommonParms
+ */
 public class inCommonParmsBuilder {
+    /**
+     * @param requestModel instance of RequestModel object
+     * @return instance of inCommonParms
+     */
     public static inCommonParms inCommonParmsBuilder(RequestModel requestModel) {
         inCommonParms inComPar = new inCommonParms();
         inComPar.setUserID("WSFL");

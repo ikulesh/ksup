@@ -13,10 +13,19 @@ import java.util.List;
 import java.util.logging.Level;
 
 public class RequestGrace4th {
+    /**
+     * Method sends GRC4th request
+     *
+     * @param requestModel instance with request info
+     * @return list of ResultSetRow
+     */
     public static List<ResultSetRow> requestGRCOther(RequestModel requestModel) throws JAXBException {
         return Request.request("GRC", requestModel, setAttrList(), false, "8");
     }
 
+    /**
+     * Method creating assertion params list
+     */
     public static List<String> setAttrList() {
         List<String> attrList = new ArrayList<>();
         //Request 4
@@ -56,6 +65,9 @@ public class RequestGrace4th {
         return attrList;
     }
 
+    /**
+     * Method creating assertion params list
+     */
     public static List<String> setAssertList() {
         List<String> attrList = new ArrayList<>();
         //Request 4
@@ -93,12 +105,19 @@ public class RequestGrace4th {
         return attrList;
     }
 
+    /**
+     * Method sends req and assert response
+     *
+     * @param expectedDataModel info for comparing
+     * @param request           req info
+     * @param warningsList      wrong params
+     */
     public static void execution(RequestModel request, ExpectedDataModel expectedDataModel, List<String> warningsList) throws JAXBException {
         List<ResultSetRow> result = RequestGrace4th.requestGRCOther(request);
         CustomLogger.customLogger(Level.INFO, "GRC 4th request assertion:");
         if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
-            ParamAssertions.attrAssertions(result, expectedDataModel, RequestGrace4th.setAssertList(),warningsList);
-            ParamAssertions.paramAssertion(result, expectedDataModel, RequestGrace4th.setAssertList(),warningsList);
+            ParamAssertions.attrAssertions(result, expectedDataModel, RequestGrace4th.setAssertList(), warningsList);
+            ParamAssertions.paramAssertion(result, expectedDataModel, RequestGrace4th.setAssertList(), warningsList);
         }
         //сетим ценовую группу в ожидаемую модель данных
         SetPriceGrp.setPriceGrp(result, expectedDataModel);

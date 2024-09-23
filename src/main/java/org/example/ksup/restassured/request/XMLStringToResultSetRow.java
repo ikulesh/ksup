@@ -7,7 +7,14 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parsing response string into ResultSetRow
+ */
 public class XMLStringToResultSetRow {
+    /**
+     * @param response response string
+     * @return ResulstSetRow list
+     */
     public static List<ResultSetRow> parser(String response) {
         // Define all patterns once
         Pattern fl8pckPattern = Pattern.compile("<fl8pck>(.*?)</fl8pck>");

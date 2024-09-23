@@ -7,9 +7,18 @@ import org.example.ksup.restassured.pojo.outparms.ResultSetRow;
 import java.util.List;
 import java.util.logging.Level;
 
-
-public abstract class AccessibilityAssertions {
-    public static boolean accessibilityAssertions(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> warningsList) {
+/**
+ * Assertion of PIPC000801 param
+ */
+public abstract class AccessibilityAssertion {
+    /**
+     * Accessibility of package
+     *
+     * @param expectedDataModel info for comparing
+     * @param resultSetRowList  response
+     * @param warningsList      wrong params
+     */
+    public static boolean accessibilityAssertion(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> warningsList) {
         String expectedAccessibility = expectedDataModel.getParamsPIPC().get("PIPC000801");
         String accessible = "N";
 

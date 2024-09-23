@@ -13,10 +13,19 @@ import java.util.logging.Level;
 
 
 public class RequestGraceLGP {
+    /**
+     * Method sends LGP request
+     *
+     * @param requestModel instance with request info
+     * @return list of ResultSetRow
+     */
     public static List<ResultSetRow> requestGRC(RequestModel requestModel) throws JAXBException {
-        return Request.request("GRC", requestModel, setAttrList(), false,"8");
+        return Request.request("GRC", requestModel, setAttrList(), false, "8");
     }
 
+    /**
+     * Method creating assertion params list
+     */
     public static List<String> setAttrList() {
         List<String> attrList = new ArrayList<>();
         //Request LGP
@@ -45,6 +54,9 @@ public class RequestGraceLGP {
         return attrList;
     }
 
+    /**
+     * Method creating assertion params list
+     */
     public static List<String> setAssertList() {
         List<String> attrList = new ArrayList<>();
         //Request LGP
@@ -69,13 +81,21 @@ public class RequestGraceLGP {
 
         return attrList;
     }
-    public static void execution(RequestModel request, ExpectedDataModel expectedDataModel,List<String > warningsList) throws JAXBException {
+
+    /**
+     * Method sends req and assert response
+     *
+     * @param expectedDataModel info for comparing
+     * @param request           req info
+     * @param warningsList      wrong params
+     */
+    public static void execution(RequestModel request, ExpectedDataModel expectedDataModel, List<String> warningsList) throws JAXBException {
         List<ResultSetRow> result = requestGRC(request);
         CustomLogger.customLogger(Level.INFO, "GRC LGP request assertion:");
         if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
-            ParamAssertions.productAssertion(result, expectedDataModel,warningsList); // product code assertion
-            ParamAssertions.attrAssertions(result, expectedDataModel, RequestGraceLGP.setAssertList(),warningsList); // assertion for complex params
-            ParamAssertions.paramAssertion(result, expectedDataModel, RequestGraceLGP.setAssertList(),warningsList);
+            ParamAssertions.productAssertion(result, expectedDataModel, warningsList); // product code assertion
+            ParamAssertions.attrAssertions(result, expectedDataModel, RequestGraceLGP.setAssertList(), warningsList); // assertion for complex params
+            ParamAssertions.paramAssertion(result, expectedDataModel, RequestGraceLGP.setAssertList(), warningsList);
         }
     }
 }

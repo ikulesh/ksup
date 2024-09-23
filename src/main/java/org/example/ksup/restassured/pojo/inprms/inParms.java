@@ -4,6 +4,10 @@ import lombok.Data;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Part of the request body inParms.
+ * All params contains in request body.
+ */
 @Data
 @XmlRootElement
 public class inParms {

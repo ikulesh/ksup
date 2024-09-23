@@ -2,7 +2,10 @@ package org.example.ksup.restassured.pojo.outparms;
 
 import lombok.Data;
 
-
+/**
+ * Response model.
+ * Comparing with ExpectedDataModel.
+ * */
 @Data
 public class ResultSetRow {
     private String fl8pck;
