@@ -31,8 +31,8 @@ public class FirstClientTest {
             //инициализация общей части запроса
             request.initializer(expectedDataModel);
             //перебираем сначала каналы
-            //for (String channel : expectedDataModel.getChancd())
-            String channel = expectedDataModel.getChancd().get(0);
+            for (String channel : expectedDataModel.getChancd())
+            //String channel = expectedDataModel.getChancd().get(0);
             {
                 //ограничены ли проверки наборами каналов и карт
                 if (!expectedDataModel.needToTest(channel)) {
