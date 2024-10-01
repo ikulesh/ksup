@@ -31,9 +31,7 @@ public class EachCatClientTest {
             request.initializer(expectedDataModel);
             //перебираем сначала каналы
             for (String channel : expectedDataModel.getChancd()) {
-                if (!expectedDataModel.needToTest(channel)) {
-                    continue;
-                }
+
                 request.setChancd(channel);
                 //для каждого канала перебираем клиентов
                 for (String catClient : expectedDataModel.getFlkval()) {
@@ -45,6 +43,9 @@ public class EachCatClientTest {
                             clientWithCat = client;
                             break;
                         }
+                    }
+                    if (!expectedDataModel.needToTest(channel, clientWithCat)) {
+                        continue;
                     }
                     request.setFllpfl(clientWithCat);
 

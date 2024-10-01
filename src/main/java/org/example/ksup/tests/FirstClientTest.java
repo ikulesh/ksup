@@ -34,13 +34,13 @@ public class FirstClientTest {
             for (String channel : expectedDataModel.getChancd())
             //String channel = expectedDataModel.getChancd().get(0);
             {
+                String clientWithCat = expectedDataModel.getFllpfl().get(0);
                 //ограничены ли проверки наборами каналов и карт
-                if (!expectedDataModel.needToTest(channel)) {
+                if (!expectedDataModel.needToTest(channel, clientWithCat)) {
                     continue;
                 }
                 request.setChancd(channel); // channel set
                 //сетим первого клиента из списка
-                String clientWithCat = expectedDataModel.getFllpfl().get(0);
                 request.setFllpfl(clientWithCat);
                 // для комбинации канал - клиент перебираем уровни риска
                 for (String riskLevel : expectedDataModel.getRiskLevelRpp()) {
@@ -81,7 +81,6 @@ public class FirstClientTest {
             warningsListMap.put(expectedDataModel.getIndex(), new ArrayList<>(warningsList));
             warningsList.clear();
         }
-        System.out.println(warningsListMap);
         ExcelColorChanger.colorChange(warningsListMap);
     }
 }

@@ -352,12 +352,15 @@ public class ExpectedDataModel {
      * @param channel RequestModel.chancd
      * @return skip ExpectedDataModel for testing or not.
      * */
-    public boolean needToTest(String channel) {
+    public boolean needToTest(String channel,String fllpfl) {
         boolean necessity = true;
         if (CARD_LIST_IS_LIMITED && !CARD_LIST.contains(getFl1pro())) {
             necessity = false;
         }
         if (CHANNEL_LIST_IS_LIMITED && !CHANNEL_LIST.contains(channel)) {
+            necessity = false;
+        }
+        if (CLIENT_LIST_IS_LIMITED && !CLIENT_LIST.contains(fllpfl)) {
             necessity = false;
         }
         return necessity;

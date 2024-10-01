@@ -21,9 +21,11 @@ public class Config {
     public static boolean CHANNEL_LIST_IS_LIMITED;
     public static boolean CARD_LIST_IS_LIMITED;
     public static boolean PACKAGE_LIST_IS_LIMITED;
+    public static boolean CLIENT_LIST_IS_LIMITED;
     public static List<String> CHANNEL_LIST;
     public static List<String> CARD_LIST;
     public static List<String> PACKAGE_LIST;
+    public static List<String> CLIENT_LIST;
     public static Level LOG_LEVEL;
 
     /**
@@ -52,6 +54,8 @@ public class Config {
             CARD_LIST = propertyToList(prop.getProperty("card.list"));
             CHANNEL_LIST = propertyToList(prop.getProperty("channel.list"));
             PACKAGE_LIST = propertyToList(prop.getProperty("package.list"));
+            CLIENT_LIST = propertyToList(prop.getProperty("client.list"));
+            CLIENT_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("client.list.is.limited"));
             LOG_LEVEL = Level.parse(prop.getProperty("log.level"));
 
         }
