@@ -1,0 +1,22 @@
+{
+  "DSA": "CH10",
+  "DO": "CH16",
+  "KKO": "CH22",
+  "VIP": "CH23",
+  "DCCC_Front": "CH92",
+  "DCCC_IA": "CH93",
+  "DCCC_AZON": "CH94",
+  "DCCC_UKD": "CH95",
+  "Combo": "CH96",
+  "Svyaznoy_FM": "CH51",
+  "Partners_FM": "CH53",
+  "Beeline_FM": "CH54",
+  "IA": "CH6",
+  "IA_Beeline": "CH64",
+  "PIL_CC": "CH65",
+  "Svyaznoy_LM": "CH34",
+  "Beeline_LM": "CH36",
+  "Partners_LM": "CH35",
+  "Partners_ALL": "CH57",
+  "Branch": "CH9"
+}

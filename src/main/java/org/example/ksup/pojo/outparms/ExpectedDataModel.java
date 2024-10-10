@@ -117,7 +117,7 @@ public class ExpectedDataModel {
     public void addChancd(String fullChannels) {
         String[] elements = fullChannels.split(", ");
         for (String element : elements) {
-            chancd.add(replaceValueOfChannel(element.trim()));
+            chancd.add(ExpectedDataModelMapper.channelMapper(element.trim()));
         }
     }
 
@@ -162,140 +162,9 @@ public class ExpectedDataModel {
     public void addFllpfl(String fullClients) {
         String[] elements = fullClients.split(", ");
         for (String element : elements) {
-            fllpfl.add(replaceValueOfClient(element.trim()));
+            fllpfl.add(ExpectedDataModelMapper.clientMapper(element.trim()));
         }
 
-    }
-
-    /**
-     * Method for replacing client name and code
-     *
-     * @param element client name
-     * @return client code
-     */
-    public String replaceValueOfClient(String element) {
-        Map<String, String> clientMap = new HashMap<>();
-
-        clientMap.put("Satis", "SATISCAT");
-        clientMap.put("Satis_O", "SATISCATO");
-        clientMap.put("IZK_Satis", "IZK1CAT");
-        clientMap.put("IZK_Satis_O", "IZK1CATO");
-        clientMap.put("N-Payroll_Satis", "PRLNW1CAT");
-        clientMap.put("N-Payroll_Satis_O", "PRLNW1CATO");
-        clientMap.put("Tender_Satis", "TDRSTSCAT");
-        clientMap.put("Tender_Satis_O", "TDRSTSCATO");
-
-        clientMap.put("Payroll", "PROLLCAT");
-        clientMap.put("Payroll_O", "PROLLCATO");
-        clientMap.put("Tender_Payroll", "TDRPRLCAT");
-        clientMap.put("Tender_Payroll_O", "TDRPRLCATO");
-
-        clientMap.put("Preferred", "PREFERCAT");
-        clientMap.put("Preferred_O", "PREFERCATO");
-        clientMap.put("IZK_Pref", "IZK3CAT");
-        clientMap.put("IZK_Pref_O", "IZK3CATO");
-        clientMap.put("N-Payroll_Pref", "PRLNW3CAT");
-        clientMap.put("N-Payroll_Pref_O", "PRLNW3CATO");
-        clientMap.put("Tender_Pref", "TDRPRFCAT");
-        clientMap.put("Tender_Pref_O", "TDRPRFCATO");
-
-        clientMap.put("Pref-Prem", "PREFPRMCAT");
-        clientMap.put("Pref-Prem_O", "PRFPRMCATO");
-        clientMap.put("IZK_Pref-Prem", "IZK4CAT");
-        clientMap.put("IZK_Pref-Prem_O", "IZK4CATO");
-        clientMap.put("N-Payroll_Pref-Prem", "PRLNW4CAT");
-        clientMap.put("N-Payroll_Pref-Prem_O", "PRLNW4CATO");
-        clientMap.put("Tender_Pref-Prem", "TDRPRMCAT");
-        clientMap.put("Tender_Pref-Prem_O", "TDRPRMCATO");
-
-        clientMap.put("Staff", "STAFFCAT");
-        clientMap.put("Staff_O", "STAFFCATO");
-        clientMap.put("Staff_ALFA", "STAFFALFA");
-        clientMap.put("Staff_ALFA_O", "STAFFALFAO");
-
-        clientMap.put("A-Club", "APRVTCATO");
-
-        clientMap.put("Prime_O", "PRMCONCATO");
-
-        return clientMap.get(element.trim());
-    }
-
-    /**
-     * Method defines client category
-     *
-     * @param client client code
-     * @return client category
-     */
-    public static String determineCategoryOfClient(String client) {
-        List<String> firstCatClient = new ArrayList<>();
-        firstCatClient.add("SATISCAT");
-        firstCatClient.add("SATISCATO");
-        firstCatClient.add("IZK1CAT");
-        firstCatClient.add("IZK1CATO");
-        firstCatClient.add("PRLNW1CAT");
-        firstCatClient.add("PRLNW1CATO");
-        firstCatClient.add("TDRSTSCAT");
-        firstCatClient.add("TDRSTSCATO");
-        if (firstCatClient.contains(client)) {
-            return "01";
-        }
-
-        List<String> secondCatClient = new ArrayList<>();
-        secondCatClient.add("PROLLCAT");
-        secondCatClient.add("PROLLCATO");
-        secondCatClient.add("TDRPRLCAT");
-        secondCatClient.add("TDRPRLCATO");
-        if (secondCatClient.contains(client)) {
-            return "02";
-        }
-
-        List<String> thirdCatClient = new ArrayList<>();
-        thirdCatClient.add("PREFERCAT");
-        thirdCatClient.add("PREFERCATO");
-        thirdCatClient.add("IZK3CAT");
-        thirdCatClient.add("IZK3CATO");
-        thirdCatClient.add("PRLNW3CAT");
-        thirdCatClient.add("PRLNW3CATO");
-        thirdCatClient.add("TDRPRFCAT");
-        thirdCatClient.add("TDRPRFCATO");
-        if (thirdCatClient.contains(client)) {
-            return "03";
-        }
-
-        List<String> fourthCatClient = new ArrayList<>();
-        fourthCatClient.add("PREFPRMCAT");
-        fourthCatClient.add("PRFPRMCATO");
-        fourthCatClient.add("IZK4CAT");
-        fourthCatClient.add("IZK4CATO");
-        fourthCatClient.add("PRLNW4CAT");
-        fourthCatClient.add("PRLNW4CATO");
-        fourthCatClient.add("TDRPRMCAT");
-        fourthCatClient.add("TDRPRMCATO");
-        if (fourthCatClient.contains(client)) {
-            return "04";
-        }
-
-        List<String> fifthCatClient = new ArrayList<>();
-        fifthCatClient.add("STAFFCAT");
-        fifthCatClient.add("STAFFCATO");
-        fifthCatClient.add("STAFFALFA");
-        fifthCatClient.add("STAFFALFAO");
-        if (fifthCatClient.contains(client)) {
-            return "05";
-        }
-
-        List<String> sixthCatClient = new ArrayList<>();
-        sixthCatClient.add("APRVTCATO");
-        if (sixthCatClient.contains(client)) {
-            return "06";
-        }
-
-        List<String> seventhCatClient = new ArrayList<>();
-        seventhCatClient.add("PRMCONCATO");
-        if (seventhCatClient.contains(client)) {
-            return "07";
-        }
-        return null;
     }
 
     /**
@@ -313,7 +182,7 @@ public class ExpectedDataModel {
     /**
      * Method adds new instance of AttrMap in to attrList
      *
-     * @param key name of param
+     * @param key   name of param
      * @param value value of param
      */
     public void addAttrList(String key, String value) {
@@ -332,10 +201,11 @@ public class ExpectedDataModel {
             flkval.add(element.trim());
         }
     }
+
     /**
      * Method adds new instance of AttrMap in to attrList
      *
-     * @param key name of param ("G" removed)
+     * @param key   name of param ("G" removed)
      * @param value value of param (without formatting)
      */
     public void addParamPIPC(String key, String value) {
@@ -347,12 +217,14 @@ public class ExpectedDataModel {
         }
         paramsPIPC.put(key, value);
     }
+
     /**
      * Method for limiting the number of tests
+     *
      * @param channel RequestModel.chancd
      * @return skip ExpectedDataModel for testing or not.
-     * */
-    public boolean needToTest(String channel,String fllpfl) {
+     */
+    public boolean needToTest(String channel, String fllpfl) {
         boolean necessity = true;
         if (CARD_LIST_IS_LIMITED && !CARD_LIST.contains(getFl1pro())) {
             necessity = false;

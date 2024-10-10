@@ -6,6 +6,7 @@ import org.example.ksup.pojo.ExcelColorChanger;
 import org.example.ksup.pojo.ExcelToRequestModelList;
 import org.example.ksup.pojo.RequestModel;
 import org.example.ksup.pojo.outparms.ExpectedDataModel;
+import org.example.ksup.pojo.outparms.ExpectedDataModelMapper;
 import org.example.ksup.request.*;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +38,7 @@ public class EachCatClientTest {
                 for (String catClient : expectedDataModel.getFlkval()) {
                     String clientWithCat = "";
                     for (String client : expectedDataModel.getFllpfl()) {
-                        String cat = ExpectedDataModel.determineCategoryOfClient(client);
+                        String cat = ExpectedDataModelMapper.channelCategoryMapper(client);
                         assert cat != null;
                         if (cat.equals(catClient)) {
                             clientWithCat = client;

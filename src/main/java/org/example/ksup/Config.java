@@ -38,7 +38,7 @@ public class Config {
         ZipSecureFile.setMinInflateRatio(0.0001); // Set to a lower ratio, if needed
         Properties prop = new Properties();
 
-        try (FileInputStream input = new FileInputStream("src/main/java/org/example/properties.properties")) {
+        try (FileInputStream input = new FileInputStream("properties.properties")) {
             prop.load(input);
 
             // Assign the values from the properties file

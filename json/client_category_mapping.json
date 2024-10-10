@@ -1,0 +1,42 @@
+{
+  "SATISCAT": "01",
+  "SATISCATO": "01",
+  "IZK1CAT": "01",
+  "IZK1CATO": "01",
+  "PRLNW1CAT": "01",
+  "PRLNW1CATO": "01",
+  "TDRSTSCAT": "01",
+  "TDRSTSCATO": "01",
+
+  "PROLLCAT": "02",
+  "PROLLCATO": "02",
+  "TDRPRLCAT": "02",
+  "TDRPRLCATO": "02",
+
+  "PREFERCAT": "03",
+  "PREFERCATO": "03",
+  "IZK3CAT": "03",
+  "IZK3CATO": "03",
+  "PRLNW3CAT": "03",
+  "PRLNW3CATO": "03",
+  "TDRPRFCAT": "03",
+  "TDRPRFCATO": "03",
+
+  "PREFPRMCAT": "04",
+  "PRFPRMCATO": "04",
+  "IZK4CAT": "04",
+  "IZK4CATO": "04",
+  "PRLNW4CAT": "04",
+  "PRLNW4CATO": "04",
+  "TDRPRMCAT": "04",
+  "TDRPRMCATO": "04",
+
+  "STAFFCAT": "05",
+  "STAFFCATO": "05",
+  "STAFFALFA": "05",
+  "STAFFALFAO": "05",
+
+  "APRVTCATO": "06",
+
+  "PRMCONCATO": "07"
+}
