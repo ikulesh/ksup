@@ -12,6 +12,7 @@ import java.util.logging.Level;
 
 public class Config {
     public static String EXCEL_FILE_PATH;
+    public static String LOG_FOLDER_PATH;
     public static String EXT_SYS_CODE;
     public static String CONSTANT_ID;
     public static String APP_ID;
@@ -42,6 +43,7 @@ public class Config {
 
             // Assign the values from the properties file
             EXCEL_FILE_PATH = prop.getProperty("excel.file.path");
+            LOG_FOLDER_PATH = prop.getProperty("log.folder.path");
             EXT_SYS_CODE = prop.getProperty("external.system.code");
             CONSTANT_ID = prop.getProperty("constant.id");
             APP_ID = prop.getProperty("application.id");

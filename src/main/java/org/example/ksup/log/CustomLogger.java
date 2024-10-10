@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.logging.*;
 
-import static org.example.ksup.Config.EXT_SYS_CODE;
-import static org.example.ksup.Config.LOG_LEVEL;
+import static org.example.ksup.Config.*;
 
 public class CustomLogger {
 
@@ -14,7 +13,7 @@ public class CustomLogger {
     static {
         try {
             // The path to the log file
-            String logFilePath = "/Users/admin2/Desktop/RPP/logfile_" + LocalDate.now() + "_" + EXT_SYS_CODE.substring(4) + ".txt";
+            String logFilePath = LOG_FOLDER_PATH + "logfile_" + LocalDate.now() + "_" + EXT_SYS_CODE.substring(4) + ".txt";
 
             // Create a file handler to write log messages to the file
             FileHandler fileHandler = new FileHandler(logFilePath, true);
