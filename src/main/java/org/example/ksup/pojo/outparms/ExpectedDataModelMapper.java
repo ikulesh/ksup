@@ -33,19 +33,37 @@ public class ExpectedDataModelMapper {
         return excelToDatabaseMap.get(excelValue.trim());
     }
 
+    /**
+     * Method gets client value from the Excel file and returns db value
+     *
+     * @param client client from the Excel file
+     * @return db client value
+     */
     public static String clientMapper(String client) {
         ExpectedDataModelMapper clientMapper = new ExpectedDataModelMapper("json/client_mapping.json");
         return clientMapper.replaceExcelValue(client);
     }
 
+    /**
+     * Method gets channel value from the Excel file and returns db value
+     *
+     * @param channel channel from the Excel file
+     * @return db channel value
+     */
     public static String channelMapper(String channel) {
         ExpectedDataModelMapper channelMapper = new ExpectedDataModelMapper("json/channel_mapping.json");
         return channelMapper.replaceExcelValue(channel);
     }
 
-    public static String channelCategoryMapper(String channelCategory) {
+    /**
+     * Method gets client value from the ExpectedDataModel and returns category of client
+     *
+     * @param clientCategory client from the ExcelDataModel file
+     * @return client category value
+     */
+    public static String channelCategoryMapper(String clientCategory) {
         ExpectedDataModelMapper channelMapper = new ExpectedDataModelMapper("json/client_category_mapping.json");
-        return channelMapper.replaceExcelValue(channelCategory);
+        return channelMapper.replaceExcelValue(clientCategory);
     }
 }
 
