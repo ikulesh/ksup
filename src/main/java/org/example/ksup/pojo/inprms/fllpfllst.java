@@ -9,13 +9,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class fllpfllst {
     @XmlElement(name = "recordSetRow")
-    private recordSetRow recordSetRow;
+    private RecordSetRow recordSetRow;
 
     /**
      * Method creates new instance of recordSetRow and sets fllpfl (client code)
      */
     public void setRecordSetRow(String fllpfl) {
-        this.recordSetRow = new recordSetRow();
+        this.recordSetRow = new RecordSetRow();
         recordSetRow.setFllpfl(fllpfl);
     }
 }

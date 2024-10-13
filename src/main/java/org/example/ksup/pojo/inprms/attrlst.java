@@ -13,7 +13,7 @@ import java.util.List;
 @XmlRootElement
 public class attrlst {
     @XmlElement(name = "recordSetRow")
-    private List<recordSetRow> recordSetRow;
+    private List<RecordSetRow> recordSetRow;
 
     public attrlst() {
         this.recordSetRow = new ArrayList<>();
@@ -28,7 +28,7 @@ public class attrlst {
      */
     public void addParam(List<String> params, RequestModel requestModel, String riskLevel) {
         for (String param : params) {
-            recordSetRow.add(new recordSetRow(param, requestModel, riskLevel));
+            recordSetRow.add(new RecordSetRow(param, requestModel, riskLevel));
         }
     }
 }

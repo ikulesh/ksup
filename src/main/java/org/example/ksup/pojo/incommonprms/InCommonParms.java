@@ -10,11 +10,11 @@ import java.util.List;
  * All params contains in request body.
  */
 @Data
-@XmlRootElement
-public class inCommonParms {
+@XmlRootElement(name = "inCommonParms")
+public class InCommonParms {
     private String userID;
     private String branchNumber;
     private String externalSystemCode;
     private String externalUserCode;
-    private List<inCommonParmsExt> inCommonParmsExt;
+    private List<InCommonParmsExt> inCommonParmsExt;
 }

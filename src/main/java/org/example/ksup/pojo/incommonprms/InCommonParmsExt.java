@@ -8,16 +8,16 @@ import javax.xml.bind.annotation.XmlRootElement;
  * inCommonParmsExt is nested class of inCommonParms
  */
 @Data
-@XmlRootElement
-public class inCommonParmsExt {
+@XmlRootElement(name = "inCommonParmsExt")
+public class InCommonParmsExt {
     private String name;
     private String value;
 
-    public inCommonParmsExt(String name, String value) {
+    public InCommonParmsExt(String name, String value) {
         this.name = name;
         this.value = value;
     }
 
-    public inCommonParmsExt() {
+    public InCommonParmsExt() {
     }
 }

@@ -121,38 +121,7 @@ public class ExpectedDataModel {
         }
     }
 
-    /**
-     * Method for replacing channel name and code
-     *
-     * @param element channel name
-     * @return channel code
-     */
-    public String replaceValueOfChannel(String element) {
-        Map<String, String> channelMap = new HashMap<>();
-
-        channelMap.put("DSA", "CH10");
-        channelMap.put("DO", "CH16");
-        channelMap.put("KKO", "CH22");
-        channelMap.put("VIP", "CH23");
-        channelMap.put("DCCC_Front", "CH92");
-        channelMap.put("DCCC_IA", "CH93");
-        channelMap.put("DCCC_AZON", "CH94");
-        channelMap.put("DCCC_UKD", "CH95");
-        channelMap.put("Combo", "CH96");
-        channelMap.put("Svyaznoy_FM", "CH51");
-        channelMap.put("Partners_FM", "CH53");
-        channelMap.put("Beeline_FM", "CH54");
-        channelMap.put("IA", "CH6");
-        channelMap.put("IA_Beeline", "CH64");
-        channelMap.put("PIL_CC", "CH65");
-        channelMap.put("Svyaznoy_LM", "CH34");
-        channelMap.put("Beeline_LM", "CH36");
-        channelMap.put("Partners_LM", "CH35");
-        channelMap.put("Partners_ALL", "CH57");
-        channelMap.put("Branch", "CH9");
-
-        return channelMap.get(element.trim());
-    }
+    
 
     /**
      * Method adds clients in to ExpectedDataModel

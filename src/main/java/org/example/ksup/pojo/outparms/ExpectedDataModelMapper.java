@@ -1,7 +1,6 @@
 package org.example.ksup.pojo.outparms;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;

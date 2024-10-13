@@ -12,7 +12,7 @@ import java.util.logging.Level;
 /**
  * All assertions
  */
-public abstract class ParamAssertions {
+public class ParamAssertions {
     /**
      * Params with multiple values
      *

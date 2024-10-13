@@ -3,7 +3,7 @@ package org.example.ksup.tests;
 import org.apache.poi.openxml4j.util.ZipSecureFile;
 import org.example.ksup.Config;
 import org.example.ksup.log.CustomLogger;
-import org.example.ksup.pojo.ExcelToRequestModelList;
+import org.example.ksup.pojo.ExcelFileReader;
 import org.example.ksup.pojo.RequestModel;
 import org.example.ksup.pojo.outparms.ExpectedDataModel;
 import org.example.ksup.pojo.outparms.ResultSetRow;
@@ -25,14 +25,14 @@ public class FirstClientMinLimitTest {
     public void firstClientTest() throws JAXBException, IOException {
         Config.loadProperties();
         ZipSecureFile.setMinInflateRatio(0.001);
-        List<ExpectedDataModel> expectedDataModelList = ExcelToRequestModelList.readExcelFile(EXCEL_FILE_PATH);
+        List<ExpectedDataModel> expectedDataModelList = ExcelFileReader.readExcelFile(EXCEL_FILE_PATH);
         RequestModel request = new RequestModel();
         List<ResultSetRow> result;
         List<String> params = new ArrayList<>();
         params.add("PCC000601");
 
         for (ExpectedDataModel expectedDataModel : expectedDataModelList) {
-            request.initializer(expectedDataModel);
+            request.initialize(expectedDataModel);
             List<String> warningsList = new ArrayList<>();
             // перебираем сначала каналы
             String channel = expectedDataModel.getChancd().get(0);

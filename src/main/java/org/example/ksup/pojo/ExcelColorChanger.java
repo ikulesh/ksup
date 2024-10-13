@@ -16,6 +16,9 @@ import static org.example.ksup.Config.EXCEL_FILE_PATH;
  * Green color for cells, which were wrong and now correct
  */
 public class ExcelColorChanger {
+
+    public static final int ACTUAL_RED_CELL_COLOR = 10;
+
     /**
      * @param warningList map with row numbers of excel file and wrong param names
      */
@@ -35,7 +38,7 @@ public class ExcelColorChanger {
             for (Row executedRow : sheet) {
                 //set green color for each red cell
                 for (Cell cell : executedRow) {
-                    if (cell.getCellStyle().getFillForegroundColor() == 10) {
+                    if (cell.getCellStyle().getFillForegroundColor() == ACTUAL_RED_CELL_COLOR) {
                         CellStyle cellStyle = workbook.createCellStyle();
                         setGreenForegroundColour(cellStyle);
                         cell.setCellStyle(cellStyle);

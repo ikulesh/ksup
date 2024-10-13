@@ -9,21 +9,21 @@ import java.util.List;
 /**
  * Builder of inCommonParms
  */
-public class inCommonParmsBuilder {
+public class InCommonParmsBuilder {
     /**
      * @param requestModel instance of RequestModel object
      * @return instance of inCommonParms
      */
-    public static inCommonParms inCommonParmsBuilder(RequestModel requestModel) {
-        inCommonParms inComPar = new inCommonParms();
+    public static InCommonParms inCommonParmsBuilder(RequestModel requestModel) {
+        InCommonParms inComPar = new InCommonParms();
         inComPar.setUserID("WSFL");
         inComPar.setBranchNumber("0000");
         inComPar.setExternalUserCode("WSFL");
         inComPar.setExternalSystemCode(requestModel.getExtSysCode());
-        List<inCommonParmsExt> inCommonParmsExtList = new ArrayList<>();
-        inCommonParmsExtList.add(new inCommonParmsExt("ConstantID", requestModel.getConstantID()));
+        List<InCommonParmsExt> inCommonParmsExtList = new ArrayList<>();
+        inCommonParmsExtList.add(new InCommonParmsExt("ConstantID", requestModel.getConstantID()));
         if (requestModel.getApplicationID() != null) {
-            inCommonParmsExtList.add(new inCommonParmsExt("AppID", requestModel.getApplicationID()));
+            inCommonParmsExtList.add(new InCommonParmsExt("AppID", requestModel.getApplicationID()));
         }
         inComPar.setInCommonParmsExt(inCommonParmsExtList);
         return inComPar;

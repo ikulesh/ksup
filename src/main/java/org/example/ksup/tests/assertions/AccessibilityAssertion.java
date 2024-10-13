@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 
-public abstract class AccessibilityAssertion {
+public class AccessibilityAssertion {
     /**
      * Accessibility of package
      *

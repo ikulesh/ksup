@@ -18,8 +18,8 @@ public class InParmsBuilder {
      * @param requestModel         instance of RequestModel
      * @return inParms instance
      */
-    public static inParms inParmsBuilder(boolean withoutRegAndChannel, String reqGroup, String alg, List<String> attrlist, RequestModel requestModel) {
-        inParms inPrm = new inParms();
+    public static InParms inParmsBuilder(boolean withoutRegAndChannel, String reqGroup, String alg, List<String> attrlist, RequestModel requestModel) {
+        InParms inPrm = new InParms();
         inPrm.setFl1grp(requestModel.getFl1grp());
         inPrm.setFl1pro(requestModel.getFl1pro());
         inPrm.setFl8sts("ACTIVE");

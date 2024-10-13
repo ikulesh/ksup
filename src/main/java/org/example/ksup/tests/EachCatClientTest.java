@@ -3,7 +3,7 @@ package org.example.ksup.tests;
 import org.example.ksup.Config;
 import org.example.ksup.log.CustomLogger;
 import org.example.ksup.pojo.ExcelColorChanger;
-import org.example.ksup.pojo.ExcelToRequestModelList;
+import org.example.ksup.pojo.ExcelFileReader;
 import org.example.ksup.pojo.RequestModel;
 import org.example.ksup.pojo.outparms.ExpectedDataModel;
 import org.example.ksup.pojo.outparms.ExpectedDataModelMapper;
@@ -23,13 +23,13 @@ public class EachCatClientTest {
     @Test
     public void eachCatClientTest() throws JAXBException, IOException {
         Config.loadProperties();
-        List<ExpectedDataModel> expectedDataModelList = ExcelToRequestModelList.readExcelFile(EXCEL_FILE_PATH);
+        List<ExpectedDataModel> expectedDataModelList = ExcelFileReader.readExcelFile(EXCEL_FILE_PATH);
         RequestModel request = new RequestModel();
         HashMap<Integer, List<String>> warningsListMap = new HashMap<>();
         List<String> warningsList = new ArrayList<>();
 
         for (ExpectedDataModel expectedDataModel : expectedDataModelList) {
-            request.initializer(expectedDataModel);
+            request.initialize(expectedDataModel);
             //перебираем сначала каналы
             for (String channel : expectedDataModel.getChancd()) {
 

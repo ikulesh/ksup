@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Setting price group for sending req
  */
-public abstract class SetPriceGrp {
+public class SetPriceGrp {
     /**
      * @param resultSetRowList  response
      * @param expectedDataModel comparing info

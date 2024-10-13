@@ -30,14 +30,13 @@ public class RequestModel {
      *
      * @param expectedDataModel data for sending
      */
-    public void initializer(ExpectedDataModel expectedDataModel) {
-        setExtSysCode(EXT_SYS_CODE);
-        setConstantID(CONSTANT_ID);
+    public void initialize(ExpectedDataModel expectedDataModel) {
+        extSysCode = EXT_SYS_CODE;
+        constantID = CONSTANT_ID;
         //setFl8pck(expectedDataModel.getFl8pck());
-        setRegcd(expectedDataModel.getRegcd());
-        setCurrency(expectedDataModel.getParamsPIPC().get("PIPC000004"));
-        setPipc000812(expectedDataModel.getParamsPIPC().get("PIPC000812"));
-
+        regcd = expectedDataModel.getRegcd();
+        currency = expectedDataModel.getParamsPIPC().get("PIPC000004");
+        pipc000812 = expectedDataModel.getParamsPIPC().get("PIPC000812");
     }
 
     /**
@@ -45,8 +44,8 @@ public class RequestModel {
      */
     public void reset() {
         //reset params
-        setApplicationID(null);
-        setFl1pro(null);
-        setFl1grp(null);
+        applicationID = null;
+        fl1pro = null;
+        fl1grp = null;
     }
 }

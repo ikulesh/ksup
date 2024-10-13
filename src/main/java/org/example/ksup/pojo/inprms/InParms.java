@@ -9,8 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * All params contains in request body.
  */
 @Data
-@XmlRootElement
-public class inParms {
+@XmlRootElement(name = "inParms")
+public class InParms {
     private String fl8pck;
     private String fl8sts;
     private String fl1grp;

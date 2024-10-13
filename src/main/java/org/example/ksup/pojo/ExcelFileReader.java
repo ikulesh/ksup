@@ -14,7 +14,7 @@ import java.util.List;
 
 import static org.example.ksup.Config.*;
 
-public class ExcelToRequestModelList {
+public class ExcelFileReader {
 
     //testing of method
     public static void main(String[] args) throws IOException {
@@ -31,9 +31,9 @@ public class ExcelToRequestModelList {
     }
 
     /**
-     * Method for reading excel file and create ExpectedDataModel
+     * Method for reading excel file and creating ExpectedDataModel
      *
-     * @param excelFilePath path to excel file directory
+     * @param excelFilePath path to the Excel file directory
      * @return list of ExpectedDataModel
      */
     public static List<ExpectedDataModel> readExcelFile(String excelFilePath) {

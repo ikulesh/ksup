@@ -4,10 +4,10 @@ import io.restassured.RestAssured;
 import org.example.ksup.log.CustomLogger;
 import org.example.ksup.pojo.ObjectToXmlConvert;
 import org.example.ksup.pojo.RequestModel;
-import org.example.ksup.pojo.incommonprms.inCommonParms;
-import org.example.ksup.pojo.inprms.inParms;
+import org.example.ksup.pojo.incommonprms.InCommonParms;
+import org.example.ksup.pojo.inprms.InParms;
 import org.example.ksup.pojo.outparms.ResultSetRow;
-import org.example.ksup.pojo.incommonprms.inCommonParmsBuilder;
+import org.example.ksup.pojo.incommonprms.InCommonParmsBuilder;
 import org.example.ksup.pojo.inprms.InParmsBuilder;
 
 import javax.xml.bind.JAXBException;
@@ -29,8 +29,8 @@ public class Request {
      * @return response as a list of ResultSetRow
      */
     public static List<ResultSetRow> request(String reqGroup, RequestModel requestModel, List<String> attrList, boolean withoutRegAndChannel, String alg) throws JAXBException {
-        inCommonParms inComParms = inCommonParmsBuilder.inCommonParmsBuilder(requestModel);
-        inParms inParmsObj = InParmsBuilder.inParmsBuilder(withoutRegAndChannel, reqGroup, alg, attrList, requestModel);
+        InCommonParms inComParms = InCommonParmsBuilder.inCommonParmsBuilder(requestModel);
+        InParms inParmsObj = InParmsBuilder.inParmsBuilder(withoutRegAndChannel, reqGroup, alg, attrList, requestModel);
 
         String request = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" +
                 "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n" +

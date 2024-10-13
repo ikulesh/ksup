@@ -8,8 +8,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Nested class of inParms
  */
-@XmlRootElement
-public class recordSetRow {
+@XmlRootElement(name = "recordSetRow")
+public class RecordSetRow {
     @XmlElement(name = "prm")
     private String prm;
     @XmlElement(name = "val")
@@ -21,7 +21,7 @@ public class recordSetRow {
     @XmlElement(name = "fllpfl")
     private String fllpfl;
 
-    public recordSetRow() {
+    public RecordSetRow() {
     }
 
     public void setFllpfl(String fllpfl) {
@@ -35,7 +35,7 @@ public class recordSetRow {
      * @param requestModel instance of RequestModel
      * @param riskLevel    contains in ExpectedDataModel
      */
-    public recordSetRow(String prm, RequestModel requestModel, String riskLevel) {
+    public RecordSetRow(String prm, RequestModel requestModel, String riskLevel) {
         this.prm = prm;
         if ("PAPPTYPE".equals(prm)) {
             this.val = "CC";
