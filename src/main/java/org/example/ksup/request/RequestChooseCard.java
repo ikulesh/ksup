@@ -22,7 +22,7 @@ public class RequestChooseCard {
         attrList.add("PAPPTYPE");
         //ChooseCardRequest
         //accessibility
-        //attrList.add("PIPC000801");
+        //creditParams.add("PIPC000801");
 
         attrList.add("PIPC000002");
         attrList.add("PIPC000004");

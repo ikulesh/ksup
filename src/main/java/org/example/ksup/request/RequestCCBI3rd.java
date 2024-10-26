@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
-import static org.example.ksup.Config.CCBI_IS_NEED;
 
 
 public class RequestCCBI3rd {
@@ -68,11 +67,11 @@ public class RequestCCBI3rd {
      * @param warningsList      wrong params
      */
     public static void execution(RequestModel request, ExpectedDataModel expectedDataModel, List<String> warningsList) throws JAXBException {
-        if (CCBI_IS_NEED) {
+         {
             CustomLogger.customLogger(Level.INFO, "CCBI 3rd request assertion:");
-            request.setPcc0000605(expectedDataModel.getParamsPIPC().get("PIPC000602"));
+            request.setPcc0000605(expectedDataModel.getCardParams().get("PIPC000602"));
             if (request.getPcc0000605() == null || request.getPcc0000605().isEmpty()) {
-                request.setPcc0000605(expectedDataModel.getParamsPIPC().get("PIPC000601"));
+                request.setPcc0000605(expectedDataModel.getCardParams().get("PIPC000601"));
             }
             if ((request.getPcc0000605() == null || request.getPcc0000605().isEmpty())) {
                 CustomLogger.customLogger(Level.WARNING, "Empty parameter PCC0000605, check your excel file (string number = "

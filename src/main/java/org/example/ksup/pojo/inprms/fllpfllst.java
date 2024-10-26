@@ -12,7 +12,7 @@ public class fllpfllst {
     private RecordSetRow recordSetRow;
 
     /**
-     * Method creates new instance of recordSetRow and sets fllpfl (client code)
+     * Method creates new instance of recordSetRow and sets clientList (client code)
      */
     public void setRecordSetRow(String fllpfl) {
         this.recordSetRow = new RecordSetRow();

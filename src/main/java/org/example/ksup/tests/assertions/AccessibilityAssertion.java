@@ -18,13 +18,13 @@ public class AccessibilityAssertion {
      * @return boolean value for next step
      */
     public static boolean accessibilityAssertion(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> warningsList) {
-        String expectedAccessibility = expectedDataModel.getParamsPIPC().get("PIPC000801");
+        String expectedAccessibility = expectedDataModel.getCardParams().get("PIPC000801");
         String accessible = "N";
 
         // Return early if resultSetRowList is null or empty
         if (resultSetRowList != null && !resultSetRowList.isEmpty()) {
             for (ResultSetRow row : resultSetRowList) {
-                if (row.getFl8pck().equals(expectedDataModel.getFl8pck())) {
+                if (row.getFl8pck().equals(expectedDataModel.getPackageCode())) {
                     if (expectedDataModel.getFl1grp() == null) {
                         expectedDataModel.setFl1grp(row.getFl1grp());
                     }

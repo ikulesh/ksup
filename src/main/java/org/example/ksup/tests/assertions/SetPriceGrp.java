@@ -15,7 +15,7 @@ public class SetPriceGrp {
      */
     public static void setPriceGrp(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel) {
         for (ResultSetRow row : resultSetRowList) {
-            if (/*row.getFl1pro().equals(expectedDataModel.getFl1pro()) &&*/ row.getFl8pck().equals(expectedDataModel.getFl8pck())) {
+            if (/*row.getCardCode().equals(expectedDataModel.getCardCode()) &&*/ row.getFl8pck().equals(expectedDataModel.getPackageCode())) {
                 expectedDataModel.setFl1grp(row.getFl1grp());
                 break;
             }

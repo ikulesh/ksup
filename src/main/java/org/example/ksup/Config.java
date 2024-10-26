@@ -1,11 +1,14 @@
 package org.example.ksup;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.poi.openxml4j.util.ZipSecureFile;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 
@@ -18,7 +21,6 @@ public class Config {
     public static String APP_ID;
     public static boolean IS_SECOND_CARD;
     public static boolean ONLY_AVAILABLE_CARDS;
-    public static boolean CCBI_IS_NEED;
     public static boolean CHANNEL_LIST_IS_LIMITED;
     public static boolean CARD_LIST_IS_LIMITED;
     public static boolean PACKAGE_LIST_IS_LIMITED;
@@ -28,6 +30,8 @@ public class Config {
     public static List<String> PACKAGE_LIST;
     public static List<String> CLIENT_LIST;
     public static Level LOG_LEVEL;
+    public static List<String> GLOBAL_MULTI_PARAM_LIST;
+    public static List<String> GLOBAL_SINGLE_PARAM_LIST;
 
     /**
      * Method to load properties from the file
@@ -36,6 +40,20 @@ public class Config {
      */
     public static void loadProperties() throws IOException {
         ZipSecureFile.setMinInflateRatio(0.0001); // Set to a lower ratio, if needed
+        try {
+            // Create an ObjectMapper instance
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            // Read JSON from the file into a Map
+            Map<String, List<String>> jsonMap = objectMapper.readValue(new File("json/params_mapping.json"), Map.class);
+
+            GLOBAL_MULTI_PARAM_LIST = jsonMap.get("globalMultiParamList");
+            GLOBAL_SINGLE_PARAM_LIST = jsonMap.get("globalSingleParamList");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Properties prop = new Properties();
 
         try (FileInputStream input = new FileInputStream("properties.properties")) {
@@ -49,7 +67,6 @@ public class Config {
             APP_ID = prop.getProperty("application.id");
             IS_SECOND_CARD = Boolean.parseBoolean(prop.getProperty("is.second.card"));
             ONLY_AVAILABLE_CARDS = Boolean.parseBoolean(prop.getProperty("only.available.cards"));
-            CCBI_IS_NEED = Boolean.parseBoolean(prop.getProperty("ccbi.is.necessary"));
             CARD_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("card.list.is.limited"));
             CHANNEL_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("channel.list.is.limited"));
             PACKAGE_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("package.list.is.limited"));

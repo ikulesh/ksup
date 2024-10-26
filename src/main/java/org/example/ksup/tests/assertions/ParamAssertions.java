@@ -24,10 +24,10 @@ public class ParamAssertions {
     public static void attrAssertions(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> expectedAttr, List<String> warningsList) {
         boolean contains = false;
         Map<String, String> rowMap;
-        List<ExpectedDataModel.AttrMap> attrList = expectedDataModel.getAttrList();
+        List<ExpectedDataModel.CreditParams> attrList = expectedDataModel.getCreditParams();
 
         //Проверка на нули в ответе
-        for (ExpectedDataModel.AttrMap map : expectedDataModel.getAttrList()) {
+        for (ExpectedDataModel.CreditParams map : expectedDataModel.getCreditParams()) {
             String expectedNameParam = map.getKey();
             Collection<String> expectedKeys = map.getValues().keySet();
             for (String element : expectedKeys) {
@@ -55,7 +55,7 @@ public class ParamAssertions {
             //если fl4val типа LM2    29.99
             if (rowMap != null) {
                 //ищем параметр в ожидаемых результатах
-                for (ExpectedDataModel.AttrMap expectedRow : attrList) {
+                for (ExpectedDataModel.CreditParams expectedRow : attrList) {
                     //ищем ключ-значение в ожидамемом результате для текущего fl3prm
                     if (expectedRow.getKey().equals(row.getFl3prm())) {
                         expectedValues = expectedRow.getValues();
@@ -91,7 +91,7 @@ public class ParamAssertions {
      */
     public static void paramAssertion(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, List<String> expectedAttr, List<String> warningsList) {
         //кусочек с проверкой на нули
-        Collection<String> params = expectedDataModel.getParamsPIPC().keySet();
+        Collection<String> params = expectedDataModel.getCardParams().keySet();
         boolean contains = false;
         for (String param : params) {
             if (!expectedAttr.contains(param)) {
@@ -104,7 +104,7 @@ public class ParamAssertions {
                 }
             }
             if (!contains) {
-                CustomLogger.customLogger(Level.WARNING, param + " is empty, should be: " + expectedDataModel.getParamsPIPC().get(param));
+                CustomLogger.customLogger(Level.WARNING, param + " is empty, should be: " + expectedDataModel.getCardParams().get(param));
                 warningsList.add(param);
             } else {
                 contains = false;
@@ -115,7 +115,7 @@ public class ParamAssertions {
             if (!(row.getFl4val().contains("LM") || row.getFl4val().contains("HR"))) {
                 String fl3prm = row.getFl3prm();
                 String fl4val = row.getFl4val();
-                String value = expectedDataModel.getParamsPIPC().get(fl3prm);
+                String value = expectedDataModel.getCardParams().get(fl3prm);
                 if (expectedAttr.contains(fl3prm)) {
                     if (value != null) {
                         //if (fl3prm.equals("PIPC000601"))
@@ -154,7 +154,7 @@ public class ParamAssertions {
             {
                 String fl3prm = row.getFl3prm();
                 String fl4val = row.getFl4val();
-                String value = expectedDataModel.getFl1proCat();
+                String value = expectedDataModel.getProductCode();
                 //productName assertion
                 if (fl3prm.equals("PCC0001001")) {
                     if (!value.equals(fl4val)) {
@@ -221,7 +221,7 @@ public class ParamAssertions {
      */
     public static boolean responseIsNotEmpty(List<ResultSetRow> resultSetRowList, ExpectedDataModel expectedDataModel, RequestModel requestModel) {
         if (resultSetRowList == null || resultSetRowList.isEmpty()) {
-            CustomLogger.customLogger(Level.WARNING, "Empty response for " + expectedDataModel.getFl8pck() + " " + requestModel.getChancd() + " " + expectedDataModel.getFl1proCat() + " " + requestModel.getFllpfl() + " " + expectedDataModel.getFl1pro() + " " + requestModel.getRiskLevel() + ":");
+            CustomLogger.customLogger(Level.WARNING, "Empty response for " + expectedDataModel.getPackageCode() + " " + requestModel.getChancd() + " " + expectedDataModel.getProductCode() + " " + requestModel.getFllpfl() + " " + expectedDataModel.getCardCode() + " " + requestModel.getRiskLevel() + ":");
             return false;
         } else return true;
     }

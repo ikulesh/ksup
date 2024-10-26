@@ -50,11 +50,11 @@ public class ExcelColorChanger {
 
                     if (warning.contains("PCC0001001")) {
                         indexes.add(1);
-                    } else if (warning.contains("fl1pro")) {
+                    } else if (warning.contains("cardCode")) {
                         indexes.add(6);
                     }
                     for (Cell cell : firstRow) {
-                        if (!cell.getStringCellValue().trim().equals("fl1pro")) {
+                        if (!cell.getStringCellValue().trim().equals("cardCode")) {
                             if (warning.contains(cell.getStringCellValue().replaceAll("G","").trim())) {
                                 indexes.add(cell.getColumnIndex());
                             }

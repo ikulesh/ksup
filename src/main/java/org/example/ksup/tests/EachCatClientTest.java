@@ -31,13 +31,13 @@ public class EachCatClientTest {
         for (ExpectedDataModel expectedDataModel : expectedDataModelList) {
             request.initialize(expectedDataModel);
             //перебираем сначала каналы
-            for (String channel : expectedDataModel.getChancd()) {
+            for (String channel : expectedDataModel.getChannelList()) {
 
                 request.setChancd(channel);
                 //для каждого канала перебираем клиентов
-                for (String catClient : expectedDataModel.getFlkval()) {
+                for (String catClient : expectedDataModel.getClientCatList()) {
                     String clientWithCat = "";
-                    for (String client : expectedDataModel.getFllpfl()) {
+                    for (String client : expectedDataModel.getClientList()) {
                         String cat = ExpectedDataModelMapper.channelCategoryMapper(client);
                         assert cat != null;
                         if (cat.equals(catClient)) {
@@ -54,8 +54,8 @@ public class EachCatClientTest {
                     for (String riskLevel : expectedDataModel.getRiskLevelRpp()) {
                         CustomLogger.customLogger(Level.INFO, "");
                         CustomLogger.customLogger(Level.INFO, "");
-                        CustomLogger.customLogger(Level.INFO, "Assertions for " + expectedDataModel.getFl8pck() + " " + channel + " "
-                                + expectedDataModel.getFl1proCat() + " " + clientWithCat + " " + expectedDataModel.getFl1pro() + " "
+                        CustomLogger.customLogger(Level.INFO, "Assertions for " + expectedDataModel.getPackageCode() + " " + channel + " "
+                                + expectedDataModel.getProductCode() + " " + clientWithCat + " " + expectedDataModel.getCardCode() + " "
                                 + riskLevel + " " + EXT_SYS_CODE + ":");
 
                         //вызов GCC01
@@ -76,7 +76,7 @@ public class EachCatClientTest {
                             RequestCCBI3rd.execution(request, expectedDataModel, warningsList);
 
                             //сетим код карты и ценовую группу
-                            request.setFl1pro(expectedDataModel.getFl1pro());
+                            request.setFl1pro(expectedDataModel.getCardCode());
                             request.setFl1grp(expectedDataModel.getFl1grp());
 
                             //request IPC

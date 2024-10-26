@@ -31,10 +31,10 @@ public class FirstClientTest {
             //инициализация общей части запроса
             request.initialize(expectedDataModel);
             //перебираем сначала каналы
-            for (String channel : expectedDataModel.getChancd())
-            //String channel = expectedDataModel.getChancd().get(0);
+            for (String channel : expectedDataModel.getChannelList())
+            //String channel = expectedDataModel.getChannelList().get(0);
             {
-                String clientWithCat = expectedDataModel.getFllpfl().get(0);
+                String clientWithCat = expectedDataModel.getClientList().get(0);
                 //ограничены ли проверки наборами каналов и карт
                 if (!expectedDataModel.needToTest(channel, clientWithCat)) {
                     continue;
@@ -46,8 +46,8 @@ public class FirstClientTest {
                 for (String riskLevel : expectedDataModel.getRiskLevelRpp()) {
                     CustomLogger.customLogger(Level.INFO, "");
                     CustomLogger.customLogger(Level.INFO, "");
-                    CustomLogger.customLogger(Level.INFO, "Assertions for " + expectedDataModel.getFl8pck() + " " + channel + " "
-                            + expectedDataModel.getFl1proCat() + " " + clientWithCat + " " + expectedDataModel.getFl1pro() + " "
+                    CustomLogger.customLogger(Level.INFO, "Assertions for " + expectedDataModel.getPackageCode() + " " + channel + " "
+                            + expectedDataModel.getProductCode() + " " + clientWithCat + " " + expectedDataModel.getCardCode() + " "
                             + riskLevel + " " + EXT_SYS_CODE + ":");
 
                     //вызов GCC01
@@ -68,7 +68,7 @@ public class FirstClientTest {
                         RequestCCBI3rd.execution(request, expectedDataModel, warningsList);
 
                         //сетим код карты и ценовую группу
-                        request.setFl1pro(expectedDataModel.getFl1pro());
+                        request.setFl1pro(expectedDataModel.getCardCode());
                         request.setFl1grp(expectedDataModel.getFl1grp());
 
                         //request IPC

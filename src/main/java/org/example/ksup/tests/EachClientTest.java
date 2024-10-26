@@ -30,11 +30,11 @@ public class EachClientTest {
         for (ExpectedDataModel expectedDataModel : expectedDataModelList) {
             request.initialize(expectedDataModel);
             //перебираем сначала каналы
-            for (String channel : expectedDataModel.getChancd()) {
+            for (String channel : expectedDataModel.getChannelList()) {
 
                 request.setChancd(channel);
                 //для каждого канала перебираем клиентов
-                for (String client : expectedDataModel.getFllpfl()) {
+                for (String client : expectedDataModel.getClientList()) {
 
                     if (!expectedDataModel.needToTest(channel, client)) {
                         continue;
@@ -45,8 +45,8 @@ public class EachClientTest {
                     for (String riskLevel : expectedDataModel.getRiskLevelRpp()) {
                         CustomLogger.customLogger(Level.INFO, "");
                         CustomLogger.customLogger(Level.INFO, "");
-                        CustomLogger.customLogger(Level.INFO, "Assertions for " + expectedDataModel.getFl8pck() + " " + channel + " "
-                                + expectedDataModel.getFl1proCat() + " " + client + " " + expectedDataModel.getFl1pro() + " "
+                        CustomLogger.customLogger(Level.INFO, "Assertions for " + expectedDataModel.getPackageCode() + " " + channel + " "
+                                + expectedDataModel.getProductCode() + " " + client + " " + expectedDataModel.getCardCode() + " "
                                 + riskLevel + " " + EXT_SYS_CODE + ":");
 
                         //вызов GCC01
@@ -67,7 +67,7 @@ public class EachClientTest {
                             RequestCCBI3rd.execution(request, expectedDataModel, warningsList);
 
                             //сетим код карты и ценовую группу
-                            request.setFl1pro(expectedDataModel.getFl1pro());
+                            request.setFl1pro(expectedDataModel.getCardCode());
                             request.setFl1grp(expectedDataModel.getFl1grp());
 
                             //request IPC

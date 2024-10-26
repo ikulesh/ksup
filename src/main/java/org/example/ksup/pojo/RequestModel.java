@@ -33,10 +33,10 @@ public class RequestModel {
     public void initialize(ExpectedDataModel expectedDataModel) {
         extSysCode = EXT_SYS_CODE;
         constantID = CONSTANT_ID;
-        //setFl8pck(expectedDataModel.getFl8pck());
-        regcd = expectedDataModel.getRegcd();
-        currency = expectedDataModel.getParamsPIPC().get("PIPC000004");
-        pipc000812 = expectedDataModel.getParamsPIPC().get("PIPC000812");
+        //setPackageCode(expectedDataModel.getPackageCode());
+        regcd = expectedDataModel.getRegionList().get(0);
+        currency = expectedDataModel.getCardParams().get("PIPC000004");
+        pipc000812 = expectedDataModel.getCardParams().get("PIPC000812");
     }
 
     /**

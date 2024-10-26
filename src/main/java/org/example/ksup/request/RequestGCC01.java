@@ -93,7 +93,7 @@ public class RequestGCC01 {
     public static boolean execution(RequestModel request, ExpectedDataModel expectedDataModel, List<String> warningsList) throws JAXBException {
         CustomLogger.customLogger(Level.INFO, "GCC01 request assertion:");
         request.setFl1grp("GCC01"); // price group
-        request.setFl1pro(expectedDataModel.getFl1pro());
+        request.setFl1pro(expectedDataModel.getCardCode());
         request.setFl8pck(null);
         List<ResultSetRow> result = requestGCC01(request);
         boolean nextStep = AccessibilityAssertion.accessibilityAssertion(result, expectedDataModel, warningsList); //if PIPC000801 == Y |=> nextStep = true
@@ -103,7 +103,7 @@ public class RequestGCC01 {
         }
         request.setFl1grp(null);
         request.setFl1pro(null);
-        request.setFl8pck(expectedDataModel.getFl8pck());
+        request.setFl8pck(expectedDataModel.getPackageCode());
         return nextStep;
     }
 }

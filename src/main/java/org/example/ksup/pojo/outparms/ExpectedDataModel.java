@@ -1,38 +1,42 @@
 package org.example.ksup.pojo.outparms;
 
 import lombok.Data;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import static org.example.ksup.Config.*;
 import static org.example.ksup.Config.CHANNEL_LIST;
+import static org.example.ksup.pojo.outparms.ExcelMethods.*;
 
 /**
  * Main data source which exported from excel file
  */
 @Data
 public class ExpectedDataModel {
-    private String fl8pck;
-    private String fl1proCat;
+    private String packageCode;
+    private String productCode;
     private String fl1grp;
-    private String regcd;
-    private List<String> chancd;
-    private String fl1pro;
+    private List<String> regionList;
+    private List<String> channelList;
+    private String cardCode;
     private String cardName;
     private String accessibility;
     private List<String> riskLevelRpp;
-    private List<AttrMap> attrList;
+    private List<CreditParams> creditParams;
 
-    private List<String> fllpfl;
-    private List<String> flkval;
-    private Map<String, String> paramsPIPC;
+    private List<String> clientList;
+    private List<String> clientCatList;
+    private Map<String, String> cardParams;
     private int index;
 
     @Data
-    public class AttrMap {
+    public class CreditParams {
         private String key;
         private Map<String, String> values;
 
@@ -43,7 +47,7 @@ public class ExpectedDataModel {
          * @param key   name of param
          * @param value value of param
          */
-        public AttrMap(String key, String value) {
+        public CreditParams(String key, String value) {
             if (key.contains("G")) {
                 key = key.replace("G", "");
             }
@@ -52,16 +56,28 @@ public class ExpectedDataModel {
         }
     }
 
+    public ExpectedDataModel() {
+        this.creditParams = new ArrayList<>();
+        this.channelList = new ArrayList<>();
+        this.clientCatList = new ArrayList<>();
+        this.clientList = new ArrayList<>();
+        this.riskLevelRpp = new ArrayList<>();
+    }
+
     /**
-     * Sets region 77 as a default value (need to refactor)
+     * Method gets region field from the Excel requirements, splits it and sets as a list
+     *
+     * @param regionList full region info from the Excel requirements
      */
-    public void setRegcd(String regcd) {
-        if (regcd.equals("RF")) {
-            this.regcd = "77";
-        } else if (regcd.contains("77")) {
-            this.regcd = "77";
-        } else {
-            this.regcd = regcd;
+    public void setRegionList(String regionList) {
+        this.regionList = new ArrayList<>();
+        String[] elements = regionList.split(",");
+        for (String element : elements) {
+            if (element.equals("RF")) {
+                this.regionList.add("77");
+                break;
+            }
+            this.regionList.add(element.trim());
         }
     }
 
@@ -114,24 +130,23 @@ public class ExpectedDataModel {
      *
      * @param fullChannels contains all channels from excel file
      */
-    public void addChancd(String fullChannels) {
+    public void addChannel(String fullChannels) {
         String[] elements = fullChannels.split(", ");
         for (String element : elements) {
-            chancd.add(ExpectedDataModelMapper.channelMapper(element.trim()));
+            channelList.add(ExpectedDataModelMapper.channelMapper(element.trim()));
         }
     }
 
-    
 
     /**
      * Method adds clients in to ExpectedDataModel
      *
      * @param fullClients all clients
      */
-    public void addFllpfl(String fullClients) {
+    public void addClient(String fullClients) {
         String[] elements = fullClients.split(", ");
         for (String element : elements) {
-            fllpfl.add(ExpectedDataModelMapper.clientMapper(element.trim()));
+            clientList.add(ExpectedDataModelMapper.clientMapper(element.trim()));
         }
 
     }
@@ -149,53 +164,53 @@ public class ExpectedDataModel {
     }
 
     /**
-     * Method adds new instance of AttrMap in to attrList
+     * Method adds new instance of AttrMap in to creditParams
      *
      * @param key   name of param
      * @param value value of param
      */
-    public void addAttrList(String key, String value) {
-        AttrMap nextAttr = new AttrMap(key, value);
-        attrList.add(nextAttr);
+    public void addCreditParam(String key, String value) {
+        CreditParams nextCreditParam = new CreditParams(key, value);
+        creditParams.add(nextCreditParam);
     }
 
     /**
      * Method adds all client categories
      *
-     * @param flkvalFull string of all client categories
+     * @param clientCatFull string of all client categories
      */
-    public void addFlkval(String flkvalFull) {
-        String[] elements = flkvalFull.split(",");
+    public void addClientCat(String clientCatFull) {
+        String[] elements = clientCatFull.split(",");
         for (String element : elements) {
-            flkval.add(element.trim());
+            clientCatList.add(element.trim());
         }
     }
 
     /**
-     * Method adds new instance of AttrMap in to attrList
+     * Method adds new instance of AttrMap in to creditParams
      *
      * @param key   name of param ("G" removed)
      * @param value value of param (without formatting)
      */
-    public void addParamPIPC(String key, String value) {
-        if (paramsPIPC == null) {
-            setParamsPIPC(new HashMap<>());
+    public void addSingleParam(String key, String value) {
+        if (cardParams == null) {
+            setCardParams(new HashMap<>());
         }
         if (key.contains("G")) {
             key = key.replace("G", "");
         }
-        paramsPIPC.put(key, value);
+        cardParams.put(key, value);
     }
 
     /**
      * Method for limiting the number of tests
      *
-     * @param channel RequestModel.chancd
+     * @param channel RequestModel.channelList
      * @return skip ExpectedDataModel for testing or not.
      */
     public boolean needToTest(String channel, String fllpfl) {
         boolean necessity = true;
-        if (CARD_LIST_IS_LIMITED && !CARD_LIST.contains(getFl1pro())) {
+        if (CARD_LIST_IS_LIMITED && !CARD_LIST.contains(getCardCode())) {
             necessity = false;
         }
         if (CHANNEL_LIST_IS_LIMITED && !CHANNEL_LIST.contains(channel)) {
@@ -205,5 +220,85 @@ public class ExpectedDataModel {
             necessity = false;
         }
         return necessity;
+    }
+
+    /**
+     * Method gets all elements from currentRow and sets it into ExcelDataModel
+     *
+     * @param currentRow executed row of the Excel requirements
+     * @param headerRow  header row of the Excel requirements
+     */
+    public void setNewPackage(Row headerRow, Row currentRow) {
+        Map<String, Consumer<String>> paramActions = paramActionsMainParams();
+
+        for (Cell cell : currentRow) {
+            int paramNumber = cell.getColumnIndex();
+            if (cellIsEmpty(headerRow.getCell(paramNumber))) {
+                break;
+            }
+            String paramName = getParamName(headerRow, cell.getColumnIndex());
+            String paramValue = getParamValue(cell);
+            // Handle parameter using the map
+            Consumer<String> action = paramActions.get(paramName);
+            if (action != null) {
+                action.accept(paramValue);
+                continue;
+            }
+
+            // Handle GLOBAL_SINGLE_PARAM_LIST
+            if (GLOBAL_SINGLE_PARAM_LIST.contains(paramName) && !cellIsEmpty(cell)) {
+                addSingleParam(paramName, paramValue);
+                continue;
+            }
+
+            // Handle GLOBAL_MULTI_PARAM_LIST
+            if (GLOBAL_MULTI_PARAM_LIST.contains(paramName) && !cellIsEmpty(cell)) {
+                addCreditParam(paramName, paramValue);
+            }
+        }
+    }
+
+    /**
+     * Creates a map that associates parameter names with actions to be performed on them.
+     * Each entry in the map maps a string (the parameter name) to a corresponding action,
+     * which is a method reference or a lambda function that takes a string argument.
+     *
+     * <p>Each action corresponds to a specific field or operation related to the parameter name:
+     * <ul>
+     *   <li>"fl1pck" - sets the package code using {@link #setPackageCode(String)}</li>
+     *   <li>"flenoc" - sets the region list using {@link #setRegionList(String)}</li>
+     *   <li>"gpvdsc" - adds a channel using {@link #addChannel(String)}</li>
+     *   <li>"clientList" - adds a client using {@link #addClient(String)}</li>
+     *   <li>"clientCatList" - adds a client category using {@link #addClientCat(String)}</li>
+     *   <li>"fl5dsc" - sets the card name using {@link #setCardName(String)}</li>
+     *   <li>"cardCode" - sets either the product code or the card code, depending on whether
+     *       the parameter value consists of exactly four capital letters. If it does,
+     *       {@link #setProductCode(String)} is called; otherwise, {@link #setCardCode(String)} is called.</li>
+     * </ul>
+     *
+     * @return A map associating parameter names with their corresponding actions (method references or lambdas).
+     */
+
+    private Map<String, Consumer<String>> paramActionsMainParams() {
+        Map<String, Consumer<String>> paramActions = new HashMap<>();
+
+        // Define mappings of paramName to corresponding action
+        paramActions.put("fl1pck", this::setPackageCode);
+        paramActions.put("flenoc", this::setRegionList);
+        paramActions.put("gpvdsc", this::addChannel);
+        paramActions.put("fllpfl", this::addClient);
+        paramActions.put("flkval", this::addClientCat);
+        paramActions.put("fl5dsc", this::setCardName);
+        paramActions.put("fl1proc", this::setProductCode);
+        paramActions.put("fl1prod", this::setCardCode);
+        paramActions.put("PCC0002053", this::addRiskLevelRpp);
+        paramActions.put("fl1pro", (paramValue) -> {
+            if (paramValue.matches("^[A-Z|\\d]{4}$")) {
+                this.setProductCode(paramValue);
+            } else {
+                this.setCardCode(paramValue);
+            }
+        });
+        return paramActions;
     }
 }

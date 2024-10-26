@@ -29,7 +29,7 @@ public class RequestGrace4th {
     public static List<String> setAttrList() {
         List<String> attrList = new ArrayList<>();
         //Request 4
-        //attrList.add("PAPPTYPE");
+        //creditParams.add("PAPPTYPE");
         attrList.add("PCC0001056");
         attrList.add("PCC0002122");
         attrList.add("PCC0002022");
@@ -91,7 +91,7 @@ public class RequestGrace4th {
         attrList.add("PCC0002042");
         attrList.add("PCC0002143");
         attrList.add("PCC0002044");
-        //attrList.add("PCC0002053");
+        //creditParams.add("PCC0002053");
         attrList.add("PCC0002152");
         attrList.add("PCC0002151");
         attrList.add("PCC0002121");
