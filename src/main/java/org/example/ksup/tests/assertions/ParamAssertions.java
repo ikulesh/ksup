@@ -98,7 +98,7 @@ public class ParamAssertions {
                 continue;
             }
             for (ResultSetRow row : resultSetRowList) {
-                if (row.getFl3prm().equals(param)) {
+                if (row.getFl3prm().equals(param) && row.getFl8pck().equals(expectedDataModel.getPackageCode())) {
                     contains = true;
                     break;
                 }
@@ -116,7 +116,7 @@ public class ParamAssertions {
                 String fl3prm = row.getFl3prm();
                 String fl4val = row.getFl4val();
                 String value = expectedDataModel.getCardParams().get(fl3prm);
-                if (expectedAttr.contains(fl3prm)) {
+                if (expectedAttr.contains(fl3prm) && row.getFl8pck().equals(expectedDataModel.getPackageCode())) {
                     if (value != null) {
                         //if (fl3prm.equals("PIPC000601"))
                         {

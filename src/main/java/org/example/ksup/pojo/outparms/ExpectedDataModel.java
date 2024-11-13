@@ -97,7 +97,7 @@ public class ExpectedDataModel {
 
         // Split the input string based on the pattern
         String[] pairs = input.split(regex);
-        if (pairs.length == 6) {
+        if (pairs.length % 2 == 0) {
 
             // Iterate over each key-value pair
             for (int i = 0; i < pairs.length - 1; i += 2) {
@@ -230,7 +230,6 @@ public class ExpectedDataModel {
      */
     public void setNewPackage(Row headerRow, Row currentRow) {
         Map<String, Consumer<String>> paramActions = paramActionsMainParams();
-
         for (Cell cell : currentRow) {
             int paramNumber = cell.getColumnIndex();
             if (cellIsEmpty(headerRow.getCell(paramNumber))) {
@@ -245,15 +244,16 @@ public class ExpectedDataModel {
                 continue;
             }
 
-            // Handle GLOBAL_SINGLE_PARAM_LIST
-            if (GLOBAL_SINGLE_PARAM_LIST.contains(paramName) && !cellIsEmpty(cell)) {
-                addSingleParam(paramName, paramValue);
-                continue;
-            }
-
-            // Handle GLOBAL_MULTI_PARAM_LIST
-            if (GLOBAL_MULTI_PARAM_LIST.contains(paramName) && !cellIsEmpty(cell)) {
-                addCreditParam(paramName, paramValue);
+            if (!cellIsEmpty(cell)) {
+                // Handle GLOBAL_SINGLE_PARAM_LIST
+                if (GLOBAL_SINGLE_PARAM_LIST.contains(paramName)) {
+                    addSingleParam(paramName, paramValue);
+                    continue;
+                }
+                // Handle GLOBAL_MULTI_PARAM_LIST
+                if (GLOBAL_MULTI_PARAM_LIST.contains(paramName)) {
+                    addCreditParam(paramName, paramValue);
+                }
             }
         }
     }
