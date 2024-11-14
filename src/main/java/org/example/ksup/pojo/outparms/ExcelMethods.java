@@ -2,8 +2,6 @@ package org.example.ksup.pojo.outparms;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 
 public class ExcelMethods {
     /**
@@ -24,7 +22,21 @@ public class ExcelMethods {
      * @return string value of cell
      */
     public static String getParamValue(Cell cell) {
-        return cell.getStringCellValue().trim();
+        if (cell == null) {
+            return null;
+        }
+        switch (cell.getCellType()) {
+            case STRING:
+                return cell.getStringCellValue().trim();
+            case NUMERIC:
+                return String.valueOf((int) cell.getNumericCellValue());
+            case BOOLEAN:
+                return String.valueOf(cell.getBooleanCellValue()).trim();
+            case FORMULA:
+                return cell.getCellFormula();
+            default:
+                return null;
+        }
     }
 
     /**
@@ -34,9 +46,10 @@ public class ExcelMethods {
      * @return true - empty cell, false - filled
      */
     public static boolean cellIsEmpty(Cell cell) {
-        if (cell == null) {
+        String cellValue = getParamValue(cell);
+        if (cellValue == null) {
             return true;
-        } else return cell.getStringCellValue().isEmpty();
+        } else return cellValue.isEmpty();
     }
 
     /**

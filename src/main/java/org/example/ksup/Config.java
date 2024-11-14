@@ -88,4 +88,18 @@ public class Config {
         }
         return propertiesList;
     }
+
+    @Deprecated
+    public static List<String> getRequestParamList(String requestName){
+        try {
+            // Create an ObjectMapper instance
+            ObjectMapper objectMapper = new ObjectMapper();
+            // Read JSON from the file into a Map
+            Map<String, List<String>> jsonMap = objectMapper.readValue(new File("json/properties.json"), Map.class);
+            return jsonMap.get(requestName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
