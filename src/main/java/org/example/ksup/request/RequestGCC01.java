@@ -100,6 +100,7 @@ public class RequestGCC01 {
         if (nextStep && ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
             ParamAssertions.cardNameAssertion(result, expectedDataModel, warningsList); // cardName assertion
             ParamAssertions.paramAssertion(result, expectedDataModel, RequestGCC01.setAssertList(), warningsList); // assertion for simple params
+            ParamAssertions.numberOfDifferentPackagesMoreThanOne(result);
         }
         request.setFl1grp(null);
         request.setFl1pro(null);

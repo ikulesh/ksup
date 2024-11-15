@@ -18,7 +18,7 @@ public class RecordSetRow {
     private Integer valcond;
     @XmlElement(name = "prmmod")
     private Integer prmmod;
-    @XmlElement(name = "clientList")
+    @XmlElement(name = "fllpfl")
     private String fllpfl;
 
     public RecordSetRow() {

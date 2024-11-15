@@ -225,4 +225,18 @@ public class ParamAssertions {
             return false;
         } else return true;
     }
+
+    public static void numberOfDifferentPackagesMoreThanOne(List<ResultSetRow> resultSetRowList) {
+        List<String> packageCodeList = new ArrayList<>();
+        for (ResultSetRow row : resultSetRowList) {
+            String packageCode = row.getFl8pck();
+            if (!packageCodeList.contains(packageCode)) {
+                packageCodeList.add(packageCode);
+            }
+        }
+        if (packageCodeList.size() > 1) {
+            CustomLogger.customLogger(Level.WARNING, "Response has more than 1 different package codes: "
+                    + packageCodeList + " only one of them could be opened");
+        }
+    }
 }
