@@ -1,5 +1,6 @@
-package org.example.ksup.tests;
-
+import org.example.ksup.tests.EachCatClientTest;
+import org.example.ksup.tests.EachClientTest;
+import org.example.ksup.tests.FirstClientTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
