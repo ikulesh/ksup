@@ -83,6 +83,7 @@ public class Config {
             CLIENT_LIST = propertyToList(prop.getProperty("client.list"));
             CLIENT_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("client.list.is.limited"));
             LOG_LEVEL = Level.parse(prop.getProperty("log.level"));
+            System.out.println(LOG_FOLDER_PATH);
         }
     }
 
