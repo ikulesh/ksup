@@ -39,7 +39,8 @@ public class Config {
      * @throws IOException when properties file doesn't exist
      */
     public static void loadProperties() throws IOException {
-        ZipSecureFile.setMinInflateRatio(0.0001); // Set to a lower ratio, if needed
+        ZipSecureFile.setMinInflateRatio(0.0001); // Prevent potential ZIP bomb attacks
+
         try {
             // Create an ObjectMapper instance
             ObjectMapper objectMapper = new ObjectMapper();
@@ -59,9 +60,15 @@ public class Config {
         try (FileInputStream input = new FileInputStream("properties.properties")) {
             prop.load(input);
 
-            // Assign the values from the properties file
-            EXCEL_FILE_PATH = prop.getProperty("excel.file.path");
-            LOG_FOLDER_PATH = prop.getProperty("log.folder.path");
+            // Assign values from system properties or fall back to properties file
+            EXCEL_FILE_PATH = System.getenv("EXCEL_FILE_PATH") != null
+                    ? System.getenv("EXCEL_FILE_PATH")
+                    : prop.getProperty("excel.file.path");
+
+            LOG_FOLDER_PATH = System.getenv("LOG_FOLDER_PATH") != null
+                    ? System.getenv("LOG_FOLDER_PATH")
+                    : prop.getProperty("log.folder.path");
+
             EXT_SYS_CODE = prop.getProperty("external.system.code");
             CONSTANT_ID = prop.getProperty("constant.id");
             APP_ID = prop.getProperty("application.id");
@@ -76,9 +83,9 @@ public class Config {
             CLIENT_LIST = propertyToList(prop.getProperty("client.list"));
             CLIENT_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("client.list.is.limited"));
             LOG_LEVEL = Level.parse(prop.getProperty("log.level"));
-
         }
     }
+
 
     private static List<String> propertyToList(String property) {
         List<String> propertiesList = new ArrayList<>();

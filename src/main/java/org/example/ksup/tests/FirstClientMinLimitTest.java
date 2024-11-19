@@ -18,6 +18,7 @@ import java.util.logging.Level;
 
 import static org.example.ksup.Config.*;
 
+@Deprecated
 public class FirstClientMinLimitTest {
     @Test
     public void firstClientTest() throws JAXBException, IOException {

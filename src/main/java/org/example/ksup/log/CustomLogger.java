@@ -13,7 +13,8 @@ public class CustomLogger {
     static {
         try {
             // The path to the log file
-            String logFilePath = LOG_FOLDER_PATH + "logfile_" + LocalDate.now() + "_" + EXT_SYS_CODE.substring(4) + ".txt";
+            //String logFilePath = LOG_FOLDER_PATH + "logfile_" + LocalDate.now() + "_" + EXT_SYS_CODE.substring(4) + ".txt";
+            String logFilePath = LOG_FOLDER_PATH + "log_file.txt";
 
             // Create a file handler to write log messages to the file
             FileHandler fileHandler = new FileHandler(logFilePath, true);

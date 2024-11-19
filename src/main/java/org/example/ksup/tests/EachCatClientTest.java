@@ -20,8 +20,7 @@ import java.util.logging.Level;
 import static org.example.ksup.Config.*;
 
 public class EachCatClientTest {
-    @Test
-    public void eachCatClientTest() throws JAXBException, IOException {
+    public static void eachCatClientTest() throws JAXBException, IOException {
         Config.loadProperties();
         List<ExpectedDataModel> expectedDataModelList = ExcelFileReader.readExcelFile(EXCEL_FILE_PATH);
         RequestModel request = new RequestModel();
