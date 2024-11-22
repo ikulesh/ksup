@@ -68,22 +68,69 @@ public class Config {
             LOG_FOLDER_PATH = System.getenv("LOG_FOLDER_PATH") != null
                     ? System.getenv("LOG_FOLDER_PATH")
                     : prop.getProperty("log.folder.path");
+            System.out.println(LOG_FOLDER_PATH);
 
-            EXT_SYS_CODE = prop.getProperty("external.system.code");
+            EXT_SYS_CODE = System.getProperty("external.system.code") != null
+                    ? System.getProperty("external.system.code")
+                    : prop.getProperty("external.system.code");
+
             CONSTANT_ID = prop.getProperty("constant.id");
             APP_ID = prop.getProperty("application.id");
-            IS_SECOND_CARD = Boolean.parseBoolean(prop.getProperty("is.second.card"));
-            ONLY_AVAILABLE_CARDS = Boolean.parseBoolean(prop.getProperty("only.available.cards"));
-            CARD_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("card.list.is.limited"));
-            CHANNEL_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("channel.list.is.limited"));
-            PACKAGE_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("package.list.is.limited"));
-            CARD_LIST = propertyToList(prop.getProperty("card.list"));
-            CHANNEL_LIST = propertyToList(prop.getProperty("channel.list"));
-            PACKAGE_LIST = propertyToList(prop.getProperty("package.list"));
-            CLIENT_LIST = propertyToList(prop.getProperty("client.list"));
-            CLIENT_LIST_IS_LIMITED = Boolean.parseBoolean(prop.getProperty("client.list.is.limited"));
-            LOG_LEVEL = Level.parse(prop.getProperty("log.level"));
-            System.out.println(LOG_FOLDER_PATH);
+
+            IS_SECOND_CARD = Boolean.parseBoolean(
+                    System.getProperty("is.second.card") != null
+                            ? System.getProperty("is.second.card")
+                            : prop.getProperty("is.second.card"));
+
+            ONLY_AVAILABLE_CARDS = Boolean.parseBoolean(
+                    System.getProperty("only.available.cards") != null
+                            ? System.getProperty("only.available.cards")
+                            : prop.getProperty("only.available.cards"));
+
+            CARD_LIST_IS_LIMITED = Boolean.parseBoolean(
+                    System.getProperty("card.list.is.limited") != null
+                            ? System.getProperty("card.list.is.limited")
+                            : prop.getProperty("card.list.is.limited"));
+
+            CHANNEL_LIST_IS_LIMITED = Boolean.parseBoolean(
+                    System.getProperty("channel.list.is.limited") != null
+                            ? System.getProperty("channel.list.is.limited")
+                            : prop.getProperty("channel.list.is.limited"));
+
+            PACKAGE_LIST_IS_LIMITED = Boolean.parseBoolean(
+                    System.getProperty("package.list.is.limited") != null
+                            ? System.getProperty("package.list.is.limited")
+                            : prop.getProperty("package.list.is.limited"));
+
+            CLIENT_LIST_IS_LIMITED = Boolean.parseBoolean(
+                    System.getProperty("client.list.is.limited") != null
+                            ? System.getProperty("client.list.is.limited")
+                            : prop.getProperty("client.list.is.limited"));
+
+            CARD_LIST = propertyToList(
+                    System.getProperty("card.list") != null
+                            ? System.getProperty("card.list")
+                            : prop.getProperty("card.list"));
+
+            CHANNEL_LIST = propertyToList(
+                    System.getProperty("channel.list") != null
+                            ? System.getProperty("channel.list")
+                            : prop.getProperty("channel.list"));
+
+            PACKAGE_LIST = propertyToList(
+                    System.getProperty("package.list") != null
+                            ? System.getProperty("package.list")
+                            : prop.getProperty("package.list"));
+
+            CLIENT_LIST = propertyToList(
+                    System.getProperty("client.list") != null
+                            ? System.getProperty("client.list")
+                            : prop.getProperty("client.list"));
+
+            LOG_LEVEL = Level.parse(
+                    System.getProperty("log.level") != null
+                            ? System.getProperty("log.level")
+                            : prop.getProperty("log.level"));
         }
     }
 
@@ -98,7 +145,7 @@ public class Config {
     }
 
     @Deprecated
-    public static List<String> getRequestParamList(String requestName){
+    public static List<String> getRequestParamList(String requestName) {
         try {
             // Create an ObjectMapper instance
             ObjectMapper objectMapper = new ObjectMapper();

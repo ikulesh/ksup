@@ -18,10 +18,8 @@ import java.util.logging.Level;
 
 import static org.example.ksup.Config.*;
 
-@Deprecated
 public class FirstClientMinLimitTest {
-    @Test
-    public void firstClientTest() throws JAXBException, IOException {
+    public static void firstClientTest() throws JAXBException, IOException {
         Config.loadProperties();
         List<ExpectedDataModel> expectedDataModelList = ExcelFileReader.readExcelFile(EXCEL_FILE_PATH);
         RequestModel request = new RequestModel();
