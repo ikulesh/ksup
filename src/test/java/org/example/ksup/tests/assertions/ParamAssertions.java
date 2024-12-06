@@ -226,7 +226,7 @@ public class ParamAssertions {
         } else return true;
     }
 
-    public static void numberOfDifferentPackagesMoreThanOne(List<ResultSetRow> resultSetRowList) {
+    public static void numberOfDifferentPackagesMoreThanOne(List<ResultSetRow> resultSetRowList, List<String> warningList) {
         List<String> packageCodeList = new ArrayList<>();
         for (ResultSetRow row : resultSetRowList) {
             String packageCode = row.getFl8pck();
@@ -237,6 +237,7 @@ public class ParamAssertions {
         if (packageCodeList.size() > 1) {
             CustomLogger.customLogger(Level.WARNING, "Response has more than 1 different package codes: "
                     + packageCodeList + " only one of them could be opened");
+            warningList.add("PIPC000801");
         }
     }
 }

@@ -13,7 +13,7 @@ import java.util.logging.Level;
 
 
 
-public class RequestCCBI3rd {
+public class RequestCCBI2nd {
     /**
      * Method sends CCBI request
      *
@@ -77,9 +77,9 @@ public class RequestCCBI3rd {
                 CustomLogger.customLogger(Level.WARNING, "Empty parameter PCC0000605, check your excel file (string number = "
                         + expectedDataModel.getIndex() + 1 + ", parameters PIPC000601 and PIPC000602)");
             } else {
-                List<ResultSetRow> result = RequestCCBI3rd.requestCCBI(request);
+                List<ResultSetRow> result = RequestCCBI2nd.requestCCBI(request);
                 if (ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
-                    ParamAssertions.paramAssertion(result, expectedDataModel, RequestCCBI3rd.setAssertList(), warningsList);
+                    ParamAssertions.paramAssertion(result, expectedDataModel, RequestCCBI2nd.setAssertList(), warningsList);
                 }
             }
         }

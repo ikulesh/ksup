@@ -64,5 +64,20 @@ public class ExpectedDataModelMapper {
         ExpectedDataModelMapper channelMapper = new ExpectedDataModelMapper("json/client_category_mapping.json");
         return channelMapper.replaceExcelValue(clientCategory);
     }
+
+    /**
+     * Method gets special params name for A-Club packages
+     *
+     * @param defaultParam param from the Excel table file
+     * @return A-Club param
+     */
+    public static String aClubParamsMapping(String defaultParam) {
+        ExpectedDataModelMapper channelMapper = new ExpectedDataModelMapper("json/params_a-club_mapping.json");
+        String aClubParam = channelMapper.replaceExcelValue(defaultParam);
+        if (aClubParam == null) {
+            return defaultParam;
+        }
+        return aClubParam;
+    }
 }
 

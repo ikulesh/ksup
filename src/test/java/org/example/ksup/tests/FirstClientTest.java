@@ -49,29 +49,43 @@ public class FirstClientTest {
                             + expectedDataModel.getProductCode() + " " + clientWithCat + " " + expectedDataModel.getCardCode() + " "
                             + riskLevel + " " + EXT_SYS_CODE + ":");
 
+                    boolean nextStep;
+                    boolean isAClub = clientWithCat.equals("APRVTCATO");
                     //вызов GCC01
-                    boolean nextStep = RequestGCC01.execution(request, expectedDataModel, warningsList);
+                    if (isAClub) {
+                        nextStep = RequestChooseCardAClub.execution(request, expectedDataModel, warningsList);
+                    } else {
+                        nextStep = RequestGCC01.execution(request, expectedDataModel, warningsList);
+                    }
 
                     if (nextStep) {
-                        //сетим уровень риска и AppID
-                        request.setRiskLevel(riskLevel);
-                        request.setApplicationID(APP_ID);
+                        if (isAClub) {
+                            RequestGraceLGPAClub.execution(request, expectedDataModel, warningsList);
+                            request.setRiskLevel(riskLevel);
+                            RequestCreditGroupAClub.execution(request, expectedDataModel, warningsList);
+                            RequestIPCAClub.execution(request, expectedDataModel, warningsList);
+                            RequestLastAClub.execution(request, expectedDataModel, warningsList);
+                        } else {
+                            //сетим уровень риска и AppID
+                            request.setRiskLevel(riskLevel);
+                            request.setApplicationID(APP_ID);
 
-                        //request for getting main PCC params with alternative
-                        RequestGraceLGP.execution(request, expectedDataModel, warningsList);
+                            //request for getting main PCC params with alternative
+                            RequestGraceLGP.execution(request, expectedDataModel, warningsList);
 
-                        //request for other PCC params
-                        RequestGrace4th.execution(request, expectedDataModel, warningsList);
+                            //request for other PCC params
+                            RequestGrace4th.execution(request, expectedDataModel, warningsList);
 
-                        //WOW! Assert for one param PCC0000605
-                        RequestCCBI3rd.execution(request, expectedDataModel, warningsList);
+                            //WOW! Assert for one param PCC0000605
+                            RequestCCBI2nd.execution(request, expectedDataModel, warningsList);
 
-                        //сетим код карты и ценовую группу
-                        request.setFl1pro(expectedDataModel.getCardCode());
-                        request.setFl1grp(expectedDataModel.getFl1grp());
+                            //сетим код карты и ценовую группу
+                            request.setFl1pro(expectedDataModel.getCardCode());
+                            request.setFl1grp(expectedDataModel.getFl1grp());
 
-                        //request IPC
-                        RequestIPC1st.execution(request, expectedDataModel, warningsList);
+                            //request IPC
+                            RequestIPC1st.execution(request, expectedDataModel, warningsList);
+                        }
                         //reset params
                         request.reset();
                     }
@@ -82,9 +96,9 @@ public class FirstClientTest {
         }
         ExcelColorChanger.colorChange(warningsListMap);
     }
-    /*
+
     @Test
     public void testik() throws JAXBException, IOException {
         firstClientTest();
-    }*/
+    }
 }

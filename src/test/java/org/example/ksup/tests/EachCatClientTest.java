@@ -72,7 +72,7 @@ public class EachCatClientTest {
                             RequestGrace4th.execution(request, expectedDataModel, warningsList);
 
                             //WOW! Assert for one param PCC0000605
-                            RequestCCBI3rd.execution(request, expectedDataModel, warningsList);
+                            RequestCCBI2nd.execution(request, expectedDataModel, warningsList);
 
                             //сетим код карты и ценовую группу
                             request.setFl1pro(expectedDataModel.getCardCode());
@@ -93,5 +93,9 @@ public class EachCatClientTest {
             warningsList.clear();
         }
         ExcelColorChanger.colorChange(warningsListMap);
+    }
+    @Test
+    public void testik() throws JAXBException, IOException {
+        eachCatClientTest();
     }
 }

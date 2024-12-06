@@ -7,7 +7,6 @@ import org.example.ksup.pojo.ExcelFileReader;
 import org.example.ksup.pojo.RequestModel;
 import org.example.ksup.pojo.outparms.ExpectedDataModel;
 import org.example.ksup.request.*;
-import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
@@ -63,7 +62,7 @@ public class EachClientTest {
                             RequestGrace4th.execution(request, expectedDataModel, warningsList);
 
                             //WOW! Assert for one param PCC0000605
-                            RequestCCBI3rd.execution(request, expectedDataModel, warningsList);
+                            RequestCCBI2nd.execution(request, expectedDataModel, warningsList);
 
                             //сетим код карты и ценовую группу
                             request.setFl1pro(expectedDataModel.getCardCode());

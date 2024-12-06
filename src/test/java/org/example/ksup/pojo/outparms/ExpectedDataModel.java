@@ -3,12 +3,16 @@ package org.example.ksup.pojo.outparms;
 import lombok.Data;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.example.ksup.log.CustomLogger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.example.ksup.Config.*;
 import static org.example.ksup.Config.CHANNEL_LIST;
@@ -29,7 +33,7 @@ public class ExpectedDataModel {
     private String accessibility;
     private List<String> riskLevelRpp;
     private List<CreditParams> creditParams;
-
+    boolean isAClub;
     private List<String> clientList;
     private List<String> clientCatList;
     private Map<String, String> cardParams;
@@ -199,7 +203,29 @@ public class ExpectedDataModel {
         if (key.contains("G")) {
             key = key.replace("G", "");
         }
-        cardParams.put(key, value);
+        if (this.isAClub && value.contains("LM1")) {
+            // Regular expression to capture numbers with decimal places
+            Pattern pattern = Pattern.compile("\\d+\\.\\d+");
+            Matcher matcher = pattern.matcher(value);
+
+            // List to store extracted numbers as strings
+            List<String> numbers = new ArrayList<>();
+
+            // Extract all matching numbers
+            while (matcher.find()) {
+                numbers.add(matcher.group());
+            }
+            // Check if all numbers are equal
+            boolean allEqual = numbers.stream().distinct().count() == 1;
+
+            if (allEqual) {
+                cardParams.put(key, numbers.get(0));
+            } else {
+                CustomLogger.customLogger(Level.WARNING, "Different multi params in the Excel table: " + key + ": " + numbers);
+            }
+        } else {
+            cardParams.put(key, value);
+        }
     }
 
     /**
@@ -230,10 +256,17 @@ public class ExpectedDataModel {
      */
     public void setNewPackage(Row headerRow, Row currentRow) {
         Map<String, Consumer<String>> paramActions = paramActionsMainParams();
+        this.isAClub = false;
         for (Cell cell : currentRow) {
             int paramNumber = cell.getColumnIndex();
             if (cellIsEmpty(headerRow.getCell(paramNumber))) {
                 break;
+            }
+            //strange thing
+            if (headerRow.getCell(cell.getColumnIndex()).getStringCellValue().equals("fllpfl")) {
+                if (cell.getStringCellValue().equals("A-Club")) {
+                    this.isAClub = true;
+                }
             }
             String paramName = getParamName(headerRow, cell.getColumnIndex());
             String paramValue = getParamValue(cell);
@@ -245,14 +278,21 @@ public class ExpectedDataModel {
             }
 
             if (!cellIsEmpty(cell)) {
-                // Handle GLOBAL_SINGLE_PARAM_LIST
-                if (GLOBAL_SINGLE_PARAM_LIST.contains(paramName)) {
-                    addSingleParam(paramName, paramValue);
-                    continue;
-                }
-                // Handle GLOBAL_MULTI_PARAM_LIST
-                if (GLOBAL_MULTI_PARAM_LIST.contains(paramName)) {
-                    addCreditParam(paramName, paramValue);
+                if (isAClub) {
+                    paramName = ExpectedDataModelMapper.aClubParamsMapping(paramName);
+                    if (GLOBAL_SINGLE_PARAM_LIST_A_CLUB.contains(paramName)) {
+                        addSingleParam(paramName, paramValue);
+                    }
+                } else {
+                    // Handle GLOBAL_SINGLE_PARAM_LIST
+                    if (GLOBAL_SINGLE_PARAM_LIST.contains(paramName)) {
+                        addSingleParam(paramName, paramValue);
+                        continue;
+                    }
+                    // Handle GLOBAL_MULTI_PARAM_LIST
+                    if (GLOBAL_MULTI_PARAM_LIST.contains(paramName)) {
+                        addCreditParam(paramName, paramValue);
+                    }
                 }
             }
         }

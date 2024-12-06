@@ -32,6 +32,7 @@ public class Config {
     public static Level LOG_LEVEL;
     public static List<String> GLOBAL_MULTI_PARAM_LIST;
     public static List<String> GLOBAL_SINGLE_PARAM_LIST;
+    public static List<String> GLOBAL_SINGLE_PARAM_LIST_A_CLUB;
 
     /**
      * Method to load properties from the file
@@ -50,6 +51,7 @@ public class Config {
 
             GLOBAL_MULTI_PARAM_LIST = jsonMap.get("globalMultiParamList");
             GLOBAL_SINGLE_PARAM_LIST = jsonMap.get("globalSingleParamList");
+            GLOBAL_SINGLE_PARAM_LIST_A_CLUB = jsonMap.get("globalSingleParamListAClub");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,7 +73,7 @@ public class Config {
             System.out.println(LOG_FOLDER_PATH);
 
             EXT_SYS_CODE = System.getProperty("external.system.code") != null
-                    ? System.getProperty("external.system.code")
+                    ? System.getProperty("EXT_SYS_CODE")
                     : prop.getProperty("external.system.code");
 
             CONSTANT_ID = prop.getProperty("constant.id");
@@ -79,57 +81,57 @@ public class Config {
 
             IS_SECOND_CARD = Boolean.parseBoolean(
                     System.getProperty("is.second.card") != null
-                            ? System.getProperty("is.second.card")
+                            ? System.getProperty("IS_SECOND_CARD")
                             : prop.getProperty("is.second.card"));
 
             ONLY_AVAILABLE_CARDS = Boolean.parseBoolean(
                     System.getProperty("only.available.cards") != null
-                            ? System.getProperty("only.available.cards")
+                            ? System.getProperty("ONLY_AVAILABLE_CARDS")
                             : prop.getProperty("only.available.cards"));
 
             CARD_LIST_IS_LIMITED = Boolean.parseBoolean(
                     System.getProperty("card.list.is.limited") != null
-                            ? System.getProperty("card.list.is.limited")
+                            ? System.getProperty("CARD_LIST_IS_LIMITED")
                             : prop.getProperty("card.list.is.limited"));
 
             CHANNEL_LIST_IS_LIMITED = Boolean.parseBoolean(
                     System.getProperty("channel.list.is.limited") != null
-                            ? System.getProperty("channel.list.is.limited")
+                            ? System.getProperty("CHANNEL_LIST_IS_LIMITED")
                             : prop.getProperty("channel.list.is.limited"));
 
             PACKAGE_LIST_IS_LIMITED = Boolean.parseBoolean(
                     System.getProperty("package.list.is.limited") != null
-                            ? System.getProperty("package.list.is.limited")
+                            ? System.getProperty("PACKAGE_LIST_IS_LIMITED")
                             : prop.getProperty("package.list.is.limited"));
 
             CLIENT_LIST_IS_LIMITED = Boolean.parseBoolean(
                     System.getProperty("client.list.is.limited") != null
-                            ? System.getProperty("client.list.is.limited")
+                            ? System.getProperty("CLIENT_LIST_IS_LIMITED")
                             : prop.getProperty("client.list.is.limited"));
 
             CARD_LIST = propertyToList(
                     System.getProperty("card.list") != null
-                            ? System.getProperty("card.list")
+                            ? System.getProperty("CARD_LIST")
                             : prop.getProperty("card.list"));
 
             CHANNEL_LIST = propertyToList(
                     System.getProperty("channel.list") != null
-                            ? System.getProperty("channel.list")
+                            ? System.getProperty("CHANNEL_LIST")
                             : prop.getProperty("channel.list"));
 
             PACKAGE_LIST = propertyToList(
                     System.getProperty("package.list") != null
-                            ? System.getProperty("package.list")
+                            ? System.getProperty("PACKAGE_LIST")
                             : prop.getProperty("package.list"));
 
             CLIENT_LIST = propertyToList(
                     System.getProperty("client.list") != null
-                            ? System.getProperty("client.list")
+                            ? System.getProperty("CLIENT_LIST")
                             : prop.getProperty("client.list"));
 
             LOG_LEVEL = Level.parse(
                     System.getProperty("log.level") != null
-                            ? System.getProperty("log.level")
+                            ? System.getProperty("LOG_LEVEL")
                             : prop.getProperty("log.level"));
         }
     }
