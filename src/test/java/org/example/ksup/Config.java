@@ -72,7 +72,7 @@ public class Config {
                     : prop.getProperty("log.folder.path");
             System.out.println(LOG_FOLDER_PATH);
 
-            EXT_SYS_CODE = System.getProperty("external.system.code") != null
+            EXT_SYS_CODE = System.getProperty("EXT_SYS_CODE") != null
                     ? System.getProperty("EXT_SYS_CODE")
                     : prop.getProperty("external.system.code");
 
@@ -80,57 +80,57 @@ public class Config {
             APP_ID = prop.getProperty("application.id");
 
             IS_SECOND_CARD = Boolean.parseBoolean(
-                    System.getProperty("is.second.card") != null
+                    System.getProperty("IS_SECOND_CARD") != null
                             ? System.getProperty("IS_SECOND_CARD")
                             : prop.getProperty("is.second.card"));
 
             ONLY_AVAILABLE_CARDS = Boolean.parseBoolean(
-                    System.getProperty("only.available.cards") != null
+                    System.getProperty("ONLY_AVAILABLE_CARDS") != null
                             ? System.getProperty("ONLY_AVAILABLE_CARDS")
                             : prop.getProperty("only.available.cards"));
 
             CARD_LIST_IS_LIMITED = Boolean.parseBoolean(
-                    System.getProperty("card.list.is.limited") != null
+                    System.getProperty("CARD_LIST_IS_LIMITED") != null
                             ? System.getProperty("CARD_LIST_IS_LIMITED")
                             : prop.getProperty("card.list.is.limited"));
 
             CHANNEL_LIST_IS_LIMITED = Boolean.parseBoolean(
-                    System.getProperty("channel.list.is.limited") != null
+                    System.getProperty("CHANNEL_LIST_IS_LIMITED") != null
                             ? System.getProperty("CHANNEL_LIST_IS_LIMITED")
                             : prop.getProperty("channel.list.is.limited"));
 
             PACKAGE_LIST_IS_LIMITED = Boolean.parseBoolean(
-                    System.getProperty("package.list.is.limited") != null
+                    System.getProperty("PACKAGE_LIST_IS_LIMITED") != null
                             ? System.getProperty("PACKAGE_LIST_IS_LIMITED")
                             : prop.getProperty("package.list.is.limited"));
 
             CLIENT_LIST_IS_LIMITED = Boolean.parseBoolean(
-                    System.getProperty("client.list.is.limited") != null
+                    System.getProperty("CLIENT_LIST_IS_LIMITED") != null
                             ? System.getProperty("CLIENT_LIST_IS_LIMITED")
                             : prop.getProperty("client.list.is.limited"));
 
             CARD_LIST = propertyToList(
-                    System.getProperty("card.list") != null
+                    System.getProperty("CARD_LIST") != null
                             ? System.getProperty("CARD_LIST")
                             : prop.getProperty("card.list"));
 
             CHANNEL_LIST = propertyToList(
-                    System.getProperty("channel.list") != null
+                    System.getProperty("CHANNEL_LIST") != null
                             ? System.getProperty("CHANNEL_LIST")
                             : prop.getProperty("channel.list"));
 
             PACKAGE_LIST = propertyToList(
-                    System.getProperty("package.list") != null
+                    System.getProperty("PACKAGE_LIST") != null
                             ? System.getProperty("PACKAGE_LIST")
                             : prop.getProperty("package.list"));
 
             CLIENT_LIST = propertyToList(
-                    System.getProperty("client.list") != null
+                    System.getProperty("CLIENT_LIST") != null
                             ? System.getProperty("CLIENT_LIST")
                             : prop.getProperty("client.list"));
 
             LOG_LEVEL = Level.parse(
-                    System.getProperty("log.level") != null
+                    System.getProperty("LOG_LEVEL") != null
                             ? System.getProperty("LOG_LEVEL")
                             : prop.getProperty("log.level"));
         }

@@ -13,7 +13,7 @@ import static org.junit.runners.Parameterized.*;
 @RunWith(Parameterized.class)
 public class MyTest {
 
-    private String testMethod;
+    private final String testMethod;
 
     public MyTest(String testMethod) {
         this.testMethod = testMethod;

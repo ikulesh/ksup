@@ -58,33 +58,44 @@ public class EachCatClientTest {
                                 + riskLevel + " " + EXT_SYS_CODE + ":");
 
                         //вызов GCC01
-                        boolean nextStep = RequestGCC01.execution(request, expectedDataModel, warningsList);
-
+                        boolean nextStep;
+                        boolean isAClub = clientWithCat.equals("APRVTCATO");
+                        if (isAClub) {
+                            nextStep = RequestChooseCardAClub.execution(request, expectedDataModel, warningsList);
+                        } else {
+                            //вызов GCC01
+                            nextStep = RequestGCC01.execution(request, expectedDataModel, warningsList);
+                        }
                         if (nextStep) {
-                            //сетим уровень риска и AppID
-                            request.setRiskLevel(riskLevel);
-                            request.setApplicationID(APP_ID);
+                            if (isAClub) {
+                                RequestGraceLGPAClub.execution(request, expectedDataModel, warningsList);
+                                request.setRiskLevel(riskLevel);
+                                RequestCreditGroupAClub.execution(request, expectedDataModel, warningsList);
+                                RequestIPCAClub.execution(request, expectedDataModel, warningsList);
+                                RequestLastAClub.execution(request, expectedDataModel, warningsList);
+                            } else {
+                                //сетим уровень риска и AppID
+                                request.setRiskLevel(riskLevel);
+                                request.setApplicationID(APP_ID);
 
-                            //request for getting main PCC params with alternative
-                            RequestGraceLGP.execution(request, expectedDataModel, warningsList);
+                                //request for getting main PCC params with alternative
+                                RequestGraceLGP.execution(request, expectedDataModel, warningsList);
 
-                            //request for other PCC params
-                            RequestGrace4th.execution(request, expectedDataModel, warningsList);
+                                //request for other PCC params
+                                RequestGrace4th.execution(request, expectedDataModel, warningsList);
 
-                            //WOW! Assert for one param PCC0000605
-                            RequestCCBI2nd.execution(request, expectedDataModel, warningsList);
+                                //WOW! Assert for one param PCC0000605
+                                RequestCCBI2nd.execution(request, expectedDataModel, warningsList);
 
-                            //сетим код карты и ценовую группу
-                            request.setFl1pro(expectedDataModel.getCardCode());
-                            request.setFl1grp(expectedDataModel.getFl1grp());
+                                //сетим код карты и ценовую группу
+                                request.setFl1pro(expectedDataModel.getCardCode());
+                                request.setFl1grp(expectedDataModel.getFl1grp());
 
-                            //request IPC
-                            RequestIPC1st.execution(request, expectedDataModel, warningsList);
-
+                                //request IPC
+                                RequestIPC1st.execution(request, expectedDataModel, warningsList);
+                            }
                             //reset params
-                            request.setApplicationID(null);
-                            request.setFl1pro(null);
-                            request.setFl1grp(null);
+                            request.reset();
                         }
                     }
                 }
@@ -94,8 +105,9 @@ public class EachCatClientTest {
         }
         ExcelColorChanger.colorChange(warningsListMap);
     }
+
     @Test
-    public void testik() throws JAXBException, IOException {
+    public void test() throws JAXBException, IOException {
         eachCatClientTest();
     }
 }

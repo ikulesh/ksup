@@ -98,7 +98,7 @@ public class FirstClientTest {
     }
 
     @Test
-    public void testik() throws JAXBException, IOException {
+    public void test() throws JAXBException, IOException {
         firstClientTest();
     }
 }

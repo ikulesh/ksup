@@ -17,6 +17,7 @@ import java.util.logging.Level;
 
 import static org.example.ksup.Config.*;
 
+@Deprecated
 public class FirstClientMinLimitTest {
     public static void firstClientTest() throws JAXBException, IOException {
         Config.loadProperties();
@@ -58,10 +59,9 @@ public class FirstClientMinLimitTest {
 
                             //WOW! Assert for one param PCC0000605
                             RequestCCBI2nd.execution(request, expectedDataModel, warningsList);
-
-                            //reset params
-                            request.reset();
                         }
+                        //reset params
+                        request.reset();
                     }
                 }
             }
