@@ -51,10 +51,10 @@ public class FirstClientTest {
 
                     boolean nextStep;
                     boolean isAClub = clientWithCat.equals("APRVTCATO");
-                    //вызов GCC01
                     if (isAClub) {
                         nextStep = RequestChooseCardAClub.execution(request, expectedDataModel, warningsList);
                     } else {
+                        //вызов GCC01
                         nextStep = RequestGCC01.execution(request, expectedDataModel, warningsList);
                     }
 

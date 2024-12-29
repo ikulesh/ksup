@@ -37,6 +37,10 @@ public class ExpectedDataModel {
     private List<String> clientList;
     private List<String> clientCatList;
     private Map<String, String> cardParams;
+    private String ypprod;
+    private String ypgrace;
+    private String ypnograce;
+    private String ypfictprod;
     private int index;
 
     @Data
@@ -248,6 +252,16 @@ public class ExpectedDataModel {
         return necessity;
     }
 
+    private void isAClub(Row headerRow, Row currentRow) {
+        for (Cell cell : currentRow) {
+            if (headerRow.getCell(cell.getColumnIndex()).getStringCellValue().equals("fllpfl")) {
+                if (cell.getStringCellValue().equals("A-Club")) {
+                    this.isAClub = true;
+                }
+            }
+        }
+    }
+
     /**
      * Method gets all elements from currentRow and sets it into ExcelDataModel
      *
@@ -256,17 +270,11 @@ public class ExpectedDataModel {
      */
     public void setNewPackage(Row headerRow, Row currentRow) {
         Map<String, Consumer<String>> paramActions = paramActionsMainParams();
-        this.isAClub = false;
+        isAClub(headerRow, currentRow);
         for (Cell cell : currentRow) {
             int paramNumber = cell.getColumnIndex();
             if (cellIsEmpty(headerRow.getCell(paramNumber))) {
                 break;
-            }
-            //strange thing
-            if (headerRow.getCell(cell.getColumnIndex()).getStringCellValue().equals("fllpfl")) {
-                if (cell.getStringCellValue().equals("A-Club")) {
-                    this.isAClub = true;
-                }
             }
             String paramName = getParamName(headerRow, cell.getColumnIndex());
             String paramValue = getParamValue(cell);
@@ -296,6 +304,48 @@ public class ExpectedDataModel {
                 }
             }
         }
+    }
+
+    /**
+     * Helper method to find the column index by header name and set the corresponding field.
+     *
+     * @param firstRow   the header row of the Excel file
+     * @param currentRow the executed row of the Excel file
+     * @param headerName the name of the header to find
+     * @return the value of the cell under the given header name
+     */
+    private String getYpParamValue(Row firstRow, Row currentRow, String headerName) {
+        int index = -1;
+        for (Cell cell : firstRow) {
+            if (headerName.equals(cell.getStringCellValue())) {
+                index = cell.getColumnIndex();
+                break;
+            }
+        }
+        if (index != -1) {
+            Cell valueCell = currentRow.getCell(index);
+            if (valueCell != null) {
+                return valueCell.getStringCellValue();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Sets all YP params by reading their values from the corresponding columns in the Excel rows.
+     *
+     * @param firstRow   the header row of the Excel file
+     * @param currentRow the executed row of the Excel file
+     */
+    public void setYpUsingExcelFile(Row firstRow, Row currentRow) {
+        this.ypprod = getYpParamValue(firstRow, currentRow, "ypprod");
+        this.ypgrace = getYpParamValue(firstRow, currentRow, "ypgrace");
+        this.ypnograce = getYpParamValue(firstRow, currentRow, "ypnograce");
+        this.ypfictprod = getYpParamValue(firstRow, currentRow, "ypfictprod");
+        /*
+        this.ypcard = getYpParamValue(firstRow, currentRow, "ypcard");
+        this.ypcred = getYpParamValue(firstRow, currentRow, "ypcred");
+        */
     }
 
     /**

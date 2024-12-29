@@ -76,7 +76,8 @@ public class ExcelFileReader {
                     if (PACKAGE_LIST_IS_LIMITED && !PACKAGE_LIST.contains(currentRow.getCell(0).getStringCellValue())) {
                         continue;
                     }
-                    row.setNewPackage(firstRow,currentRow);
+                    row.setNewPackage(firstRow, currentRow);
+                    row.setYpUsingExcelFile(firstRow, currentRow);
                     row.setIndex(index);
 
                     expData.add(row);

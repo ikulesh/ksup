@@ -31,13 +31,10 @@ public class RequestGCC01 {
         //ChooseCardRequest
         List<String> attrList = new ArrayList<>();
         attrList.add("PAPPTYPE");
-
         attrList.add("PIPC000002");
         attrList.add("PIPC000004");
         attrList.add("PIPC000302");
-        //accessibility
         attrList.add("PIPC000801");
-
         attrList.add("PIPC000001");
         attrList.add("PIPC000003");
         attrList.add("PIPC000209");

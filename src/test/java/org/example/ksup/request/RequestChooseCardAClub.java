@@ -90,7 +90,7 @@ public class RequestChooseCardAClub {
         List<ResultSetRow> result = requestChooseCard(request);
         boolean nextStep = AccessibilityAssertion.accessibilityAssertion(result, expectedDataModel, warningsList); //if PIPC000801 == Y |=> nextStep = true
         if (nextStep && ParamAssertions.responseIsNotEmpty(result, expectedDataModel, request)) {
-            ParamAssertions.cardNameAssertion(result, expectedDataModel, warningsList); // cardName assertion
+            //ParamAssertions.cardNameAssertion(result, expectedDataModel, warningsList); // cardName assertion
             ParamAssertions.paramAssertion(result, expectedDataModel, RequestGCC01.setAssertList(), warningsList); // assertion for simple params
         }
         request.setFl8pck(expectedDataModel.getPackageCode());

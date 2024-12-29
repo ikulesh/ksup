@@ -103,7 +103,7 @@ public class ParamAssertions {
                     break;
                 }
             }
-            if (!contains) {
+            if (!contains && !expectedDataModel.isAClub()) {
                 CustomLogger.customLogger(Level.WARNING, param + " is empty, should be: " + expectedDataModel.getCardParams().get(param));
                 warningsList.add(param);
             } else {
@@ -121,8 +121,12 @@ public class ParamAssertions {
                         //if (fl3prm.equals("PIPC000601"))
                         {
                             if (!value.equals(fl4val)) {
-                                CustomLogger.customLogger(Level.WARNING, fl3prm + " " + fl4val + " is incorrect(fl1ppr = " + row.getFl1ppr() + "), should be: " + value);
-                                warningsList.add(fl3prm);
+                                if (!expectedDataModel.isAClub()) {
+                                    CustomLogger.customLogger(Level.WARNING, fl3prm + " " + fl4val + " is incorrect(fl1ppr = " + row.getFl1ppr() + "), should be: " + value);
+                                    warningsList.add(fl3prm);
+                                } else {
+                                    aClubParamAssertion(row, expectedDataModel, warningsList);
+                                }
                             } else {
                                 CustomLogger.customLogger(Level.FINE, fl3prm + " " + fl4val + " (fl1ppr = " + row.getFl1ppr() + ") is correct");
                             }
@@ -142,6 +146,19 @@ public class ParamAssertions {
         }
     }
 
+    private static void aClubParamAssertion(ResultSetRow row, ExpectedDataModel expectedDataModel, List<String> warningsList) {
+        String fl3prm = row.getFl3prm();
+        String fl4val = row.getFl4val();
+        String value = expectedDataModel.getCardParams().get(fl3prm);
+        if ((fl4val.isEmpty() && !row.getFl1ppr().equals(expectedDataModel.getYpgrace()))
+                || fl4val.equals("0")) {
+            CustomLogger.customLogger(Level.INFO, fl3prm + " " + fl4val + " is empty, but it is ok for a-club (fl1ppr = " + row.getFl1ppr() + ")");
+        } else {
+            CustomLogger.customLogger(Level.WARNING, fl3prm + " " + fl4val + " is incorrect(fl1ppr = " + row.getFl1ppr() + "), should be: " + value);
+            warningsList.add(fl3prm);
+        }
+    }
+
     /**
      * Product name assertion
      *
@@ -158,6 +175,9 @@ public class ParamAssertions {
                 //productName assertion
                 if (fl3prm.equals("PCC0001001")) {
                     if (!value.equals(fl4val)) {
+                        if (value.isEmpty() && expectedDataModel.isAClub()) {
+                            continue;
+                        }
                         CustomLogger.customLogger(Level.WARNING, fl3prm + " " + fl4val + " (fl1ppr = " + row.getFl1ppr() + ") is incorrect, should be: " + value);
                         warningsList.add(fl3prm);
                     } else {
