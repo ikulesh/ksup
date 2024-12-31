@@ -70,7 +70,6 @@ public class Config {
             LOG_FOLDER_PATH = System.getenv("LOG_FOLDER_PATH") != null
                     ? System.getenv("LOG_FOLDER_PATH")
                     : prop.getProperty("log.folder.path");
-            System.out.println(LOG_FOLDER_PATH);
 
             EXT_SYS_CODE = System.getProperty("EXT_SYS_CODE") != null
                     ? System.getProperty("EXT_SYS_CODE")
