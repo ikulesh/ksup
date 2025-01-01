@@ -133,9 +133,9 @@ public class Config {
                             ? System.getProperty("LOG_LEVEL")
                             : prop.getProperty("log.level"));
         }
-        System.out.println(EXCEL_FILE_PATH);
-        System.out.println(LOG_FOLDER_PATH);
-        System.out.println(EXT_SYS_CODE);
+        System.out.println("EXCEL_FILE_PATH: " + EXCEL_FILE_PATH);
+        System.out.println("LOG_FOLDER_PATH: " + LOG_FOLDER_PATH);
+        System.out.println("EXT_SYS_CODE: " + EXT_SYS_CODE);
     }
 
 
