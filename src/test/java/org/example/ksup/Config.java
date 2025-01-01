@@ -42,6 +42,8 @@ public class Config {
     public static void loadProperties() throws IOException {
         ZipSecureFile.setMinInflateRatio(0.0001); // Prevent potential ZIP bomb attacks
 
+        System.out.println(System.getenv());
+
         try {
             // Create an ObjectMapper instance
             ObjectMapper objectMapper = new ObjectMapper();
