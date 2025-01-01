@@ -96,4 +96,9 @@ public class FirstClientTest {
         }
         ExcelColorChanger.colorChange(warningsListMap);
     }
+
+    @Test
+    public void test() throws JAXBException, IOException {
+        firstClientTest();
+    }
 }
