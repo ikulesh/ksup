@@ -105,9 +105,4 @@ public class EachCatClientTest {
         }
         ExcelColorChanger.colorChange(warningsListMap);
     }
-
-    @Test
-    public void test() throws JAXBException, IOException {
-        eachCatClientTest();
-    }
 }
