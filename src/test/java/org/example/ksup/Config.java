@@ -72,8 +72,8 @@ public class Config {
                     ? System.getProperty("EXCEL_FILE_PATH")
                     : prop.getProperty("excel.file.path");
 
-            LOG_FOLDER_PATH = System.getenv("LOG_FOLDER_PATH") != null
-                    ? System.getenv("LOG_FOLDER_PATH")
+            LOG_FOLDER_PATH = System.getProperty("LOG_FOLDER_PATH") != null
+                    ? System.getProperty("LOG_FOLDER_PATH")
                     : prop.getProperty("log.folder.path");
 
             EXT_SYS_CODE = System.getProperty("EXT_SYS_CODE") != null
