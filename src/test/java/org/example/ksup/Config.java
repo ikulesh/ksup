@@ -42,6 +42,9 @@ public class Config {
     public static void loadProperties() throws IOException {
         ZipSecureFile.setMinInflateRatio(0.0001); // Prevent potential ZIP bomb attacks
 
+        System.out.println(System.getProperties().entrySet());
+        System.out.println("");
+        System.out.println("");
         System.out.println(System.getenv());
 
         try {
@@ -65,8 +68,8 @@ public class Config {
             prop.load(input);
 
             // Assign values from system properties or fall back to properties file
-            EXCEL_FILE_PATH = System.getenv("EXCEL_FILE_PATH") != null
-                    ? System.getenv("EXCEL_FILE_PATH")
+            EXCEL_FILE_PATH = System.getProperty("EXCEL_FILE_PATH") != null
+                    ? System.getProperty("EXCEL_FILE_PATH")
                     : prop.getProperty("excel.file.path");
 
             LOG_FOLDER_PATH = System.getenv("LOG_FOLDER_PATH") != null
